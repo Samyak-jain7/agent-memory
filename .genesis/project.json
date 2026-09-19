@@ -1,0 +1,863 @@
+{
+  "schema_version": 2,
+  "project": {
+    "name": "memory-system",
+    "mode": "init",
+    "profile": "prototype",
+    "objective": "Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.",
+    "constraints": [],
+    "non_goals": [],
+    "trust_boundary": "local repository",
+    "created_at": "2026-09-19T11:02:55.847Z",
+    "updated_at": "2026-09-19T11:20:06.805Z"
+  },
+  "policy": {
+    "ponytail": "full",
+    "autonomy": "human-in-the-loop",
+    "learned_rule_promotion": "human-required",
+    "cleanup": "propose-only",
+    "traces": {
+      "storage": "local",
+      "commit_raw": false,
+      "redact_secrets": true
+    }
+  },
+  "lifecycle": {
+    "phase": "planning",
+    "status": "active",
+    "active_task": null,
+    "blocker": null,
+    "next_action": "Finish defining requirement-linked tasks, then run genesis plan check."
+  },
+  "commands": {},
+  "workflow": {
+    "type": "new-product",
+    "started_at": "2026-09-19T11:02:55.852Z",
+    "spec_check": {
+      "at": "2026-09-19T11:06:49.944Z",
+      "source_hash": "56e0e62e3f67bf6574202666d4ddd09f4dc6a0c52011187fd3ef8e160f0d1c16",
+      "requirements": [
+        "AC-1",
+        "AC-10",
+        "AC-11",
+        "AC-12",
+        "AC-13",
+        "AC-14",
+        "AC-15",
+        "AC-16",
+        "AC-17",
+        "AC-18",
+        "AC-19",
+        "AC-2",
+        "AC-3",
+        "AC-4",
+        "AC-5",
+        "AC-6",
+        "AC-7",
+        "AC-8",
+        "AC-9",
+        "FR-1",
+        "FR-10",
+        "FR-11",
+        "FR-12",
+        "FR-13",
+        "FR-14",
+        "FR-15",
+        "FR-2",
+        "FR-3",
+        "FR-4",
+        "FR-5",
+        "FR-6",
+        "FR-7",
+        "FR-8",
+        "FR-9",
+        "NFR-1",
+        "NFR-10",
+        "NFR-11",
+        "NFR-12",
+        "NFR-13",
+        "NFR-14",
+        "NFR-15",
+        "NFR-2",
+        "NFR-3",
+        "NFR-4",
+        "NFR-5",
+        "NFR-6",
+        "NFR-7",
+        "NFR-8",
+        "NFR-9"
+      ]
+    },
+    "plan_check": {
+      "at": "2026-09-19T11:14:33.699Z",
+      "source_hash": "312e8d250b5bf65b80d06f1de969ab3c0a4953f1c4823b77e0e0d00e832f9085"
+    },
+    "plan_approval": null
+  },
+  "artifacts": [
+    {
+      "id": "SPEC-1",
+      "type": "specification",
+      "path": "SPEC.md",
+      "status": "approved",
+      "requirements": [
+        "AC-1",
+        "AC-10",
+        "AC-11",
+        "AC-12",
+        "AC-13",
+        "AC-14",
+        "AC-15",
+        "AC-16",
+        "AC-17",
+        "AC-18",
+        "AC-19",
+        "AC-2",
+        "AC-3",
+        "AC-4",
+        "AC-5",
+        "AC-6",
+        "AC-7",
+        "AC-8",
+        "AC-9",
+        "FR-1",
+        "FR-10",
+        "FR-11",
+        "FR-12",
+        "FR-13",
+        "FR-14",
+        "FR-15",
+        "FR-2",
+        "FR-3",
+        "FR-4",
+        "FR-5",
+        "FR-6",
+        "FR-7",
+        "FR-8",
+        "FR-9",
+        "NFR-1",
+        "NFR-10",
+        "NFR-11",
+        "NFR-12",
+        "NFR-13",
+        "NFR-14",
+        "NFR-15",
+        "NFR-2",
+        "NFR-3",
+        "NFR-4",
+        "NFR-5",
+        "NFR-6",
+        "NFR-7",
+        "NFR-8",
+        "NFR-9"
+      ],
+      "source_hash": "56e0e62e3f67bf6574202666d4ddd09f4dc6a0c52011187fd3ef8e160f0d1c16",
+      "approval": {
+        "human": "Samyak Jain",
+        "reason": "Approved by instruction to proceed to the outline phase.",
+        "at": "2026-09-19T11:10:45.328Z",
+        "source_hash": "56e0e62e3f67bf6574202666d4ddd09f4dc6a0c52011187fd3ef8e160f0d1c16"
+      }
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "ASSUMPTION-e20ff77d",
+      "text": "PostgreSQL plus pgvector and full-text search can satisfy the first release workload without a dedicated vector or graph database; expected workload remains unverified.",
+      "status": "open",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.842Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "ASSUMPTION-82431fa2",
+      "text": "Numeric latency, quality, scale, retention, and availability thresholds can be finalized after expected workload and model providers are selected; those selections remain unresolved.",
+      "status": "open",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.944Z",
+      "paths": [],
+      "tags": []
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INVARIANT-3c8165f1",
+      "text": "No operation or retrieval may leak memory across tenants or subjects.",
+      "source": "memory-architecture.mmd",
+      "recorded_at": "2026-09-19T11:03:58.057Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "INVARIANT-461036a1",
+      "text": "Deleted or suppressed memories must become immediately ineligible for every retrieval and context path.",
+      "source": "memory-architecture.mmd",
+      "recorded_at": "2026-09-19T11:03:58.158Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "INVARIANT-5aa552a0",
+      "text": "Memory retrieval or formation failure must not block an agent response; the response path must degrade without personalization.",
+      "source": "memory-architecture.mmd",
+      "recorded_at": "2026-09-19T11:03:58.266Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "INVARIANT-8dba1c25",
+      "text": "Every structured memory must retain source evidence and provenance.",
+      "source": "memory-architecture.mmd",
+      "recorded_at": "2026-09-19T11:03:58.371Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "INVARIANT-e6751420",
+      "text": "Derived inference must never be silently represented as an explicit or observed fact.",
+      "source": "memory-architecture.mmd",
+      "recorded_at": "2026-09-19T11:03:58.478Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "INVARIANT-b0982877",
+      "text": "Conflicting facts create append-only temporal versions and supersession links rather than destructive overwrites.",
+      "source": "memory-architecture.mmd",
+      "recorded_at": "2026-09-19T11:03:58.585Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "INVARIANT-58b9b8f1",
+      "text": "Episode persistence and initial formation-job scheduling must be atomic.",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:58.692Z",
+      "paths": [],
+      "tags": []
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DECISION-097da683",
+      "title": "First release includes automatic memory formation",
+      "text": "Deliver explicit memory operations, bounded retrieval/context composition, episode capture, and asynchronous extraction. Defer knowledge ingestion, graph traversal, decay, consolidation, reflection, and sharing while retaining them as roadmap goals.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:56.899Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-4d81ce4a",
+      "title": "Python service and SDK with Next.js console",
+      "text": "Use FastAPI, SQLAlchemy, Alembic, and Pydantic for the service and first Python SDK, OpenAPI as the transport contract, and Next.js for the operator console. Defer a TypeScript SDK until the API stabilizes.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.003Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-a538d720",
+      "title": "Explicit tenant subject and actor identities",
+      "text": "Carry tenant_id, subject_id, and actor_id at domain boundaries; derive tenant identity from credentials and validate subject and actor membership within the tenant.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.102Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-76d9d401",
+      "title": "Asynchronous capture contract",
+      "text": "Episode capture returns durable episode and queryable job identifiers, supports idempotency keys, and documents eventual search visibility. Explicit structured memory addition remains synchronous.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.206Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-aecdc4c3",
+      "title": "PostgreSQL temporal memory model",
+      "text": "Use stable memory identities, append-only versions, validity intervals, supersession links, and many-to-many source evidence in PostgreSQL. Defer arbitrary graph traversal and a graph database.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.304Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-eb9b87d8",
+      "title": "PostgreSQL-backed initial workflow queue",
+      "text": "Use leased PostgreSQL jobs with retries, idempotency, and dead-letter state behind a JobQueue boundary. Preserve atomic episode-and-job creation; if moving to Temporal later, retain atomic capture-to-enqueue through a transactional outbox or equivalent.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.414Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-90a4914f",
+      "title": "Hybrid retrieval and bounded context",
+      "text": "Combine PostgreSQL full-text and pgvector candidates, then apply a deterministic versioned ranker over relevance, recency, importance, confidence, and reinforcement. Return cited memories or a token-budgeted context package.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.521Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-be32f824",
+      "title": "Trust-focused operator console",
+      "text": "The first web console supports tenant-scoped search, memory details, source evidence, version history, correction, forgetting, and audit status. Sharing is deferred pending a grant and revocation model.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.634Z",
+      "paths": [],
+      "tags": []
+    },
+    {
+      "id": "DECISION-38cab761",
+      "title": "Production baseline is launch scope",
+      "text": "Launch requires tenant isolation, encrypted transport and storage, sensitive-data filtering hooks, immediate suppression, audit events, OpenTelemetry, migration checks, backup/restore verification, and a small golden evaluation set.",
+      "status": "accepted",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/03-design-discussion-first-implementation.md",
+      "recorded_at": "2026-09-19T11:03:57.736Z",
+      "paths": [],
+      "tags": []
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "KNOWLEDGE-083939b5",
+      "title": "Repository is specification-only",
+      "text": "The repository has no product implementation, package manifest, backend, database migrations, workers, tests, CI, or infrastructure; the runnable HTML is an architecture study only.",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/02-research-current-memory-architecture.md",
+      "tags": [],
+      "recorded_at": "2026-09-19T11:03:56.672Z",
+      "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-fd4fa2b8",
+      "title": "Target system separates online reads from memory formation",
+      "text": "The target architecture independently serves retrieval/context composition and durably captures raw episodes for asynchronous extraction, evaluation, and versioned persistence.",
+      "source": ".humanlayer/tasks/full-stack-memory-layer-for-ai-agents-7ix3z6/02-research-current-memory-architecture.md",
+      "tags": [],
+      "recorded_at": "2026-09-19T11:03:56.793Z",
+      "paths": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "SPEC-1",
+      "outcome": "Produce an approved, implementation-ready product specification",
+      "state": "done",
+      "risk": "medium",
+      "owner": null,
+      "scope": [
+        "SPEC.md"
+      ],
+      "dependencies": [],
+      "requirements": [],
+      "gates": [
+        {
+          "id": "independent-review",
+          "command": "",
+          "mandatory": true,
+          "status": "pass",
+          "evidence": {
+            "human": "Samyak Jain",
+            "reason": "Approved by instruction to proceed to the outline phase.",
+            "source_hash": "cf2be28704e57e31912daa28de1fcafe1b75162d74d98ccd77cde1e775292ca9",
+            "observed_at": "2026-09-19T11:10:45.328Z"
+          },
+          "kind": "review"
+        }
+      ],
+      "next_action": "Interview the human, record durable context, and replace every placeholder in SPEC.md.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:02:55.853Z",
+      "updated_at": "2026-09-19T11:10:45.328Z"
+    },
+    {
+      "id": "T-1",
+      "outcome": "Establish the Python workspace, versioned API contracts, tenant-scoped temporal memory schema, atomic episode capture, explicit memory add, audit foundation, and migration-backed repositories.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "pyproject.toml",
+        "apps/api",
+        "packages/contracts",
+        "packages/memory-domain",
+        "packages/persistence",
+        "migrations",
+        "tests/integration"
+      ],
+      "dependencies": [],
+      "requirements": [
+        "FR-1",
+        "FR-2",
+        "FR-3",
+        "FR-5",
+        "FR-15",
+        "NFR-1",
+        "NFR-4",
+        "NFR-5",
+        "NFR-7",
+        "NFR-8",
+        "NFR-9",
+        "AC-1",
+        "AC-2",
+        "AC-4",
+        "AC-10",
+        "AC-13"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [
+        {
+          "id": "atomic-capture",
+          "actor": "authenticated agent service account",
+          "scope": "one tenant, subject, session, episode, formation job, explicit memory and audit trail",
+          "environment": "local PostgreSQL with pgvector from a clean migrated schema",
+          "duration": "single integration-test run",
+          "observable": "capture is idempotent and atomic, explicit memory has provenance, and cross-tenant access is denied",
+          "gate": "foundation-tests"
+        }
+      ],
+      "gates": [
+        {
+          "id": "foundation-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration/test_foundation.py",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Scaffold only the approved foundation scope, implement migrations and contracts, then run foundation-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:12:02.164Z",
+      "updated_at": "2026-09-19T11:12:02.165Z"
+    },
+    {
+      "id": "T-2",
+      "outcome": "Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "apps/worker",
+        "packages/model-gateway",
+        "packages/observability",
+        "packages/persistence",
+        "tests/integration/test_worker.py"
+      ],
+      "dependencies": [
+        "T-1"
+      ],
+      "requirements": [
+        "FR-4",
+        "FR-12",
+        "NFR-10",
+        "NFR-11",
+        "AC-3",
+        "AC-14",
+        "AC-15"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [
+        {
+          "id": "formation-recovery",
+          "actor": "formation worker",
+          "scope": "one leased formation job and its source episode",
+          "environment": "local PostgreSQL plus deterministic model fakes",
+          "duration": "single crash-and-replay integration-test run",
+          "observable": "an expired lease is reclaimed, retries and dead-letter state are visible, and accepted versions are not duplicated",
+          "gate": "worker-tests"
+        }
+      ],
+      "gates": [
+        {
+          "id": "worker-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration/test_worker.py",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:12:02.295Z",
+      "updated_at": "2026-09-19T11:12:02.295Z"
+    },
+    {
+      "id": "T-3",
+      "outcome": "Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "packages/memory-domain",
+        "packages/persistence",
+        "apps/api",
+        "tests/integration/test_retrieval.py"
+      ],
+      "dependencies": [
+        "T-1"
+      ],
+      "requirements": [
+        "FR-6",
+        "FR-7",
+        "FR-8",
+        "FR-9",
+        "NFR-2",
+        "NFR-3",
+        "AC-5",
+        "AC-6",
+        "AC-7"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [
+        {
+          "id": "bounded-degraded-context",
+          "actor": "authenticated agent runtime",
+          "scope": "tenant-scoped active profile and memories",
+          "environment": "local PostgreSQL with fixed embeddings and a simulated retrieval outage",
+          "duration": "single retrieval integration-test run",
+          "observable": "hybrid results are deterministic and cited, token budget is respected, and outage returns explicit degraded context",
+          "gate": "retrieval-tests"
+        }
+      ],
+      "gates": [
+        {
+          "id": "retrieval-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration/test_retrieval.py",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement retrieval and context composition on the approved persistence contracts, then run retrieval-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:12:02.424Z",
+      "updated_at": "2026-09-19T11:12:02.425Z"
+    },
+    {
+      "id": "T-4",
+      "outcome": "Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "packages/memory-domain",
+        "packages/persistence",
+        "apps/api",
+        "tests/integration/test_memory_control.py"
+      ],
+      "dependencies": [
+        "T-1",
+        "T-3"
+      ],
+      "requirements": [
+        "FR-10",
+        "FR-11",
+        "NFR-2",
+        "NFR-6",
+        "AC-8",
+        "AC-9"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [
+        {
+          "id": "correct-and-forget",
+          "actor": "authorized tenant operator",
+          "scope": "one active memory with source evidence and version history",
+          "environment": "local PostgreSQL and public API",
+          "duration": "single control-flow integration-test run",
+          "observable": "correction appends one current version and forget immediately excludes the memory from every read path while retaining authorized status evidence",
+          "gate": "control-tests"
+        }
+      ],
+      "gates": [
+        {
+          "id": "control-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration/test_memory_control.py",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement temporal correction and suppression using shared repository filters, then run control-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:12:02.537Z",
+      "updated_at": "2026-09-19T11:12:02.537Z"
+    },
+    {
+      "id": "T-5",
+      "outcome": "Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.",
+      "state": "queued",
+      "risk": "medium",
+      "owner": null,
+      "scope": [
+        "packages/contracts",
+        "packages/sdk-python",
+        "tests/contract"
+      ],
+      "dependencies": [
+        "T-2",
+        "T-3",
+        "T-4"
+      ],
+      "requirements": [
+        "FR-13",
+        "NFR-8",
+        "AC-4",
+        "AC-11"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [
+        {
+          "id": "sdk-core-flow",
+          "actor": "Python agent developer",
+          "scope": "public episode, memory, context and job methods",
+          "environment": "generated OpenAPI fixtures and local API",
+          "duration": "single contract-test run",
+          "observable": "typed SDK calls preserve stable envelopes, cursors, request IDs, machine-readable errors and async states",
+          "gate": "sdk-contract-tests"
+        }
+      ],
+      "gates": [
+        {
+          "id": "sdk-contract-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/contract",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:12:02.661Z",
+      "updated_at": "2026-09-19T11:12:02.662Z"
+    },
+    {
+      "id": "T-6",
+      "outcome": "Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.",
+      "state": "queued",
+      "risk": "medium",
+      "owner": null,
+      "scope": [
+        "apps/web",
+        "tests/browser"
+      ],
+      "dependencies": [
+        "T-5"
+      ],
+      "requirements": [
+        "FR-14",
+        "NFR-14",
+        "AC-12"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [
+        {
+          "id": "operator-memory-control",
+          "actor": "authenticated tenant operator using keyboard only",
+          "scope": "search, detail, provenance, history, correction, forget confirmation and status",
+          "environment": "supported desktop and mobile browser viewports against deterministic API fixtures",
+          "duration": "single browser-test run",
+          "observable": "the complete control flow is keyboard operable, visibly focused, semantically labelled and responsive",
+          "gate": "console-tests"
+        }
+      ],
+      "gates": [
+        {
+          "id": "console-tests",
+          "kind": "command",
+          "command": "npm --prefix apps/web test -- --run",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement the console against public contracts only and run console-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:12:02.785Z",
+      "updated_at": "2026-09-19T11:12:02.787Z"
+    },
+    {
+      "id": "T-7",
+      "outcome": "Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "deploy",
+        "evals",
+        "tests/security",
+        "tests/system",
+        "scripts"
+      ],
+      "dependencies": [
+        "T-2",
+        "T-4",
+        "T-5",
+        "T-6"
+      ],
+      "requirements": [
+        "NFR-9",
+        "NFR-10",
+        "NFR-11",
+        "NFR-12",
+        "NFR-13",
+        "NFR-15",
+        "AC-14",
+        "AC-15",
+        "AC-16",
+        "AC-17",
+        "AC-18",
+        "AC-19"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [
+        {
+          "id": "clean-release-proof",
+          "actor": "platform release operator",
+          "scope": "fresh deployment, migration, security, telemetry, backup restore, evaluation and public SDK flow",
+          "environment": "clean release-like environment with approved provider fakes or credentials and PostgreSQL pgvector",
+          "duration": "one bounded release-verification run",
+          "observable": "all release checks pass, missing numeric targets or quality regressions fail closed, and restored data preserves isolation, lineage and suppression",
+          "gate": "release-verification"
+        }
+      ],
+      "gates": [
+        {
+          "id": "release-verification",
+          "kind": "command",
+          "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-09-19T11:12:02.911Z",
+      "updated_at": "2026-09-19T11:12:02.911Z"
+    }
+  ],
+  "learning_proposals": [],
+  "cleanup_proposals": [],
+  "controls": [],
+  "attempts": [],
+  "authorizations": [],
+  "experiments": [],
+  "incidents": [],
+  "discovery": null,
+  "checkpoint": {
+    "at": "2026-09-19T11:20:06.778Z",
+    "revision": {
+      "commit": null,
+      "dirty": null,
+      "source_hash": "93e28d791b0d4ba234b0a1bb60d93612b492acefaba50cdb2f58672198ffbfd3"
+    },
+    "active_task": null,
+    "next_action": "Finish defining requirement-linked tasks, then run genesis plan check."
+  },
+  "legacy": null
+}

@@ -1,0 +1,136 @@
+flowchart TB
+    User([User]) --> Gateway[Gateway<br/>authenticate, identify tenant, route]
+
+    %% Fast read path: response generation never waits for memory formation.
+    subgraph ReadPath[Online read path]
+        direction LR
+        Planner[Query Planner]
+        Retriever[Hybrid Retriever<br/>semantic, keyword, entity, graph, temporal]
+        Ranker[Ranker<br/>relevance, recency, frequency, importance, confidence]
+        Composer[Context Composer]
+        Compiled[Compiled Context<br/>recent turns + core profile + retrieved memory<br/>documents + tool outputs]
+        Response[Response Model]
+
+        Planner --> Retriever --> Ranker --> Composer --> Compiled --> Response
+    end
+
+    Gateway -->|current request| Planner
+    Gateway -->|recent turns| Composer
+    Response --> Reply([Response]) --> User
+
+    %% Always-available state bypasses search; other stores are query-driven.
+    subgraph MemoryLayers[Memory layers]
+        direction TB
+        Core[(Core / Profile Memory<br/>identity, preferences, active goals, constraints<br/>small, editable, token-budgeted)]
+        Session[(Session Memory<br/>current task and project state)]
+        Temporal[(Temporal Memory Graph<br/>facts, preferences, procedures, observations<br/>explicit, observed, derived<br/>valid_from, valid_to, supersedes, source)]
+        Episodes[(Immutable Episode Store<br/>raw content, actor, tenant, session, timestamp, source)]
+        Knowledge[(Knowledge / Documents<br/>external reference material)]
+    end
+
+    Planner -->|always include| Core
+    Core --> Composer
+    Session --> Retriever
+    Temporal --> Retriever
+    Episodes --> Retriever
+    Knowledge --> Retriever
+
+    %% Durable capture is immediate; interpretation happens asynchronously.
+    Gateway -->|append raw event| Episodes
+
+    subgraph Formation[Asynchronous memory formation]
+        direction LR
+        Queue[Pending Episode]
+        Extractor[Extractor<br/>structured memory candidates]
+        Evaluator{Evaluator<br/>utility, confidence, sensitivity, evidence}
+        Writer[Memory Writer]
+        Rejected([Reject candidate])
+
+        Queue --> Extractor --> Evaluator
+        Evaluator -->|accept| Writer
+        Evaluator -->|reject| Rejected
+    end
+
+    Episodes -. async .-> Queue
+    Writer -->|session-scoped state| Session
+    Writer -->|curated promotion| Core
+    Writer -->|append temporal version| Temporal
+
+    %% New facts never overwrite history; they close or supersede old versions.
+    NewFact[New conflicting fact] --> TemporalCheck[Temporal / Conflict Resolver]
+    TemporalCheck -->|close valid_to| OldFact[Prior fact retained]
+    TemporalCheck -->|append with valid_from<br/>and SUPERSEDES link| Temporal
+
+    subgraph Background[Background / sleep-time processing]
+        direction LR
+        Consolidate[Consolidate<br/>compress related memories]
+        Decay[Decay<br/>lower weight or archive]
+        Reflect[Reflect<br/>derive cautious inferences]
+        DerivedWriter[Derived-memory Writer<br/>confidence + derived_from]
+
+        Reflect --> DerivedWriter
+    end
+
+    Temporal -. source memories .-> Consolidate
+    Consolidate -. append consolidation .-> Temporal
+    Temporal -. age and usage .-> Decay
+    Decay -. update weight / archive state .-> Temporal
+    Episodes -. evidence .-> Reflect
+    Temporal -. evidence .-> Reflect
+    DerivedWriter -. append as derived, never fact .-> Temporal
+    Temporal -. contradictions .-> TemporalCheck
+
+    Feedback([User controls<br/>remember, correct, forget, inspect]) --> Control[Memory Control Service]
+    User --> Feedback
+    Control -->|correction evidence| Episodes
+    Control -->|edit curated state| Core
+    Control -->|delete or suppress| Temporal
+
+    Orchestrator[Workflow Control<br/>queues, retries, timeouts, idempotency]
+    Orchestrator -. runs .-> Queue
+    Orchestrator -. schedules .-> Consolidate
+    Orchestrator -. schedules .-> Decay
+    Orchestrator -. schedules .-> Reflect
+
+    subgraph Planes[Cross-cutting planes]
+        direction LR
+        Observability[Observability<br/>quality, latency, corrections, cost, traces]
+        Security[Security<br/>tenant isolation, encryption, sensitive-data controls]
+        Governance[Governance<br/>consent, audit, retention, deletion, provenance]
+    end
+
+    Observability -. instruments .-> Gateway
+    Observability -. instruments .-> Retriever
+    Observability -. instruments .-> Extractor
+    Security -. enforces .-> Gateway
+    Security -. protects .-> Core
+    Security -. protects .-> Temporal
+    Security -. protects .-> Episodes
+    Governance -. controls .-> Episodes
+    Governance -. controls .-> Temporal
+    Governance -. controls .-> Control
+
+    %% Memory is optional on the response path.
+    Planner -. retrieval unavailable:<br/>continue with recent turns .-> Composer
+
+    subgraph Invariants[System invariants]
+        direction LR
+        I1[No cross-user memory leakage]
+        I2[Deleted or suppressed memories are never retrieved]
+        I3[Memory failure never blocks a response]
+        I4[Every memory points to source evidence]
+        I5[Derived inference is never silently promoted to fact]
+        I6[Conflicts create temporal versions, never destructive overwrites]
+    end
+
+    classDef actor fill:#f8f5ee,stroke:#6b5d47,color:#17150f,stroke-width:1.5px;
+    classDef service fill:#ffffff,stroke:#7c2128,color:#17150f,stroke-width:1.5px;
+    classDef store fill:#f3f0e8,stroke:#4f6473,color:#17150f,stroke-width:1.5px;
+    classDef policy fill:#f8f5ee,stroke:#8a877f,color:#17150f,stroke-dasharray:5 3;
+    classDef invariant fill:#fff8e8,stroke:#9b6b00,color:#17150f,stroke-width:1px;
+
+    class User,Reply,Feedback actor;
+    class Gateway,Planner,Retriever,Ranker,Composer,Compiled,Response,Queue,Extractor,Evaluator,Writer,TemporalCheck,Consolidate,Decay,Reflect,DerivedWriter,Control,Orchestrator service;
+    class Core,Session,Temporal,Episodes,Knowledge,OldFact store;
+    class Observability,Security,Governance policy;
+    class I1,I2,I3,I4,I5,I6 invariant;
