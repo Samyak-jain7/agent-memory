@@ -12,7 +12,6 @@ jobs:
         options: --health-cmd "pg_isready -U postgres -d memory_test" --health-interval 5s --health-retries 10
     env:
       TEST_DATABASE_URL: postgresql+psycopg://postgres:verification-only@127.0.0.1:5432/memory_test
-      BACKUP_TEST_CONTAINER: ${{ job.services.postgres.id }}
       PYTHONDONTWRITEBYTECODE: "1"
       NEXT_TELEMETRY_DISABLED: "1"
     steps:
@@ -26,6 +25,8 @@ jobs:
       - run: cd apps/web && npx --no-install playwright install --with-deps chromium
       - run: npm --prefix apps/web test -- --run
       - run: python -m pytest tests/security tests/system
+        env:
+          BACKUP_TEST_CONTAINER: ${{ job.services.postgres.id }}
       - run: python evals/run.py
       - run: python scripts/smoke.py
       - name: Production readiness must remain blocked without approval

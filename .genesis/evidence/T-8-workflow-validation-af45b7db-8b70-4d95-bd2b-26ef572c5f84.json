@@ -1,0 +1,30 @@
+{
+  "task": "T-8",
+  "gate": "workflow-validation",
+  "kind": "command",
+  "attempt": "af45b7db-8b70-4d95-bd2b-26ef572c5f84",
+  "command": "actionlint .github/workflows/verify.yml",
+  "started_at": "2026-10-03T19:15:32.447Z",
+  "observed_at": "2026-10-03T19:15:32.989Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "",
+  "stderr": "",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "a135d699c3e7d048fe396fdcc4149054f4dfe60e",
+    "dirty": true
+  },
+  "source_hash": "8bfb8560f0badcde5f04f6b0b2b216f0f7f4d67f62e6aad26c23ad61f025dbc4",
+  "before_hash": "8bfb8560f0badcde5f04f6b0b2b216f0f7f4d67f62e6aad26c23ad61f025dbc4",
+  "config_hash": "5452b41a1974d2f566e72e6d8963dbf226ecc30a9b771d2b7d68d62ea975277f",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "dabe60a0facd8fe1074de87615f5937493fd3d0381ddd1e9c0096fbd1a5478a6"
+}
