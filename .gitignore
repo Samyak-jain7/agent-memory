@@ -4,3 +4,16 @@
 
 # Riptide artifacts (cloud-synced)
 .humanlayer/tasks/
+
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+playwright-report/
+test-results/

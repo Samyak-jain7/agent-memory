@@ -21,45 +21,12 @@ from persistence.repositories import Repository
 DATABASE_URL = os.environ.get("TEST_DATABASE_URL", "")
 
 
-@pytest.fixture(scope="session")
-def engine():
-    if not DATABASE_URL or not (make_url(DATABASE_URL).database or "").startswith("memory_test"):
-        pytest.fail("TEST_DATABASE_URL must explicitly select a disposable memory_test database")
-    engine = create_engine(DATABASE_URL)
-    try:
-        with engine.begin() as connection:
-            connection.execute(text("DROP SCHEMA public CASCADE; CREATE SCHEMA public"))
-            for migration in sorted(Path("migrations").glob("*.sql")):
-                connection.execute(text(migration.read_text()))
-    except Exception as error:
-        pytest.fail(f"PostgreSQL with pgvector is required: {error}")
-    yield engine
-    engine.dispose()
-
-
-@pytest.fixture(autouse=True)
-def clean_database(engine):
-    with engine.begin() as connection:
-        connection.execute(text("TRUNCATE audit_events,memory_sources,memory_versions,memories,formation_jobs,episodes,sessions,actor_subject_grants,subjects,actors,tenants CASCADE"))
-
-
-@pytest.fixture
-def identities(engine):
-    values = {name: uuid4() for name in ("tenant_a", "tenant_b", "actor_a", "actor_b", "subject_a", "subject_a2", "subject_b", "session_a")}
-    with engine.begin() as connection:
-        connection.execute(text("INSERT INTO tenants(id,name) VALUES (:tenant_a,'A'),(:tenant_b,'B')"), values)
-        connection.execute(text("INSERT INTO actors(id,tenant_id) VALUES (:actor_a,:tenant_a),(:actor_b,:tenant_b)"), values)
-        connection.execute(text("INSERT INTO subjects(id,tenant_id) VALUES (:subject_a,:tenant_a),(:subject_a2,:tenant_a),(:subject_b,:tenant_b)"), values)
-        connection.execute(text("INSERT INTO actor_subject_grants(tenant_id,actor_id,subject_id) VALUES (:tenant_a,:actor_a,:subject_a),(:tenant_b,:actor_b,:subject_b)"), values)
-        connection.execute(text("INSERT INTO sessions(id,tenant_id,subject_id) VALUES (:session_a,:tenant_a,:subject_a)"), values)
-    return values
-
 
 def headers(ids, tenant="tenant_a", actor="actor_a"):
     os.environ["MEMORY_AUTH_SECRET"] = "test-secret"
     payload = base64.urlsafe_b64encode(f"{ids[tenant]}:{ids[actor]}".encode()).decode().rstrip("=")
     signature = hmac.new(b"test-secret", payload.encode(), hashlib.sha256).hexdigest()
-    return {"Authorization": f"Bearer {payload}.{signature}", "X-Request-ID": "req-test"}
+    return {"Authorization": f"Bearer {payload}.{signature}", "X-Request-ID": "00000000-0000-4000-8000-000000000001"}
 
 
 def episode_body(ids, key="episode-1"):
@@ -142,7 +109,7 @@ def test_capture_rejects_session_for_another_subject_and_persists_audit(engine, 
     assert response.status_code == 404
     with engine.connect() as connection:
         assert connection.execute(text("SELECT count(*) FROM episodes")).scalar_one() == 0
-        assert connection.execute(text("SELECT count(*) FROM audit_events WHERE action='episode.capture' AND outcome='denied' AND request_id='req-test'")).scalar_one() == 1
+        assert connection.execute(text("SELECT count(*) FROM audit_events WHERE action='episode.capture' AND outcome='denied' AND request_id='00000000-0000-4000-8000-000000000001'")).scalar_one() == 1
 
 
 def test_api_denies_cross_tenant_without_disclosure_and_audits_writes(engine, identities):
@@ -162,10 +129,10 @@ def test_api_denies_cross_tenant_without_disclosure_and_audits_writes(engine, id
     assert cross_add.status_code == 404
     with engine.connect() as connection:
         events = connection.execute(text("SELECT action,request_id,outcome FROM audit_events ORDER BY created_at")).all()
-    assert ("episode.capture", "req-test", "accepted") in events
-    assert ("memory.add", "req-test", "succeeded") in events
-    assert ("memory.read", "req-test", "succeeded") in events
-    assert ("memory.add", "req-test", "denied") in events
+    assert ("episode.capture", "00000000-0000-4000-8000-000000000001", "accepted") in events
+    assert ("memory.add", "00000000-0000-4000-8000-000000000001", "succeeded") in events
+    assert ("memory.read", "00000000-0000-4000-8000-000000000001", "succeeded") in events
+    assert ("memory.add", "00000000-0000-4000-8000-000000000001", "denied") in events
 
 
 def test_read_requires_active_actor_and_denial_is_audited(engine, identities):
@@ -177,7 +144,7 @@ def test_read_requires_active_actor_and_denial_is_audited(engine, identities):
     response = client.get(f"/v1/memories/{memory.json()['memory']['id']}", headers=headers(identities))
     assert response.status_code == 404
     with engine.connect() as connection:
-        assert connection.execute(text("SELECT count(*) FROM audit_events WHERE action='memory.read' AND outcome='denied' AND request_id='req-test'")).scalar_one() == 1
+        assert connection.execute(text("SELECT count(*) FROM audit_events WHERE action='memory.read' AND outcome='denied' AND request_id='00000000-0000-4000-8000-000000000001'")).scalar_one() == 1
 
 
 def test_active_memory_requires_complete_source_linked_version(engine, identities):

@@ -3,7 +3,8 @@ from datetime import datetime, timezone
 from uuid import UUID, uuid4
 
 from sqlalchemy import Engine, text
-from contracts.models import EpisodeResource, JobResource, MemoryResource
+from contracts.models import EpisodeResource, JobResource, MemoryResource, PolicyRejected
+from observability import carrier, operation
 from memory_domain.service import CaptureResult, IdempotencyConflict
 
 
@@ -11,6 +12,7 @@ class Repository:
     def __init__(self, engine: Engine):
         self.engine = engine
         self.after_episode_insert = lambda: None
+        self.after_candidate_insert = lambda index: None
 
     @staticmethod
     def _scope(connection, tenant_id: UUID) -> None:
@@ -27,6 +29,10 @@ class Repository:
             )"""),
             {"actor": principal.actor_id, "subject": subject_id, "tenant": principal.tenant_id},
         ).scalar_one()
+
+    @staticmethod
+    def _consented(connection, subject_id):
+        return connection.execute(text("SELECT memory_consent FROM subjects WHERE id=:id"),{'id':subject_id}).scalar_one_or_none() is True
 
     def capture_episode(self, principal, request, request_id: str) -> CaptureResult:
         try:
@@ -69,8 +75,8 @@ class Repository:
                 ).mappings().one()
                 self.after_episode_insert()
                 job = connection.execute(
-                text("INSERT INTO formation_jobs (id,tenant_id,episode_id,state) VALUES (:id,:tenant,:episode,'pending') RETURNING id,episode_id,state,created_at"),
-                {"id": job_id, "tenant": principal.tenant_id, "episode": episode_id},
+                text("INSERT INTO formation_jobs (id,tenant_id,episode_id,state,request_id,trace_context) VALUES (:id,:tenant,:episode,'pending',:request,CAST(:trace AS jsonb)) RETURNING id,episode_id,state,created_at"),
+                {"id": job_id, "tenant": principal.tenant_id, "episode": episode_id, "request": request_id, "trace": json.dumps(carrier())},
                 ).mappings().one()
                 self._audit(connection, principal, request.subject_id, "episode.capture", episode_id, request_id, "accepted")
                 return CaptureResult(EpisodeResource(tenant_id=principal.tenant_id, **episode), JobResource(**job), False)
@@ -87,6 +93,10 @@ class Repository:
                 source = connection.execute(text("SELECT id FROM episodes WHERE id=:id AND tenant_id=:tenant AND subject_id=:subject"), {"id": request.source.episode_id, "tenant": principal.tenant_id, "subject": request.subject_id}).scalar_one_or_none()
                 if source is None:
                     raise PermissionError
+                from model_gateway import Candidate, Policy
+                reason=Policy().reason(Candidate(kind=request.kind,content=request.content,confidence=request.confidence,importance=request.importance))
+                if not self._consented(connection,request.subject_id): reason='consent_required'
+                if reason: raise PolicyRejected(reason)
                 memory_id, version_id = uuid4(), uuid4()
                 created_at = datetime.now(timezone.utc)
                 connection.execute(text("INSERT INTO memories (id,tenant_id,subject_id,kind,lifecycle_state,created_at) VALUES (:id,:tenant,:subject,:kind,'active',:at)"), {"id": memory_id, "tenant": principal.tenant_id, "subject": request.subject_id, "kind": request.kind, "at": created_at})
@@ -98,6 +108,12 @@ class Repository:
                 return MemoryResource(id=memory_id, tenant_id=principal.tenant_id, subject_id=request.subject_id, created_at=created_at, kind=request.kind, lifecycle_state="active", version_id=version_id, content=request.content, origin="explicit", confidence=request.confidence, importance=request.importance, actor_id=principal.actor_id, source_episode_ids=[source])
         except PermissionError:
             self._record_denial(principal, request.subject_id, "memory.add", None, request_id)
+            raise
+
+        except PolicyRejected as error:
+            with self.engine.begin() as connection:
+                self._scope(connection,principal.tenant_id)
+                self._audit(connection,principal,request.subject_id,'memory.policy',None,request_id,str(error))
             raise
 
     def get_memory(self, principal, memory_id: UUID, request_id: str):
@@ -121,3 +137,73 @@ class Repository:
     def _audit(connection, principal, subject_id, action, resource_id, request_id, outcome):
         connection.execute(text("""INSERT INTO audit_events (id,tenant_id,actor_id,subject_id,action,resource_type,resource_id,request_id,outcome)
             VALUES (:id,:tenant,:actor,:subject,:action,:type,:resource,:request,:outcome)"""), {"id": uuid4(), "tenant": principal.tenant_id, "actor": principal.actor_id, "subject": subject_id, "action": action, "type": action.split('.')[0], "resource": resource_id, "request": request_id, "outcome": outcome})
+
+
+    def job_status(self,principal,job_id,request_id):
+        with self.engine.begin() as c:
+            self._scope(c,principal.tenant_id)
+            row=c.execute(text("SELECT j.*,e.subject_id FROM formation_jobs j JOIN episodes e ON e.id=j.episode_id AND e.tenant_id=j.tenant_id WHERE j.id=:id"),{'id':job_id}).mappings().first()
+            if not row or not self._authorized(c,principal,row['subject_id']):
+                self._audit(c,principal,None,'job.read',job_id,request_id,'denied');return None
+            self._audit(c,principal,row['subject_id'],'job.read',job_id,request_id,'succeeded')
+            return {k:row[k] for k in ['id','episode_id','state','attempts','created_at','completed_at','error_code','outcomes']}
+
+    def claim_job(self,tenant_id,lease_seconds,max_attempts):
+        with self.engine.begin() as c:
+            self._scope(c,tenant_id)
+            # Expired final attempts are terminal, including a crash on the last lease.
+            c.execute(text("UPDATE formation_jobs SET state='dead_letter',error_code='lease_expired',completed_at=now() WHERE attempts>=:max AND state='leased' AND lease_expires_at<now()"),{'max':max_attempts})
+            row=c.execute(text("""SELECT j.*,e.subject_id,e.actor_id,e.content FROM formation_jobs j
+                JOIN episodes e ON e.id=j.episode_id AND e.tenant_id=j.tenant_id
+                WHERE j.attempts<:max AND ((j.state IN ('pending','retryable_failure') AND j.available_at<=now())
+                    OR (j.state='leased' AND j.lease_expires_at<now()))
+                ORDER BY j.created_at,j.id FOR UPDATE OF j SKIP LOCKED LIMIT 1"""),{'max':max_attempts}).mappings().first()
+            if not row:return None
+            job=dict(row);job['lease_token']=uuid4()
+            c.execute(text("UPDATE formation_jobs SET state='leased',attempts=attempts+1,lease_token=:token,lease_expires_at=now()+:seconds*interval '1 second' WHERE id=:id"),{'id':job['id'],'token':job['lease_token'],'seconds':lease_seconds})
+            return job
+
+    def finish_job(self,job,candidates,policy,input_rejections=None):
+        from apps.api.auth import Principal
+        principal=Principal(job['tenant_id'],job['actor_id'])
+        with operation('memory.persist',tenant_id=job['tenant_id'],job_id=job['id'],request_id=job['request_id']):
+            with self.engine.begin() as c:
+                self._scope(c,job['tenant_id'])
+                current=c.execute(text("SELECT state,lease_token,lease_expires_at>now() live FROM formation_jobs WHERE id=:id FOR UPDATE"),{'id':job['id']}).mappings().one()
+                if current['state']!='leased' or current['lease_token']!=job['lease_token'] or not current['live']: return False
+                outcomes=list(input_rejections or [])
+                for index,candidate in enumerate(candidates):
+                    from model_gateway import Candidate
+                    candidate=Candidate.model_validate(candidate)
+                    reason=policy.reason(candidate)
+                    if not self._authorized(c,principal,job['subject_id']):reason='permission_revoked'
+                    elif not self._consented(c,job['subject_id']):reason='consent_required'
+                    if reason:outcomes.append({'index':index,'outcome':reason});continue
+                    memory_id,version_id=uuid4(),uuid4();at=datetime.now(timezone.utc)
+                    c.execute(text("INSERT INTO memories(id,tenant_id,subject_id,kind,lifecycle_state,formation_job_id,candidate_index) VALUES (:id,:tenant,:subject,:kind,'active',:job,:index)"),{'id':memory_id,'tenant':job['tenant_id'],'subject':job['subject_id'],'kind':candidate.kind,'job':job['id'],'index':index})
+                    c.execute(text("INSERT INTO memory_versions(id,tenant_id,memory_id,content,origin,confidence,importance,valid_from,actor_id,created_at) VALUES (:id,:tenant,:memory,:content,'observed',:confidence,:importance,:at,:actor,:at)"),{'id':version_id,'tenant':job['tenant_id'],'memory':memory_id,'content':candidate.content,'confidence':candidate.confidence,'importance':candidate.importance,'at':at,'actor':job['actor_id']})
+                    c.execute(text("INSERT INTO memory_sources(tenant_id,memory_version_id,episode_id) VALUES (:tenant,:version,:episode)"),{'tenant':job['tenant_id'],'version':version_id,'episode':job['episode_id']})
+                    c.execute(text("UPDATE memories SET current_version_id=:version WHERE id=:id"),{'id':memory_id,'version':version_id})
+                    self._audit(c,principal,job['subject_id'],'memory.formed',memory_id,job['request_id'],'succeeded')
+                    self.after_candidate_insert(index)
+                    outcomes.append({'index':index,'outcome':'accepted','memory_id':str(memory_id),'evaluation_version':policy.version})
+                state='succeeded' if any(o['outcome']=='accepted' for o in outcomes) else 'rejected'
+                c.execute(text("UPDATE formation_jobs SET state=:state,outcomes=CAST(:outcomes AS jsonb),completed_at=now(),error_code=NULL,lease_token=NULL WHERE id=:id"),{'id':job['id'],'state':state,'outcomes':json.dumps(outcomes)})
+                self._audit(c,principal,job['subject_id'],'job.complete',job['id'],job['request_id'],state)
+                return True
+
+    def fail_job(self,job,error_code,max_attempts):
+        with self.engine.begin() as c:
+            self._scope(c,job['tenant_id'])
+            c.execute(text("""UPDATE formation_jobs SET state=CASE WHEN attempts>=:max THEN 'dead_letter' ELSE 'retryable_failure' END,
+                available_at=now()+least(power(2,attempts),60)*interval '1 second',error_code=:error,lease_token=NULL,
+                completed_at=CASE WHEN attempts>=:max THEN now() ELSE NULL END
+                WHERE id=:id AND state='leased' AND lease_token=:token AND lease_expires_at>now()"""),
+                {'id':job['id'],'token':job['lease_token'],'max':max_attempts,'error':error_code})
+
+
+    def can_form_job(self,job):
+        from apps.api.auth import Principal
+        with self.engine.begin() as c:
+            self._scope(c,job['tenant_id'])
+            return self._authorized(c,Principal(job['tenant_id'],job['actor_id']),job['subject_id']) and self._consented(c,job['subject_id'])

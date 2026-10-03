@@ -66,15 +66,15 @@
 
 ### T-2R — Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.
 
-- state/risk: active / high
+- state/risk: done / high
 - requirements: FR-4, FR-12, NFR-10, NFR-11, AC-3, AC-14, AC-15
 - scope: apps/worker, packages/model-gateway, packages/observability, packages/persistence, tests/integration/test_worker.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/api, tests/integration
-- gates: worker-tests: python -m pytest tests/integration, independent-review: pending
+- gates: worker-tests: python -m pytest tests/integration, independent-review: pass
 - next: Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes.
 
 ### T-3R — Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.
 
-- state/risk: queued / high
+- state/risk: active / high
 - requirements: FR-6, FR-7, FR-8, FR-9, NFR-2, NFR-3, AC-5, AC-6, AC-7
 - scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_retrieval.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, packages/model-gateway, tests/integration
 - gates: retrieval-tests: python -m pytest tests/integration, independent-review: pending

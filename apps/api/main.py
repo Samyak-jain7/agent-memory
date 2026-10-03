@@ -16,6 +16,8 @@ from memory_domain.service import MemoryService
 from persistence.repositories import Repository
 
 from .auth import Principal, principal_from_headers
+from observability import operation, extract_context
+from opentelemetry import context, propagate
 
 
 def create_app(database_url: str | None = None) -> FastAPI:
@@ -28,19 +30,31 @@ def create_app(database_url: str | None = None) -> FastAPI:
         engine.dispose()
 
     app = FastAPI(title="Memory System", version="1.0.0", lifespan=lifespan)
+    from contracts.models import PolicyRejected
+    @app.exception_handler(PolicyRejected)
+    async def policy_rejected(request: Request,error: PolicyRejected):
+        return JSONResponse(status_code=422,content={"detail":{"code":str(error)}})
+
 
     @app.middleware("http")
     async def request_ids(request: Request, call_next):
-        request_id = request.headers.get("X-Request-ID") or str(uuid4())
-        request.state.request_id = request_id
         try:
-            response = await call_next(request)
+            request_id = str(UUID(request.headers.get("X-Request-ID", "")))
+        except ValueError:
+            request_id = str(uuid4())
+        request.state.request_id = request_id
+        token=context.attach(extract_context(dict(request.headers)))
+        try:
+            with operation("memory.api",request_id=request_id):
+                response = await call_next(request)
         except Exception:
             return JSONResponse(
                 status_code=503,
                 content={"error": {"code": "service_unavailable", "request_id": request_id}},
                 headers={"X-Request-ID": request_id},
             )
+        finally:
+            context.detach(token)
         response.headers["X-Request-ID"] = request_id
         return response
 
@@ -82,6 +96,15 @@ def create_app(database_url: str | None = None) -> FastAPI:
     ) -> MemoryCreated:
         memory = MemoryService(repository).get_memory(principal, memory_id, request.state.request_id)
         return MemoryCreated(memory=memory, request_id=request.state.request_id)
+
+    from contracts.models import JobEnvelope
+    @app.get('/v1/jobs/{job_id}',response_model=JobEnvelope)
+    def job_status(job_id:UUID,request:Request,principal:Principal=Depends(principal_from_headers)):
+        result=repository.job_status(principal,job_id,request.state.request_id)
+        if result is None:
+            from fastapi import HTTPException
+            raise HTTPException(404,detail={'code':'resource_not_found'})
+        return JobEnvelope(job=result,request_id=request.state.request_id)
 
     return app
 

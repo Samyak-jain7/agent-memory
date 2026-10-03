@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T17:45:17.114Z"
+    "updated_at": "2026-10-03T18:03:39.354Z"
   },
   "policy": {
     "ponytail": "full",
@@ -25,9 +25,9 @@
   "lifecycle": {
     "phase": "build",
     "status": "active",
-    "active_task": "T-2R",
+    "active_task": "T-3R",
     "blocker": null,
-    "next_action": "Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes."
+    "next_action": "Implement retrieval and context composition on the approved persistence contracts, then run retrieval-tests."
   },
   "commands": {},
   "workflow": {
@@ -916,7 +916,7 @@
     {
       "id": "T-2R",
       "outcome": "Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.",
-      "state": "active",
+      "state": "done",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -954,16 +954,28 @@
           "kind": "command",
           "command": "python -m pytest tests/integration",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-2R-worker-tests-5ca4e1a1-a79b-4713-9064-ce90dfa2cded.json",
+            "hash": "f04461e50ea7f08472a606ddabc6984a39d97d6cdb9a05b408135da5fcffd100",
+            "source_hash": "374d38855f99120e6ad6520216dfa93c5853c24088bf6ef4433dd28f5de92226",
+            "config_hash": "8604206ba54dee7e07833f3f75b0d27054eddeaa9969c4742718786a4767ca92",
+            "observed_at": "2026-10-03T18:02:24.030Z"
+          }
         },
         {
           "id": "independent-review",
           "kind": "review",
           "command": "",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-2R-independent-review-b008c014-a3d9-4159-93e3-c218a78ac84d.json",
+            "hash": "1a7f4c93129b8c9222bc739d99afb1b72a65d35e8e7a4fc676de49bf3411f8ed",
+            "source_hash": "374d38855f99120e6ad6520216dfa93c5853c24088bf6ef4433dd28f5de92226",
+            "config_hash": "8604206ba54dee7e07833f3f75b0d27054eddeaa9969c4742718786a4767ca92",
+            "observed_at": "2026-10-03T18:03:38.810Z"
+          }
         }
       ],
       "next_action": "Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes.",
@@ -972,7 +984,7 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T17:45:15.365Z",
-      "updated_at": "2026-10-03T17:45:15.366Z",
+      "updated_at": "2026-10-03T18:03:39.140Z",
       "base_manifest": {
         ".gitignore": "e12c6ade92e0042a012d4efdf2e7ab8dfd248bc31ec8c191f9b53b068be736e9",
         ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
@@ -999,7 +1011,7 @@
     {
       "id": "T-3R",
       "outcome": "Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.",
-      "state": "queued",
+      "state": "active",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -1056,7 +1068,37 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T17:45:15.635Z",
-      "updated_at": "2026-10-03T17:45:15.636Z"
+      "updated_at": "2026-10-03T17:45:15.636Z",
+      "base_manifest": {
+        ".gitignore": "68234caef72dd2be5c4e31d4bae57c4b928f66fa250936835487c6895207819a",
+        ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
+        "AGENTS.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "CLAUDE.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "README.md": "82ad23785d36400e78c52632300afd12b9e76872e73d3b90e8ef1a11d5772ce1",
+        "SPEC.md": "849ef760e37bcc658a5c6a98278f95cd692eb6d3a5212f21dc6a48994265d8a6",
+        "apps/api/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/api/auth.py": "ba880aa195930521acfe035b43bc9052c6df49c106a4d9760a1f7d319e6d4585",
+        "apps/api/main.py": "37739ed450ca61417ac7eedaca81de82b48621a223fe27be3e7448c8eda74923",
+        "apps/worker/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/worker/main.py": "920247fed476204f445edee5cddaec038d5287e11c32c91c8b979d281fdd362e",
+        "memory-architecture.mmd": "0954ee3d0d876657283938146461cf562465af98e67a95fef9938a31cffce445",
+        "memory-system.html": "b4566bb5964314c9178ba13041f82ada1276761c4800da6b9e6fddbd32ebc0a3",
+        "migrations/001_foundation.sql": "4e9398810678811fa010ba1f35f7697bcd186927b939e6667a76313ed5c7bda0",
+        "migrations/002_foundation_security.sql": "b7da078062fef4f6b118f85c33b780e3e48b6304585a1ca25da58998433ea901",
+        "migrations/003_formation.sql": "aeb049e8f44b3f9dd27204a5be72e1e58ad40178c72a09ef5e48672acd6913d3",
+        "packages/contracts/contracts/__init__.py": "dc0edad547779a58dab278c3bb89f26be66d476cc8b57a8b53f5d5e4f2ce6b6d",
+        "packages/contracts/contracts/models.py": "defd8a7dfd334167825cdc7381cbe152055005b4e7c97efff7e697521be9d5f1",
+        "packages/memory-domain/memory_domain/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/memory-domain/memory_domain/service.py": "28e81cf5c1c414f12a08299d8726cf4a108dc4c8e1973a7d1de519401caec89f",
+        "packages/model-gateway/model_gateway/__init__.py": "694922d8ac7235698b4a9a7d180a75a4e83027dbed3c00666c8cc620d669ede1",
+        "packages/observability/observability/__init__.py": "11ee61b273d53f40c62ec851506ad6d4d784103b53e99fb38942e637deb5e9fd",
+        "packages/persistence/persistence/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/persistence/persistence/repositories.py": "be90cac9b888c06c9189cb32edac327c47ba3a10fe8e382a0ee3fd3f5e94c530",
+        "pyproject.toml": "5b8cc784edcf596607652f42af4789183d56e24926d6fdcf247a11876e395371",
+        "tests/integration/conftest.py": "6af49f369425f67d6656a8551c217210a6669e10d57513ca6176b5b6b195308a",
+        "tests/integration/test_foundation.py": "3ff8ccf9274d6170205685f2af34e4c3d8e9ffcaa61ceca250cc6cf201175f5a",
+        "tests/integration/test_worker.py": "6ed6e566da5d171374af1304841dc9530dc55b13679bb1db425f142229d9f86f"
+      }
     },
     {
       "id": "T-4R",
@@ -1388,6 +1430,15 @@
       "human": null,
       "reason": "Superseded by same approved outcome with explicit cross-cutting file scope; preserve original task/history.",
       "revision": null
+    },
+    {
+      "id": "b008c014-a3d9-4159-93e3-c218a78ac84d",
+      "at": "2026-10-03T18:03:38.810Z",
+      "action": "approve",
+      "task": "T-2R",
+      "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+      "reason": "Independent reviewer accepted all worker fixes and verified 37 passing tests with matching current source hash; live model integration remains explicitly unverified.",
+      "revision": null
     }
   ],
   "attempts": [
@@ -1602,6 +1653,78 @@
       "cost": null,
       "stop_reason": null,
       "ended_at": "2026-10-03T16:19:40.439Z"
+    },
+    {
+      "id": "47cc6832-699a-4270-abe4-8c78b1e68e94",
+      "task": "T-2R",
+      "kind": "gate",
+      "command": "python -m pytest tests/integration",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 2737,
+      "child_pid": 2767,
+      "started_at": "2026-10-03T17:50:45.386Z",
+      "status": "passed",
+      "before_hash": "b707d75223dee315035e84619d8d0447c18d110712d391ab8b80fc81e7adf366",
+      "config_hash": "8604206ba54dee7e07833f3f75b0d27054eddeaa9969c4742718786a4767ca92",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T17:50:48.290Z"
+    },
+    {
+      "id": "ec462cf1-9705-4c35-b5c2-bb52485ad8bf",
+      "task": "T-2R",
+      "kind": "gate",
+      "command": "python -m pytest tests/integration",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 3577,
+      "child_pid": 3624,
+      "started_at": "2026-10-03T17:54:35.731Z",
+      "status": "passed",
+      "before_hash": "59fd9715c20180f29499de2c8db618b35546c8fd13da7b9345646f797ca47d46",
+      "config_hash": "8604206ba54dee7e07833f3f75b0d27054eddeaa9969c4742718786a4767ca92",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T17:54:39.058Z"
+    },
+    {
+      "id": "5ca4e1a1-a79b-4713-9064-ce90dfa2cded",
+      "task": "T-2R",
+      "kind": "gate",
+      "command": "python -m pytest tests/integration",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 4889,
+      "child_pid": 4936,
+      "started_at": "2026-10-03T18:02:21.539Z",
+      "status": "passed",
+      "before_hash": "374d38855f99120e6ad6520216dfa93c5853c24088bf6ef4433dd28f5de92226",
+      "config_hash": "8604206ba54dee7e07833f3f75b0d27054eddeaa9969c4742718786a4767ca92",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T18:02:24.030Z"
     }
   ],
   "authorizations": [
@@ -1634,14 +1757,14 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T17:45:17.061Z",
+    "at": "2026-10-03T18:03:39.322Z",
     "revision": {
-      "commit": "9982db07ec33d24fd2e75da00953a6df2e1aefe1",
+      "commit": "84ae1165a2bb2b9f68f894e70f0546a8c0c01854",
       "dirty": true,
-      "source_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0"
+      "source_hash": "374d38855f99120e6ad6520216dfa93c5853c24088bf6ef4433dd28f5de92226"
     },
-    "active_task": "T-2R",
-    "next_action": "Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes."
+    "active_task": "T-3R",
+    "next_action": "Implement retrieval and context composition on the approved persistence contracts, then run retrieval-tests."
   },
   "legacy": null
 }

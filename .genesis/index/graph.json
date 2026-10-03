@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "9982db07ec33d24fd2e75da00953a6df2e1aefe1",
-  "sourceHash": "b642a6ccb7f15d251c179db383fcb8f0f77e6cfd45bd581d9b335d1becfa4b98",
+  "revision": "84ae1165a2bb2b9f68f894e70f0546a8c0c01854",
+  "sourceHash": "88e1e3556a4c952843d860fe1f9e2d7ecbee0f74a7c42d7cbe8ebca40345a71a",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -37,7 +37,27 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "2e6af376157ae8618879c240484c7a796dc1d516c64abaa19d5beabbb66b2d68"
+      "contentHash": "c9373f7f4d92330e7d9f1f97041a075b9ce571918f38632868b65083ffad3997"
+    },
+    {
+      "id": "file:apps/worker/__init__.py",
+      "type": "file",
+      "label": "apps/worker/__init__.py",
+      "path": "apps/worker/__init__.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "file:apps/worker/main.py",
+      "type": "file",
+      "label": "apps/worker/main.py",
+      "path": "apps/worker/main.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "48163a7564b4d670cd9b86683785bf1e845f8d3557a1cc126a5fec82feab5f28"
     },
     {
       "id": "file:packages/contracts/contracts/__init__.py",
@@ -57,7 +77,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "fb7d20e48cf8efae3f448ebabfb1cbc1a135027a0cca090ca3f3ab50c9aaf061"
+      "contentHash": "9d0b9b98a6993b7b76e74fce7300f4576ae3712a37e863ff620d0062ce688047"
     },
     {
       "id": "file:packages/memory-domain/memory_domain/__init__.py",
@@ -80,6 +100,26 @@
       "contentHash": "5f4090abe1004ad286c0ca0cb19c67baf0ac4ce354c0fb8a85320d936a28b5dc"
     },
     {
+      "id": "file:packages/model-gateway/model_gateway/__init__.py",
+      "type": "file",
+      "label": "packages/model-gateway/model_gateway/__init__.py",
+      "path": "packages/model-gateway/model_gateway/__init__.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "c527e4afce0683bf5e13c05ead7bad8d4a4fe6bc03e65b01186b8b373eda57dc"
+    },
+    {
+      "id": "file:packages/observability/observability/__init__.py",
+      "type": "file",
+      "label": "packages/observability/observability/__init__.py",
+      "path": "packages/observability/observability/__init__.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "b7a7095c1ae77d742cad80befafcc9640f6ef0362f25e2f3f916b84f801835bd"
+    },
+    {
       "id": "file:packages/persistence/persistence/__init__.py",
       "type": "file",
       "label": "packages/persistence/persistence/__init__.py",
@@ -97,7 +137,17 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "e32a6f5f437ae5eecfb09c5349e7aac96753fadd5a03021e0aebf957a22f681a"
+      "contentHash": "db58bc9e613eec30f560d5bffacede8943eaae5bf10649ebdcfdfd56490882c9"
+    },
+    {
+      "id": "file:tests/integration/conftest.py",
+      "type": "file",
+      "label": "tests/integration/conftest.py",
+      "path": "tests/integration/conftest.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "d92c3bb00007e3b5175cd819fc4dd427709cae9c8b3ba63dad7132f9bcbacf03"
     },
     {
       "id": "file:tests/integration/test_foundation.py",
@@ -107,7 +157,17 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "98343f816f16e9cb8654ada44ebbc66aca4137bc659d3d834db06a6b8536cb4b"
+      "contentHash": "4126c511558720834ef95e1ce8f9874dea5458ad375dc38955b098a5ede0d5f4"
+    },
+    {
+      "id": "file:tests/integration/test_worker.py",
+      "type": "file",
+      "label": "tests/integration/test_worker.py",
+      "path": "tests/integration/test_worker.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "479c00751b3575dc625a23a170f677091813f38b4950f6a20a4b032ff703f6ab"
     }
   ],
   "edges": [],

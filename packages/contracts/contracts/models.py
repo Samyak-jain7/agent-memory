@@ -56,7 +56,7 @@ class MemoryResource(Resource):
     lifecycle_state: Literal["active"]
     version_id: UUID
     content: str
-    origin: Literal["explicit"]
+    origin: Literal["explicit", "observed", "derived"]
     confidence: float
     importance: float
     actor_id: UUID
@@ -72,3 +72,18 @@ class EpisodeAccepted(BaseModel):
 class MemoryCreated(BaseModel):
     memory: MemoryResource
     request_id: str
+
+
+class JobStatus(JobResource):
+    attempts: int
+    completed_at: datetime | None
+    error_code: str | None
+    outcomes: list[dict]
+
+class JobEnvelope(BaseModel):
+    job: JobStatus
+    request_id: str
+
+
+class PolicyRejected(Exception):
+    pass
