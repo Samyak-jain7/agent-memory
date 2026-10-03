@@ -138,15 +138,15 @@
 
 ### T-10 — Enforce strict release-bound production readiness and safe effective database privileges in all worker and administrative entry points
 
-- state/risk: active / high
+- state/risk: done / high
 - requirements: NFR-1, NFR-9, NFR-15, AC-18
 - scope: deploy, apps/api, apps/worker, scripts, migrations, tests/security, tests/system, README.md, .env.example
-- gates: readiness-hardening: python -m pytest tests/security tests/system, independent-review: pending
+- gates: readiness-hardening: python -m pytest tests/security tests/system, independent-review: pass
 - next: Run the task pre-flight.
 
 ### T-11 — Verify installed package and container isolation and extend hosted CI with privacy and packaging checks
 
-- state/risk: queued / medium
+- state/risk: active / medium
 - requirements: NFR-9, NFR-12, AC-14, AC-19
 - scope: .github, deploy, scripts, README.md, pyproject.toml
 - gates: release-regression: python -m pytest tests && python evals/run.py && python scripts/smoke.py, workflow-validation: actionlint .github/workflows/verify.yml, independent-review: pending

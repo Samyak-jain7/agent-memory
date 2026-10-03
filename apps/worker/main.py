@@ -2,6 +2,7 @@ import argparse
 import os
 import time
 from uuid import UUID
+from deploy.readiness import enforce_environment
 from sqlalchemy import create_engine
 from opentelemetry import context, propagate
 from persistence.repositories import Repository
@@ -42,6 +43,7 @@ class Worker:
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--tenant',required=True,type=UUID)
     parser.add_argument('--once',action='store_true');args=parser.parse_args()
+    enforce_environment(os.environ['DATABASE_URL'])
     engine=create_engine(os.environ['DATABASE_URL']);worker=Worker(Repository(engine))
     try:
         while True:

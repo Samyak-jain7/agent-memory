@@ -1,0 +1,30 @@
+{
+  "task": "T-10",
+  "gate": "readiness-hardening",
+  "kind": "command",
+  "attempt": "b62852d3-9c20-4b86-9fa9-6a92e837a6cc",
+  "command": "python -m pytest tests/security tests/system",
+  "started_at": "2026-10-03T19:57:43.580Z",
+  "observed_at": "2026-10-03T19:57:47.450Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 34 items\n\ntests/security/test_encrypted_backup.py .........                        [ 26%]\ntests/security/test_release_security.py ......................           [ 91%]\ntests/system/test_release_system.py ...                                  [100%]\n\n============================== 34 passed in 2.99s ==============================\n",
+  "stderr": "",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "527df6ee28b400534804028e502e18f28b1082be",
+    "dirty": true
+  },
+  "source_hash": "86e18c1c989630f64ddcf06edc7cb1116686494a89de68e10968623076473aec",
+  "before_hash": "86e18c1c989630f64ddcf06edc7cb1116686494a89de68e10968623076473aec",
+  "config_hash": "75a00e70a82b8b5dacea941b113517614212f2084f6f1bfe66f68c65dba2ab46",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "5091651f0dd97abe4f81c7034dfd5e93467793824cd101a7ec61090c4500b211"
+}

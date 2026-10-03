@@ -132,3 +132,5 @@ reapplying every suppression/erasure that occurred after the backup; restore int
 until that reconciliation is verified. The synthetic restore test now decrypts an
 authenticated artifact in memory before real PostgreSQL restore and isolation checks.
 This proves the artifact encryption/restore mechanism, not a deployed backup policy.
+
+Production evidence must identify `deployment_id` and a 40-character `release_sha`; runtime `MEMORY_DEPLOYMENT_ID` and `MEMORY_RELEASE_SHA` must match. `evidence_receipts` must contain storage, backup, restore, provider, telemetry, retention, erasure, backup_expiry, deployment, and approval receipts. Each includes matching deployment/release, UTC `verified_at` within seven days, `artifact_path` relative to the readiness document directory, `artifact_sha256`, and named verifier `provenance`. Artifacts are limited to 1 MiB and must remain within that directory; hashes are checked before startup. Keep private evidence outside the source repository. Receipt validation is an integrity check; real platform verification remains required. See [proposed policy defaults](deploy/policy-proposal.md) for unapproved recommendations.

@@ -4,11 +4,11 @@
 
 - objective: Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.
 - phase/status: build/active
-- active task: T-10 — Enforce strict release-bound production readiness and safe effective database privileges in all worker and administrative entry points
+- active task: T-11 — Verify installed package and container isolation and extend hosted CI with privacy and packaging checks
 - blocker: none
 - next action: Run the task pre-flight.
 - phase instruction: Implement only the active task and prove it against current sources. Check `genesis query . impact PATH` before editing shared code.
-- gates: readiness-hardening:pending, independent-review:pending
+- gates: release-regression:pending, workflow-validation:pending, independent-review:pending
 - recent failures: none
 
 ## Resume
@@ -17,9 +17,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: f684e567f0b3933cfa3befd1c0d506ab4f3cb248f8705a99c570d2854405c020. Use --since only after receiving that full packet; kickoff is not the packet.
-- KNOWLEDGE-5c679aff: Verified development release; production launch remains gated
-- DECISION-DELEGATED-REVIEW-20261003: Task-specific delegated approval
-- KNOWLEDGE-c05153a5: Private GitHub publication and hosted verification confirmed
+Context fingerprint: 00d16135a026e94c784fc8db2b54e7fd4f49e377dd4c356a7a2967199e90f923. Use --since only after receiving that full packet; kickoff is not the packet.
+- KNOWLEDGE-075aed96: Trace verification isolates the capture request
+- DECISION-38cab761: Production baseline is launch scope
+- KNOWLEDGE-7f3dda52: Hosted CI workflow context failure diagnosed and corrected
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

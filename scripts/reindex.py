@@ -1,9 +1,11 @@
 """Trusted, explicitly tenant-scoped reindex of active legacy current versions."""
 import argparse,os
 from uuid import UUID
+from deploy.readiness import enforce_environment
 from sqlalchemy import create_engine,text
 from persistence.repositories import Repository
 parser=argparse.ArgumentParser();parser.add_argument('--tenant',required=True,type=UUID);args=parser.parse_args()
+enforce_environment(os.environ['DATABASE_URL'])
 engine=create_engine(os.environ['DATABASE_URL']);repo=Repository(engine)
 try:
     with engine.begin() as c:

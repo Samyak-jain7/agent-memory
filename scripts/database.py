@@ -3,11 +3,13 @@ import hashlib,json,os
 from pathlib import Path
 from uuid import uuid4
 from sqlalchemy import text
+from deploy.readiness import validate_application_role
 ROOT=Path(__file__).resolve().parents[1]
 
 def migrate(engine,through=None):
     with engine.begin() as c:
         c.execute(text('SELECT pg_advisory_xact_lock(174643013)'))
+        validate_application_role(c,allow_missing=True)
         c.execute(text('CREATE TABLE IF NOT EXISTS schema_migrations(name text PRIMARY KEY,sha256 text NOT NULL,applied_at timestamptz NOT NULL DEFAULT now())'))
         for path in sorted((ROOT/'migrations').glob('*.sql')):
             if through and path.name>through:break
@@ -35,6 +37,7 @@ def provision_runtime(engine,password,role='memory_service'):
     from psycopg import sql
     if not re.fullmatch(r'[a-z][a-z0-9_]{3,62}',role) or len(password)<16:raise ValueError('Restricted role name and password of at least 16 characters required')
     with engine.begin() as connection:
+        validate_application_role(connection)
         raw=connection.connection.driver_connection
         # CREATE ROLE refuses to overwrite an existing role or its credentials.
         raw.execute(sql.SQL('CREATE ROLE {} LOGIN NOINHERIT NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE PASSWORD {}').format(sql.Identifier(role),sql.Literal(password)))

@@ -2,11 +2,13 @@ import argparse
 import os
 import time
 from uuid import UUID
+from deploy.readiness import enforce_environment
 from sqlalchemy import create_engine
 from persistence.repositories import Repository
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--tenant',required=True,type=UUID);p.add_argument('--once',action='store_true');args=p.parse_args()
+    enforce_environment(os.environ['DATABASE_URL'])
     engine=create_engine(os.environ['DATABASE_URL']);repo=Repository(engine)
     try:
         while True:
