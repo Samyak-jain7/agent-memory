@@ -4,7 +4,7 @@
 
 - workflow: new-product
 - phase: build
-- plan approval: Codex delegated by Samyak at 2026-10-03T19:15:07.946Z
+- plan approval: Codex delegated by Samyak at 2026-10-03T19:20:55.058Z
 
 ## Tasks
 
@@ -114,9 +114,17 @@
 
 ### T-8 — Fix GitHub CI context placement and validate the workflow before observing hosted verification
 
-- state/risk: active / medium
+- state/risk: rejected / medium
 - requirements: AC-16
 - scope: .github
 - gates: workflow-validation: actionlint .github/workflows/verify.yml, independent-review: pass
+- next: Run the task pre-flight.
+
+### T-8R — Verify hosted CI with valid service context, declared test dependency bounds, and request-scoped trace correlation assertions
+
+- state/risk: active / medium
+- requirements: AC-15, AC-16
+- scope: .github, tests/integration
+- gates: workflow-validation: actionlint .github/workflows/verify.yml, integration-regression: python -m pytest tests/integration tests/contract tests/browser, independent-review: pass
 - next: Run the task pre-flight.
 

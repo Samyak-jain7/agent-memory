@@ -1,0 +1,13 @@
+{
+  "task": "T-8R",
+  "gate": "independent-review",
+  "kind": "review",
+  "attempt": "6ed4259d-6f14-403d-b726-a682638150dc",
+  "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+  "reason": "Independent reviewer accepted request-scoped trace assertions without weakening required spans/privacy checks, matching pytest range, and matching-source 68-test proof. Hosted success remains to be observed before completion.",
+  "observed_at": "2026-10-03T19:23:36.919Z",
+  "source_hash": "40d34cf4a1457c105bc75822a8bc78eae398b31998f83107ca1fbecf7587d871",
+  "config_hash": "e46efa4c7b04cd53b2c3ce4a510f51059a4b66b41a1b67f94fdedda7e98160c3",
+  "reviewed_proofs": "36234135ba55c21d9c07d79f19b28cc0f5ea9a3706171b7af924ab7726f0c608",
+  "hash": "85c3d13b7bbee04c97808d22d914d173ddbc2c65447ed355729c0fdc2f37946e"
+}

@@ -4,11 +4,11 @@
 
 - objective: Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.
 - phase/status: build/active
-- active task: T-8 — Fix GitHub CI context placement and validate the workflow before observing hosted verification
+- active task: T-8R — Verify hosted CI with valid service context, declared test dependency bounds, and request-scoped trace correlation assertions
 - blocker: none
 - next action: Run the task pre-flight.
 - phase instruction: Implement only the active task and prove it against current sources. Check `genesis query . impact PATH` before editing shared code.
-- gates: workflow-validation:pass, independent-review:pass
+- gates: workflow-validation:pass, integration-regression:pass, independent-review:pass
 - recent failures: none
 
 ## Resume
@@ -17,9 +17,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: 7150999c01ac36b4137c802d5071777dc58ccf3b190330e84096bb27918c8746. Use --since only after receiving that full packet; kickoff is not the packet.
+Context fingerprint: 8c6acf01933ab59620723fdf292f439c0b5f19d27ee49ea0987ec3eac6e36f5d. Use --since only after receiving that full packet; kickoff is not the packet.
+- KNOWLEDGE-075aed96: Trace verification isolates the capture request
 - KNOWLEDGE-7f3dda52: Hosted CI workflow context failure diagnosed and corrected
-- DECISION-DELEGATED-REVIEW-20261003: Task-specific delegated approval
-- DECISION-38cab761: Production baseline is launch scope
+- DECISION-4d81ce4a: Python service and SDK with Next.js console
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

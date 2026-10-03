@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "a135d699c3e7d048fe396fdcc4149054f4dfe60e",
-  "sourceHash": "cd9ef93bece02d9743bcddf0af3e7485687a98b5d7c6eb88ab52f000d399c907",
+  "revision": "28551b68219ce7b9fe46ca227d7505809dabc5e3",
+  "sourceHash": "24dbea6ea0cf3765847b7b741d295bed296df615d2471d025e98525ad8c31ca3",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -457,7 +457,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "a1ef80976838ba4d2424b8d6594288237bcc313f4459bfc9747dfc41bf2c6cb2"
+      "contentHash": "bcfeabf8a62b86c5f588d595d1a908fb021866a22453520197afa98bc0fd8dc8"
     },
     {
       "id": "file:tests/security/conftest.py",

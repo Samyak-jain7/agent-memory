@@ -20,7 +20,7 @@ jobs:
         with: {python-version: "3.13"}
       - uses: actions/setup-node@v4
         with: {node-version: "24"}
-      - run: pip install -e . pytest
+      - run: pip install -e . 'pytest>=8,<9'
       - run: npm --prefix apps/web ci
       - run: cd apps/web && npx --no-install playwright install --with-deps chromium
       - run: npm --prefix apps/web test -- --run

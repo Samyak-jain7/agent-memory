@@ -112,6 +112,8 @@ def test_correlated_trace_and_untrusted_request_id_privacy(engine,identities,cap
     from test_foundation import DATABASE_URL,headers,episode_body
     exporter=InMemorySpanExporter();provider=TracerProvider();provider.add_span_processor(SimpleSpanProcessor(exporter));trace.set_tracer_provider(provider)
     caplog.set_level(logging.INFO,logger='agent_memory')
+    from observability import operation
+    with operation('memory.unrelated',request_id=str(uuid4())):pass
     client=TestClient(create_app(DATABASE_URL));h=headers(identities);h['X-Request-ID']='password=never-log-this';h['baggage']='secret=password-value';h['tracestate']='vendor=password-value'
     response=client.post('/v1/episodes',json=episode_body(identities),headers=h)
     assert response.status_code==202
@@ -121,9 +123,12 @@ def test_correlated_trace_and_untrusted_request_id_privacy(engine,identities,cap
         assert set(saved)=={'traceparent'}
         assert 'password-value' not in str(saved)
     Worker(Repository(engine)).run_once(identities['tenant_a'])
-    spans=exporter.get_finished_spans()
+    # The global exporter can receive late background work from other requests.
+    # Prove this request's full API -> worker -> model -> persist chain by its canonical ID.
+    spans=[span for span in exporter.get_finished_spans() if (span.attributes or {}).get('request_id')==response.headers['X-Request-ID']]
     assert {'memory.api','memory.worker','memory.extract','memory.persist'} <= {s.name for s in spans}
     assert len({s.context.trace_id for s in spans})==1
+    assert 'memory.unrelated' not in {s.name for s in spans}
     assert 'never-log-this' not in caplog.text+str([dict(s.attributes) for s in spans])
     assert 'I prefer tea' not in caplog.text+str([dict(s.attributes) for s in spans])
 
