@@ -18,7 +18,12 @@ digraph genesis {
   "file:packages/persistence/persistence/control.py" [label="packages/persistence/persistence/control.py",class="file"];
   "file:packages/persistence/persistence/repositories.py" [label="packages/persistence/persistence/repositories.py",class="file"];
   "file:packages/persistence/persistence/retrieval.py" [label="packages/persistence/persistence/retrieval.py",class="file"];
+  "file:packages/sdk-python/memory_sdk/__init__.py" [label="packages/sdk-python/memory_sdk/__init__.py",class="file"];
+  "file:packages/sdk-python/memory_sdk/client.py" [label="packages/sdk-python/memory_sdk/client.py",class="file"];
+  "file:tests/contract/conftest.py" [label="tests/contract/conftest.py",class="file"];
+  "file:tests/contract/test_sdk.py" [label="tests/contract/test_sdk.py",class="file"];
   "file:tests/integration/conftest.py" [label="tests/integration/conftest.py",class="file"];
+  "file:tests/integration/fixtures.py" [label="tests/integration/fixtures.py",class="file"];
   "file:tests/integration/test_foundation.py" [label="tests/integration/test_foundation.py",class="file"];
   "file:tests/integration/test_memory_control.py" [label="tests/integration/test_memory_control.py",class="file"];
   "file:tests/integration/test_retrieval.py" [label="tests/integration/test_retrieval.py",class="file"];

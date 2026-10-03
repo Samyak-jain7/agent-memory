@@ -95,7 +95,7 @@ def test_explicit_write_rejects_sensitive_content(engine,identities):
     source=client.post('/v1/episodes',json=episode_body(identities),headers=headers(identities)).json()['episode']['id']
     body={'subject_id':str(identities['subject_a']),'kind':'profile','content':'password=do-not-persist','confidence':1,'source':{'episode_id':source}}
     response=client.post('/v1/memories',json=body,headers=headers(identities))
-    assert response.status_code==422 and response.json()['detail']['code']=='sensitive_rejected'
+    assert response.status_code==422 and response.json()['error']['code']=='sensitive_rejected'
     with engine.connect() as c:
         assert c.execute(text('SELECT count(*) FROM memories')).scalar_one()==0
         assert 'do-not-persist' not in str(c.execute(text('SELECT * FROM audit_events')).all())

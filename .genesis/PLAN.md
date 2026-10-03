@@ -90,15 +90,15 @@
 
 ### T-5R — Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.
 
-- state/risk: active / medium
+- state/risk: done / medium
 - requirements: FR-13, NFR-8, AC-4, AC-11
 - scope: packages/contracts, packages/sdk-python, tests/contract, README.md, .gitignore, pyproject.toml, migrations, apps/api, tests/integration
-- gates: sdk-contract-tests: python -m pytest tests/integration tests/contract, independent-review: pending
+- gates: sdk-contract-tests: python -m pytest tests/integration tests/contract, independent-review: pass
 - next: Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests.
 
 ### T-6R — Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.
 
-- state/risk: queued / medium
+- state/risk: active / medium
 - requirements: FR-14, NFR-14, AC-12
 - scope: apps/web, tests/browser, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/api
 - gates: console-tests: npm --prefix apps/web test -- --run, independent-review: pending

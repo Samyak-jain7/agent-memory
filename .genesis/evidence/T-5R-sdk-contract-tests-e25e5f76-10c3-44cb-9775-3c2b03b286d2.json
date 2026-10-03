@@ -1,0 +1,30 @@
+{
+  "task": "T-5R",
+  "gate": "sdk-contract-tests",
+  "kind": "command",
+  "attempt": "e25e5f76-10c3-44cb-9775-3c2b03b286d2",
+  "command": "python -m pytest tests/integration tests/contract",
+  "started_at": "2026-10-03T18:38:56.279Z",
+  "observed_at": "2026-10-03T18:39:00.823Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 67 items\n\ntests/integration/test_foundation.py ...........................         [ 40%]\ntests/integration/test_memory_control.py .........                       [ 53%]\ntests/integration/test_retrieval.py .............                        [ 73%]\ntests/integration/test_worker.py ..........                              [ 88%]\ntests/contract/test_sdk.py ........                                      [100%]\n\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.13/site-packages/starlette/testclient.py:53\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 67 passed, 2 warnings in 3.84s ========================\n",
+  "stderr": "",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "feaad750d09169b8361ff5727eb14fc06ae4704c",
+    "dirty": true
+  },
+  "source_hash": "0e180690e9f83bbdcbb7a4b57fc2902ea3ba1f41a28d8b37b180830c8e3a3f1d",
+  "before_hash": "0e180690e9f83bbdcbb7a4b57fc2902ea3ba1f41a28d8b37b180830c8e3a3f1d",
+  "config_hash": "b1aec5594786212cf9064be9907ba5be5640f0e181d45c9e4cbfef4673ddf046",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "3f831174914731f7addb70f35f4a14638dc213d92150467ecc71262415349120"
+}

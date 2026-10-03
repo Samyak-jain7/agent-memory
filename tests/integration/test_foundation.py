@@ -24,9 +24,9 @@ DATABASE_URL = os.environ.get("TEST_DATABASE_URL", "")
 
 def headers(ids, tenant="tenant_a", actor="actor_a"):
     os.environ["MEMORY_AUTH_SECRET"] = "test-secret"
-    payload = base64.urlsafe_b64encode(f"{ids[tenant]}:{ids[actor]}".encode()).decode().rstrip("=")
-    signature = hmac.new(b"test-secret", payload.encode(), hashlib.sha256).hexdigest()
-    return {"Authorization": f"Bearer {payload}.{signature}", "X-Request-ID": "00000000-0000-4000-8000-000000000001"}
+    from apps.api.auth import issue_token
+    token=issue_token(ids[tenant],ids[actor])
+    return {"Authorization":"Bearer "+token,"X-Request-ID":"00000000-0000-4000-8000-000000000001"}
 
 
 def episode_body(ids, key="episode-1"):
@@ -95,7 +95,7 @@ def test_idempotency_key_rejects_different_payload(engine, identities):
     changed["messages"][0]["content"] = "I prefer coffee"
     conflict = client.post("/v1/episodes", json=changed, headers=headers(identities))
     assert conflict.status_code == 409
-    assert conflict.json()["detail"]["code"] == "idempotency_key_reused"
+    assert conflict.json()["error"]["code"] == "idempotency_key_reused"
     with engine.connect() as connection:
         assert connection.execute(text("SELECT count(*) FROM episodes")).scalar_one() == 1
         assert connection.execute(text("SELECT count(*) FROM formation_jobs")).scalar_one() == 1

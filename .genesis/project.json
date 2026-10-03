@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T18:28:31.715Z"
+    "updated_at": "2026-10-03T18:43:22.922Z"
   },
   "policy": {
     "ponytail": "full",
@@ -25,9 +25,9 @@
   "lifecycle": {
     "phase": "build",
     "status": "active",
-    "active_task": "T-5R",
+    "active_task": "T-6R",
     "blocker": null,
-    "next_action": "Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests."
+    "next_action": "Implement the console against public contracts only and run console-tests."
   },
   "commands": {},
   "workflow": {
@@ -1221,7 +1221,7 @@
     {
       "id": "T-5R",
       "outcome": "Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.",
-      "state": "active",
+      "state": "done",
       "risk": "medium",
       "owner": null,
       "scope": [
@@ -1255,16 +1255,28 @@
           "kind": "command",
           "command": "python -m pytest tests/integration tests/contract",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-5R-sdk-contract-tests-e25e5f76-10c3-44cb-9775-3c2b03b286d2.json",
+            "hash": "3f831174914731f7addb70f35f4a14638dc213d92150467ecc71262415349120",
+            "source_hash": "0e180690e9f83bbdcbb7a4b57fc2902ea3ba1f41a28d8b37b180830c8e3a3f1d",
+            "config_hash": "b1aec5594786212cf9064be9907ba5be5640f0e181d45c9e4cbfef4673ddf046",
+            "observed_at": "2026-10-03T18:39:00.823Z"
+          }
         },
         {
           "id": "independent-review",
           "kind": "review",
           "command": "",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-5R-independent-review-65d4b99c-e6eb-4011-a9de-d0dcbcef0832.json",
+            "hash": "87863f203f52d420f26452841e436ce70f446f93b17d016fe88b9cd1a605f26c",
+            "source_hash": "0e180690e9f83bbdcbb7a4b57fc2902ea3ba1f41a28d8b37b180830c8e3a3f1d",
+            "config_hash": "b1aec5594786212cf9064be9907ba5be5640f0e181d45c9e4cbfef4673ddf046",
+            "observed_at": "2026-10-03T18:43:22.181Z"
+          }
         }
       ],
       "next_action": "Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests.",
@@ -1273,7 +1285,7 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T17:45:16.024Z",
-      "updated_at": "2026-10-03T17:45:16.025Z",
+      "updated_at": "2026-10-03T18:43:22.614Z",
       "base_manifest": {
         ".gitignore": "68234caef72dd2be5c4e31d4bae57c4b928f66fa250936835487c6895207819a",
         ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
@@ -1316,7 +1328,7 @@
     {
       "id": "T-6R",
       "outcome": "Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.",
-      "state": "queued",
+      "state": "active",
       "risk": "medium",
       "owner": null,
       "scope": [
@@ -1364,7 +1376,52 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T17:45:16.230Z",
-      "updated_at": "2026-10-03T17:45:16.232Z"
+      "updated_at": "2026-10-03T17:45:16.232Z",
+      "base_manifest": {
+        ".gitignore": "68234caef72dd2be5c4e31d4bae57c4b928f66fa250936835487c6895207819a",
+        ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
+        "AGENTS.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "CLAUDE.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "README.md": "f508e2865851d1fba4332830a2dc416edec5b047becd549a01f203e1139f9133",
+        "SPEC.md": "849ef760e37bcc658a5c6a98278f95cd692eb6d3a5212f21dc6a48994265d8a6",
+        "apps/api/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/api/auth.py": "b2da1405d4cc50185b90c187de29a856117b4021df56c13e820c55a86d46b1a4",
+        "apps/api/main.py": "c236341fa5e80d595d46724292480716291e01d8b50a79f9f85ee68beb90ef68",
+        "apps/worker/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/worker/erase.py": "81459713e570e4b6c9f26f39f5951df612effc990c978ec5b5f5b857ee53fdbd",
+        "apps/worker/main.py": "920247fed476204f445edee5cddaec038d5287e11c32c91c8b979d281fdd362e",
+        "memory-architecture.mmd": "0954ee3d0d876657283938146461cf562465af98e67a95fef9938a31cffce445",
+        "memory-system.html": "b4566bb5964314c9178ba13041f82ada1276761c4800da6b9e6fddbd32ebc0a3",
+        "migrations/001_foundation.sql": "4e9398810678811fa010ba1f35f7697bcd186927b939e6667a76313ed5c7bda0",
+        "migrations/002_foundation_security.sql": "b7da078062fef4f6b118f85c33b780e3e48b6304585a1ca25da58998433ea901",
+        "migrations/003_formation.sql": "aeb049e8f44b3f9dd27204a5be72e1e58ad40178c72a09ef5e48672acd6913d3",
+        "migrations/004_retrieval.sql": "c8acb5b1877cfcca2935dbe17273570ff2419f1f6d94c6a59dc6dae5fdf954ec",
+        "migrations/005_memory_control.sql": "31cd44ef45b2315e67f91c8bd9011ded5f27dc575d412e3e4a238aca33614b64",
+        "migrations/006_authentication_audit.sql": "917f1e3fbfbf58b078c4b44224f3dcc7f6141135ae4bef48adc910fdb70f1818",
+        "packages/contracts/contracts/__init__.py": "dc0edad547779a58dab278c3bb89f26be66d476cc8b57a8b53f5d5e4f2ce6b6d",
+        "packages/contracts/contracts/models.py": "a7215061b6866a7530e97469c057d0f58ea7773d6263eda685252f116bfcaac9",
+        "packages/contracts/openapi.json": "98e9384bdb70f722d11dcead7aa76925d38758c04689e9c9cd55570cf30def2b",
+        "packages/memory-domain/memory_domain/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/memory-domain/memory_domain/context.py": "430108282873e846f53cd038f9a5c8ff8f806cf1598f131aeb46498d5893aa97",
+        "packages/memory-domain/memory_domain/service.py": "28e81cf5c1c414f12a08299d8726cf4a108dc4c8e1973a7d1de519401caec89f",
+        "packages/model-gateway/model_gateway/__init__.py": "694922d8ac7235698b4a9a7d180a75a4e83027dbed3c00666c8cc620d669ede1",
+        "packages/observability/observability/__init__.py": "11ee61b273d53f40c62ec851506ad6d4d784103b53e99fb38942e637deb5e9fd",
+        "packages/persistence/persistence/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/persistence/persistence/control.py": "0d5fc6931acb304269a7de341558cd99ba68c905bf9196b34d28e9955199966b",
+        "packages/persistence/persistence/repositories.py": "8c82621bf1ae0e9ded33f0182e8ddcad113c86efd8563b155407a11daee1a9e7",
+        "packages/persistence/persistence/retrieval.py": "9912a06c3d0f9ef2ed8ff30be87ae67945f737e8b6a9220c8cb8b4d4667178a5",
+        "packages/sdk-python/memory_sdk/__init__.py": "7b18c86fd95f53d0db69c50d610348fe66808041d690374bdb90d453e68398ad",
+        "packages/sdk-python/memory_sdk/client.py": "647428bd978403c524245776978e4cac55aa627feaccd2574358f7c02ee9f921",
+        "pyproject.toml": "29b5ddb60f0bcd3c2a4cc59715e9b988b46141e7d66bdebf05581621a070553c",
+        "tests/contract/conftest.py": "78b76ddf3e903249577275140a78a8854bec0628cc36ba455e9d7127a2f3a9c5",
+        "tests/contract/test_sdk.py": "4477d3e8953ac4d7d8ec15df1161852d43dd54a0aafc05ddac069aca8ebcc6cd",
+        "tests/integration/conftest.py": "e74771484ca0ad081646fbe4d9377a9fa4d0d9139deadc9f1b694abe97a28d95",
+        "tests/integration/fixtures.py": "5b6afb23f65058066ea8e7a398db584a0325a9e827916dae569f14d7d7da60fa",
+        "tests/integration/test_foundation.py": "3775e4ae88fe6f4d3fdb4268927b8e5d907e210a462a189af0fb11c1f87ba264",
+        "tests/integration/test_memory_control.py": "64f343f31064acc627e6489f51f38581eb97d1970f3bb1df5fba5dd797887a13",
+        "tests/integration/test_retrieval.py": "88879e682d29c9eee2d27290c5bb07b02c8a45553eca70816032fa5dcb653f23",
+        "tests/integration/test_worker.py": "74fe82862be962176e5e86be57c5e674f04ae14c8ecfc990edd8a8eade7d334c"
+      }
     },
     {
       "id": "T-7R",
@@ -1552,6 +1609,15 @@
       "task": "T-4R",
       "human": "Codex delegated by Samyak; independent reviewer foundation_review",
       "reason": "Independent reviewer accepted memory controls and erasure safeguards; 59 current-source isolated integration tests pass.",
+      "revision": null
+    },
+    {
+      "id": "65d4b99c-e6eb-4011-a9de-d0dcbcef0832",
+      "at": "2026-10-03T18:43:22.181Z",
+      "action": "approve",
+      "task": "T-5R",
+      "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+      "reason": "Independent reviewer accepted transport hardening and typed contracts after verifying current-source evidence with 67 passing tests. User expressly delegated phase approvals.",
       "revision": null
     }
   ],
@@ -1983,6 +2049,54 @@
       "cost": null,
       "stop_reason": null,
       "ended_at": "2026-10-03T18:27:19.894Z"
+    },
+    {
+      "id": "100fb14f-2c30-4dd1-9901-4c1333d0b000",
+      "task": "T-5R",
+      "kind": "gate",
+      "command": "python -m pytest tests/integration tests/contract",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 12878,
+      "child_pid": 12971,
+      "started_at": "2026-10-03T18:35:21.608Z",
+      "status": "passed",
+      "before_hash": "dfe5a41e082df4b257f03a752b9ea2f08956ead9dbf2ed9364fc722c488133f0",
+      "config_hash": "b1aec5594786212cf9064be9907ba5be5640f0e181d45c9e4cbfef4673ddf046",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T18:35:25.733Z"
+    },
+    {
+      "id": "e25e5f76-10c3-44cb-9775-3c2b03b286d2",
+      "task": "T-5R",
+      "kind": "gate",
+      "command": "python -m pytest tests/integration tests/contract",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 13767,
+      "child_pid": 13839,
+      "started_at": "2026-10-03T18:38:56.279Z",
+      "status": "passed",
+      "before_hash": "0e180690e9f83bbdcbb7a4b57fc2902ea3ba1f41a28d8b37b180830c8e3a3f1d",
+      "config_hash": "b1aec5594786212cf9064be9907ba5be5640f0e181d45c9e4cbfef4673ddf046",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T18:39:00.823Z"
     }
   ],
   "authorizations": [
@@ -2015,14 +2129,14 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T18:28:31.680Z",
+    "at": "2026-10-03T18:43:22.884Z",
     "revision": {
-      "commit": "e07a6430c86a4abfaea2f857d48a529f55e45335",
+      "commit": "feaad750d09169b8361ff5727eb14fc06ae4704c",
       "dirty": true,
-      "source_hash": "2cad4b0286e5af010a0459f54a07ee284d80f12a302a68b8b190b5d7ba1bb9b9"
+      "source_hash": "0e180690e9f83bbdcbb7a4b57fc2902ea3ba1f41a28d8b37b180830c8e3a3f1d"
     },
-    "active_task": "T-5R",
-    "next_action": "Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests."
+    "active_task": "T-6R",
+    "next_action": "Implement the console against public contracts only and run console-tests."
   },
   "legacy": null
 }

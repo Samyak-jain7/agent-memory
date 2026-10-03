@@ -172,3 +172,11 @@ class SourcesEnvelope(BaseModel):
 
 class VersionConflict(Exception):
     pass
+
+
+class APIError(BaseModel):
+    code: str = Field(pattern=r"^[a-z][a-z0-9_]{0,63}$")
+    request_id: UUID
+
+class APIErrorEnvelope(BaseModel):
+    error: APIError

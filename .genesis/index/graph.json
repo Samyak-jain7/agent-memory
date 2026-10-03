@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "e07a6430c86a4abfaea2f857d48a529f55e45335",
-  "sourceHash": "fd0fcc7d8607f1039b97ee10a25e522ed359303239c3cdb335eca9ee6f7297a7",
+  "revision": "feaad750d09169b8361ff5727eb14fc06ae4704c",
+  "sourceHash": "cbdfdff5d08f3e8bf22d027be05fe643487552cc59714aeb1de82d216dad2b72",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -27,7 +27,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "09a86adb4cf8db84ee593861f37e3833e9f3890acc3e70ddf216ef4a5bab3e3f"
+      "contentHash": "2b73eaf8887a7562d06ec3d503f93bad48e619a59cc21b8eea01fb754942759a"
     },
     {
       "id": "file:apps/api/main.py",
@@ -37,7 +37,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "a28e888e6b27fa3fdf8395d9da8ff2aebac00cba69eb5d17ac6cca3c612eefa5"
+      "contentHash": "b8f07d8a39cbf71bbc95def2814cf405deb343bcf4374c2f604eb6d658189efc"
     },
     {
       "id": "file:apps/worker/__init__.py",
@@ -87,7 +87,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "2befa0ea18dd34670ff9545b120498b7719d994fef374c2033c9de4206e48810"
+      "contentHash": "cbadf521ef1a4a682fc1bbd7ce1dafe6969bb821fbd52223e3395b0ec628f16a"
     },
     {
       "id": "file:packages/memory-domain/memory_domain/__init__.py",
@@ -180,6 +180,46 @@
       "contentHash": "351043c79882b7303a15993587e46c9db55f79145d788cfe2a9ea23568c95997"
     },
     {
+      "id": "file:packages/sdk-python/memory_sdk/__init__.py",
+      "type": "file",
+      "label": "packages/sdk-python/memory_sdk/__init__.py",
+      "path": "packages/sdk-python/memory_sdk/__init__.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "29c5905d0c2af530ef9f6074e3b5e98c13eecd0dcf52a8d68d2ac7ab7c9c412f"
+    },
+    {
+      "id": "file:packages/sdk-python/memory_sdk/client.py",
+      "type": "file",
+      "label": "packages/sdk-python/memory_sdk/client.py",
+      "path": "packages/sdk-python/memory_sdk/client.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "fbf8957678f438dfefb9da01d5d6dabd6cfa5646e4bdc57e3ca142c1bbd4391d"
+    },
+    {
+      "id": "file:tests/contract/conftest.py",
+      "type": "file",
+      "label": "tests/contract/conftest.py",
+      "path": "tests/contract/conftest.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "8adbd69b442fed690a2a5d2b29f0fa29549e7ea4a3c9972e065e9cab2858d956"
+    },
+    {
+      "id": "file:tests/contract/test_sdk.py",
+      "type": "file",
+      "label": "tests/contract/test_sdk.py",
+      "path": "tests/contract/test_sdk.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "627a0514535579fb17b8012415a08c088020c831e4b50a2240c62e8159ebf7d3"
+    },
+    {
       "id": "file:tests/integration/conftest.py",
       "type": "file",
       "label": "tests/integration/conftest.py",
@@ -187,7 +227,17 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "9fe473d9edad1331b5b037dcd0b8ca50c1fe9e7042a90cccc4bb4227cd285e80"
+      "contentHash": "ba89f5b78b0606b374c02282ab3da6a2cef780bc8800565b78941e358b5173c4"
+    },
+    {
+      "id": "file:tests/integration/fixtures.py",
+      "type": "file",
+      "label": "tests/integration/fixtures.py",
+      "path": "tests/integration/fixtures.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "672dd87c15e8495af38db99dec6d6cbe4f3e79ddc073d5fa245a51f59d65d674"
     },
     {
       "id": "file:tests/integration/test_foundation.py",
@@ -197,7 +247,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "4126c511558720834ef95e1ce8f9874dea5458ad375dc38955b098a5ede0d5f4"
+      "contentHash": "be9fcb157bc780c500efe4f71efeb262ecf6e56f94e1a310f556c991e5c63488"
     },
     {
       "id": "file:tests/integration/test_memory_control.py",
@@ -227,7 +277,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "479c00751b3575dc625a23a170f677091813f38b4950f6a20a4b032ff703f6ab"
+      "contentHash": "a1ef80976838ba4d2424b8d6594288237bcc313f4459bfc9747dfc41bf2c6cb2"
     }
   ],
   "edges": [],

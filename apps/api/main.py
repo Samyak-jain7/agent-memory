@@ -32,11 +32,25 @@ def create_app(database_url: str | None = None) -> FastAPI:
         composer.close()
         engine.dispose()
 
-    app = FastAPI(title="Memory System", version="1.0.0", lifespan=lifespan)
+    from contracts.models import APIErrorEnvelope
+    app = FastAPI(title="Memory System", version="1.0.0", lifespan=lifespan,
+        responses={status:{"model":APIErrorEnvelope} for status in [401,404,409,422,503]})
+    app.state.repository=repository
+    app.state.database_engine=engine
+    from fastapi import HTTPException
+    from fastapi.exceptions import RequestValidationError
+    @app.exception_handler(HTTPException)
+    async def http_error(request:Request,error:HTTPException):
+        code=error.detail.get('code','request_failed') if isinstance(error.detail,dict) else 'request_failed'
+        return JSONResponse(status_code=error.status_code,content={'error':{'code':code,'request_id':request.state.request_id}},headers=error.headers)
+    @app.exception_handler(RequestValidationError)
+    async def validation_error(request:Request,error:RequestValidationError):
+        return JSONResponse(status_code=422,content={'error':{'code':'invalid_request','request_id':request.state.request_id}})
+
     from contracts.models import PolicyRejected
     @app.exception_handler(PolicyRejected)
     async def policy_rejected(request: Request,error: PolicyRejected):
-        return JSONResponse(status_code=422,content={"detail":{"code":str(error)}})
+        return JSONResponse(status_code=422,content={"error":{"code":str(error),"request_id":request.state.request_id}})
 
 
     @app.middleware("http")
@@ -95,7 +109,7 @@ def create_app(database_url: str | None = None) -> FastAPI:
     from contracts.models import MemoryPage,ContextRequest,ContextEnvelope,CursorError
     @app.exception_handler(CursorError)
     async def invalid_cursor(request:Request,error:CursorError):
-        return JSONResponse(status_code=400,content={'detail':{'code':'invalid_cursor'}})
+        return JSONResponse(status_code=400,content={'error':{'code':'invalid_cursor','request_id':request.state.request_id}})
 
     @app.get('/v1/memories',response_model=MemoryPage)
     def list_memories(request:Request,subject_id:UUID,limit:int=Query(20,ge=1,le=100),cursor:str|None=Query(None,max_length=2048),kind:str|None=None,principal:Principal=Depends(principal_from_headers)):
@@ -135,7 +149,7 @@ def create_app(database_url: str | None = None) -> FastAPI:
     from contracts.models import CorrectMemoryRequest,ForgetMemoryRequest,HistoryEnvelope,ErasureEnvelope,SourcesEnvelope,VersionConflict
     @app.exception_handler(VersionConflict)
     async def version_conflict(request:Request,error:VersionConflict):
-        return JSONResponse(status_code=409,content={'detail':{'code':'version_conflict'}})
+        return JSONResponse(status_code=409,content={'error':{'code':'version_conflict','request_id':request.state.request_id}})
 
     @app.patch('/v1/memories/{memory_id}',response_model=MemoryCreated)
     def correct(memory_id:UUID,body:CorrectMemoryRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
