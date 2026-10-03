@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T18:43:22.922Z"
+    "updated_at": "2026-10-03T18:54:30.667Z"
   },
   "policy": {
     "ponytail": "full",
@@ -25,9 +25,9 @@
   "lifecycle": {
     "phase": "build",
     "status": "active",
-    "active_task": "T-6R",
+    "active_task": "T-7R",
     "blocker": null,
-    "next_action": "Implement the console against public contracts only and run console-tests."
+    "next_action": "Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification."
   },
   "commands": {},
   "workflow": {
@@ -1328,7 +1328,7 @@
     {
       "id": "T-6R",
       "outcome": "Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.",
-      "state": "active",
+      "state": "done",
       "risk": "medium",
       "owner": null,
       "scope": [
@@ -1358,16 +1358,28 @@
           "kind": "command",
           "command": "npm --prefix apps/web test -- --run",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-6R-console-tests-ed02f1f8-6335-4b94-ae4f-2c14d12d95ba.json",
+            "hash": "285522d5dd2affb53c0b640fd551678a10994b59f239333ea59431fb702494cb",
+            "source_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355",
+            "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+            "observed_at": "2026-10-03T18:53:24.861Z"
+          }
         },
         {
           "id": "independent-review",
           "kind": "review",
           "command": "",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-6R-independent-review-decc7121-767a-426a-9791-9e52d377f4b1.json",
+            "hash": "1258576f6f70baae3e77703e19b303a636b8254fadbd29354dc3601e04a5e318",
+            "source_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355",
+            "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+            "observed_at": "2026-10-03T18:54:29.858Z"
+          }
         }
       ],
       "next_action": "Implement the console against public contracts only and run console-tests.",
@@ -1376,7 +1388,7 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T17:45:16.230Z",
-      "updated_at": "2026-10-03T17:45:16.232Z",
+      "updated_at": "2026-10-03T18:54:30.329Z",
       "base_manifest": {
         ".gitignore": "68234caef72dd2be5c4e31d4bae57c4b928f66fa250936835487c6895207819a",
         ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
@@ -1426,7 +1438,7 @@
     {
       "id": "T-7R",
       "outcome": "Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.",
-      "state": "queued",
+      "state": "active",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -1497,7 +1509,63 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T17:45:16.439Z",
-      "updated_at": "2026-10-03T17:45:16.440Z"
+      "updated_at": "2026-10-03T17:45:16.440Z",
+      "base_manifest": {
+        ".gitignore": "68234caef72dd2be5c4e31d4bae57c4b928f66fa250936835487c6895207819a",
+        ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
+        "AGENTS.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "CLAUDE.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "README.md": "c76b03ebfcfe26bcf896ed641399e85e0f3299f30a9365c03011669e32bc30c5",
+        "SPEC.md": "849ef760e37bcc658a5c6a98278f95cd692eb6d3a5212f21dc6a48994265d8a6",
+        "apps/api/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/api/auth.py": "b2da1405d4cc50185b90c187de29a856117b4021df56c13e820c55a86d46b1a4",
+        "apps/api/main.py": "6410110d0dafa6d6746ecfc2650acaf8045925250b2057d8d831867ea0a8765f",
+        "apps/web/app/api/proxy/route.js": "d7e1cae65a7b608d75780b6ac00b09a6589852b2e13f148d8456c6592c0ed3ef",
+        "apps/web/app/layout.jsx": "f4a3ed4e9a61b5dfbcc71d4452a5b1f509e48072605997b323e5e30015d54c23",
+        "apps/web/app/page.jsx": "2eebb20e35ac9999840aece5d405cc99b26beb6a79243d2f9711d51cca0bec50",
+        "apps/web/app/style.css": "cf1c37aa86d9a7e95827220607cdf867ab3fe4a42fe5e9c2011ee3b89bb9e213",
+        "apps/web/package-lock.json": "3498491d962860d58e623fb04f507beed9467254948db0330f73e348be3730e4",
+        "apps/web/package.json": "e1c8b237d6d21776470e8a13fcbf69b74cfdd6d041bf3f685a165bd3d3ef6cf2",
+        "apps/web/playwright.config.mjs": "aad271a928add747d2f516a6b5db2d7aec8e970c59eef1fb7eada51fdd65fadf",
+        "apps/web/run-tests.mjs": "8b1dfcd9ecec1beb5dbe3fcc7fc8018c174169a4547e55449a02834d880cab45",
+        "apps/worker/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/worker/erase.py": "81459713e570e4b6c9f26f39f5951df612effc990c978ec5b5f5b857ee53fdbd",
+        "apps/worker/main.py": "920247fed476204f445edee5cddaec038d5287e11c32c91c8b979d281fdd362e",
+        "memory-architecture.mmd": "0954ee3d0d876657283938146461cf562465af98e67a95fef9938a31cffce445",
+        "memory-system.html": "b4566bb5964314c9178ba13041f82ada1276761c4800da6b9e6fddbd32ebc0a3",
+        "migrations/001_foundation.sql": "4e9398810678811fa010ba1f35f7697bcd186927b939e6667a76313ed5c7bda0",
+        "migrations/002_foundation_security.sql": "b7da078062fef4f6b118f85c33b780e3e48b6304585a1ca25da58998433ea901",
+        "migrations/003_formation.sql": "aeb049e8f44b3f9dd27204a5be72e1e58ad40178c72a09ef5e48672acd6913d3",
+        "migrations/004_retrieval.sql": "c8acb5b1877cfcca2935dbe17273570ff2419f1f6d94c6a59dc6dae5fdf954ec",
+        "migrations/005_memory_control.sql": "31cd44ef45b2315e67f91c8bd9011ded5f27dc575d412e3e4a238aca33614b64",
+        "migrations/006_authentication_audit.sql": "917f1e3fbfbf58b078c4b44224f3dcc7f6141135ae4bef48adc910fdb70f1818",
+        "packages/contracts/contracts/__init__.py": "dc0edad547779a58dab278c3bb89f26be66d476cc8b57a8b53f5d5e4f2ce6b6d",
+        "packages/contracts/contracts/models.py": "eeb63ac4904cabc805ee5b5dcd622b674e02ccb20e5314ee4bdc25f7ba44498b",
+        "packages/contracts/openapi.json": "b4bfa9aede10b79098ad27b649dd24474bd37de607f03c356412c27d696a9d95",
+        "packages/memory-domain/memory_domain/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/memory-domain/memory_domain/context.py": "430108282873e846f53cd038f9a5c8ff8f806cf1598f131aeb46498d5893aa97",
+        "packages/memory-domain/memory_domain/service.py": "28e81cf5c1c414f12a08299d8726cf4a108dc4c8e1973a7d1de519401caec89f",
+        "packages/model-gateway/model_gateway/__init__.py": "694922d8ac7235698b4a9a7d180a75a4e83027dbed3c00666c8cc620d669ede1",
+        "packages/observability/observability/__init__.py": "11ee61b273d53f40c62ec851506ad6d4d784103b53e99fb38942e637deb5e9fd",
+        "packages/persistence/persistence/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/persistence/persistence/control.py": "0d5fc6931acb304269a7de341558cd99ba68c905bf9196b34d28e9955199966b",
+        "packages/persistence/persistence/repositories.py": "8c82621bf1ae0e9ded33f0182e8ddcad113c86efd8563b155407a11daee1a9e7",
+        "packages/persistence/persistence/retrieval.py": "9912a06c3d0f9ef2ed8ff30be87ae67945f737e8b6a9220c8cb8b4d4667178a5",
+        "packages/sdk-python/memory_sdk/__init__.py": "7b18c86fd95f53d0db69c50d610348fe66808041d690374bdb90d453e68398ad",
+        "packages/sdk-python/memory_sdk/client.py": "647428bd978403c524245776978e4cac55aa627feaccd2574358f7c02ee9f921",
+        "pyproject.toml": "29b5ddb60f0bcd3c2a4cc59715e9b988b46141e7d66bdebf05581621a070553c",
+        "tests/browser/conftest.py": "124089ff08b1cddca41cfee1413e542f1760a9287eacb4bba22680ba8ae6cc19",
+        "tests/browser/console.spec.cjs": "a1353101c4c5c248923c102946db434e357f62fcda4f06dccf37d4b63f0d29eb",
+        "tests/browser/test_audit_api.py": "af9ccb417a5883e9bfa5b0c6e8fcdbaec3c5a61eb7285c14fce8f6cf648c1af5",
+        "tests/contract/conftest.py": "78b76ddf3e903249577275140a78a8854bec0628cc36ba455e9d7127a2f3a9c5",
+        "tests/contract/test_sdk.py": "4477d3e8953ac4d7d8ec15df1161852d43dd54a0aafc05ddac069aca8ebcc6cd",
+        "tests/integration/conftest.py": "e74771484ca0ad081646fbe4d9377a9fa4d0d9139deadc9f1b694abe97a28d95",
+        "tests/integration/fixtures.py": "5b6afb23f65058066ea8e7a398db584a0325a9e827916dae569f14d7d7da60fa",
+        "tests/integration/test_foundation.py": "3775e4ae88fe6f4d3fdb4268927b8e5d907e210a462a189af0fb11c1f87ba264",
+        "tests/integration/test_memory_control.py": "64f343f31064acc627e6489f51f38581eb97d1970f3bb1df5fba5dd797887a13",
+        "tests/integration/test_retrieval.py": "88879e682d29c9eee2d27290c5bb07b02c8a45553eca70816032fa5dcb653f23",
+        "tests/integration/test_worker.py": "74fe82862be962176e5e86be57c5e674f04ae14c8ecfc990edd8a8eade7d334c"
+      }
     }
   ],
   "learning_proposals": [],
@@ -1618,6 +1686,15 @@
       "task": "T-5R",
       "human": "Codex delegated by Samyak; independent reviewer foundation_review",
       "reason": "Independent reviewer accepted transport hardening and typed contracts after verifying current-source evidence with 67 passing tests. User expressly delegated phase approvals.",
+      "revision": null
+    },
+    {
+      "id": "decc7121-767a-426a-9791-9e52d377f4b1",
+      "at": "2026-10-03T18:54:29.858Z",
+      "action": "approve",
+      "task": "T-6R",
+      "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+      "reason": "Independent reviewer accepted current-source console proof including Tab keyboard lifecycle, delayed request race fix, audit isolation, 8 Chromium tests and 68 Python tests. User delegated phase approval.",
       "revision": null
     }
   ],
@@ -2097,6 +2174,150 @@
       "cost": null,
       "stop_reason": null,
       "ended_at": "2026-10-03T18:39:00.823Z"
+    },
+    {
+      "id": "310954e9-d977-4352-ad81-85816fdccdd5",
+      "task": "T-6R",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 16103,
+      "child_pid": 16154,
+      "started_at": "2026-10-03T18:48:19.612Z",
+      "status": "failed",
+      "before_hash": "497505cf41c5eb8d90ac43db120f9256d6046c0d0989e1d25277e1efc1dcf6d0",
+      "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": "command-failed",
+      "ended_at": "2026-10-03T18:48:32.613Z"
+    },
+    {
+      "id": "cfff1c5d-0040-4664-801d-d7a8b5a58df7",
+      "task": "T-6R",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 16707,
+      "child_pid": 16770,
+      "started_at": "2026-10-03T18:49:39.644Z",
+      "status": "failed",
+      "before_hash": "f57814d2abbe4421502759807aa33d50f9f30cff0b69a819e5618bd4b3a928fc",
+      "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": "command-failed",
+      "ended_at": "2026-10-03T18:49:50.405Z"
+    },
+    {
+      "id": "8da4e649-a403-46af-8bdf-e808935a8ca2",
+      "task": "T-6R",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 17218,
+      "child_pid": 17281,
+      "started_at": "2026-10-03T18:50:15.428Z",
+      "status": "passed",
+      "before_hash": "4c679bb88da577d4f49da578586f57149287485b312e43d08cd9de9c31f2a0d7",
+      "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T18:50:24.905Z"
+    },
+    {
+      "id": "3ca2f824-ef59-43c6-86f4-0b592cd2d427",
+      "task": "T-6R",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 17756,
+      "child_pid": 17835,
+      "started_at": "2026-10-03T18:50:57.905Z",
+      "status": "passed",
+      "before_hash": "3db5a2cf32d1ac79bf5ac8c2f2d29a7604324d683824d86f8831a7bd834c3ee1",
+      "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T18:51:08.135Z"
+    },
+    {
+      "id": "feae2c22-d489-400a-b8be-cba0906c3a56",
+      "task": "T-6R",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 18448,
+      "child_pid": 18527,
+      "started_at": "2026-10-03T18:52:19.872Z",
+      "status": "passed",
+      "before_hash": "ad5a891f6e53ea770757d0fa7720fc7688f9743d0cd88eee72057d6a280e0c4b",
+      "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T18:52:31.249Z"
+    },
+    {
+      "id": "ed02f1f8-6335-4b94-ae4f-2c14d12d95ba",
+      "task": "T-6R",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 19056,
+      "child_pid": 19138,
+      "started_at": "2026-10-03T18:53:14.030Z",
+      "status": "passed",
+      "before_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355",
+      "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T18:53:24.861Z"
     }
   ],
   "authorizations": [
@@ -2129,14 +2350,14 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T18:43:22.884Z",
+    "at": "2026-10-03T18:54:30.627Z",
     "revision": {
-      "commit": "feaad750d09169b8361ff5727eb14fc06ae4704c",
+      "commit": "f8d5c20a444918aec97c710bdd66ce60d7aac8e9",
       "dirty": true,
-      "source_hash": "0e180690e9f83bbdcbb7a4b57fc2902ea3ba1f41a28d8b37b180830c8e3a3f1d"
+      "source_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355"
     },
-    "active_task": "T-6R",
-    "next_action": "Implement the console against public contracts only and run console-tests."
+    "active_task": "T-7R",
+    "next_action": "Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification."
   },
   "legacy": null
 }

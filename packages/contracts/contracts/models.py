@@ -180,3 +180,18 @@ class APIError(BaseModel):
 
 class APIErrorEnvelope(BaseModel):
     error: APIError
+
+
+class AuditEvent(BaseModel):
+    id: UUID
+    actor_id: UUID
+    subject_id: UUID | None
+    action: str
+    resource_id: UUID | None
+    request_id: str
+    outcome: str
+    created_at: datetime
+
+class AuditEnvelope(BaseModel):
+    events: list[AuditEvent]
+    request_id: str

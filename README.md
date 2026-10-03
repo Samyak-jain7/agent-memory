@@ -27,3 +27,17 @@ Erasure access revoked after forget transitions the job to `blocked` with a safe
 Python SDK: `from memory_sdk import MemoryClient, CaptureEpisodeRequest, Message`. The SDK uses canonical Pydantic transport models shared with FastAPI; the published OpenAPI snapshot is derived from those models and contract-tested against the running app. It exposes capture, add/get/list/search/update/forget, context, job state, history, sources and erasure status/retry. Requests generate or preserve UUID request IDs; errors carry machine codes and request IDs without payloads. No hidden retries occur. HTTPS is required for non-loopback SDK endpoints.
 
 Credentials are signed, tenant/actor-scoped, expiring bearer tokens (maximum one day), issued by trusted administration with `apps.api.auth.issue_token`. Tokens are not self-service grants; active actor and subject grants are checked by repositories. Invalid credential attempts are durably recorded without credential payloads.
+
+## Operator console
+
+Run `npm --prefix apps/web ci`, then `npm --prefix apps/web run dev`.
+The server uses `API_URL` (default `http://127.0.0.1:8000`); remote APIs require HTTPS.
+Paste an expiring access token and a granted subject UUID. Tokens stay in React memory and
+are cleared on reload; the console never stores credentials in browser storage.
+Source evidence requires a separate inspection grant. Correction requires an existing supporting
+episode for the same subject. The confirmation dialog describes immediate suppression,
+asynchronous erasure, and shared-evidence retention. Audit detail is bounded to 100 latest events.
+Run the API without Uvicorn access logs so search text is not logged in request URLs.
+`npm --prefix apps/web test -- --run` builds Next.js and runs actual Chromium keyboard
+lifecycle tests at 1280px and 390px. Browser fixtures isolate UI behavior; Python contract
+and integration tests separately verify the database and public API lifecycle.

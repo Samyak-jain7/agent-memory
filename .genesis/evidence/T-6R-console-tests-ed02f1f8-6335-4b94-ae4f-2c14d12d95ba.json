@@ -1,0 +1,30 @@
+{
+  "task": "T-6R",
+  "gate": "console-tests",
+  "kind": "command",
+  "attempt": "ed02f1f8-6335-4b94-ae4f-2c14d12d95ba",
+  "command": "npm --prefix apps/web test -- --run",
+  "started_at": "2026-10-03T18:53:14.030Z",
+  "observed_at": "2026-10-03T18:53:24.861Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "\n> memory-console@1.0.0 test\n> node run-tests.mjs --run\n\n▲ Next.js 16.3.8 (Turbopack)\n✓ Running next.config took 5ms\n\n  Creating an optimized production build ...\n✓ Compiled successfully in 297ms\n  Running TypeScript ...\n  Finished TypeScript in 1ms ...\n  Collecting page data using 5 workers ...\n  Generating static pages using 5 workers (0/4) ...\n  Generating static pages using 5 workers (1/4) \r\n  Generating static pages using 5 workers (2/4) \r\n  Generating static pages using 5 workers (3/4) \r\n✓ Generating static pages using 5 workers (4/4) in 257ms\n  Finalizing page optimization ...\n\nRoute (app)\n┌ ○ /\n├ ○ /_not-found\n└ ƒ /api/proxy\n\n\n○  (Static)   prerendered as static content\nƒ  (Dynamic)  server-rendered on demand\n\n\nRunning 8 tests using 2 workers\n\n  ✓  1 [mobile] › ../../tests/browser/console.spec.cjs:4:54 › lifecycle (868ms)\n  ✓  2 [desktop] › ../../tests/browser/console.spec.cjs:4:54 › lifecycle (883ms)\n  ✓  3 [mobile] › ../../tests/browser/console.spec.cjs:4:54 › error recovery (611ms)\n  ✓  4 [desktop] › ../../tests/browser/console.spec.cjs:4:54 › error recovery (643ms)\n  ✓  5 [mobile] › ../../tests/browser/console.spec.cjs:30:1 › proxy denies arbitrary upstream paths (58ms)\n  ✓  6 [desktop] › ../../tests/browser/console.spec.cjs:30:1 › proxy denies arbitrary upstream paths (35ms)\n  ✓  7 [mobile] › ../../tests/browser/console.spec.cjs:36:1 › overlapping selection cannot unlock identity or restore stale data (1.0s)\n  ✓  8 [desktop] › ../../tests/browser/console.spec.cjs:36:1 › overlapping selection cannot unlock identity or restore stale data (1.0s)\n\n  8 passed (3.9s)\n============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 68 items\n\ntests/integration/test_foundation.py ...........................         [ 39%]\ntests/integration/test_memory_control.py .........                       [ 52%]\ntests/integration/test_retrieval.py .............                        [ 72%]\ntests/integration/test_worker.py ..........                              [ 86%]\ntests/contract/test_sdk.py ........                                      [ 98%]\ntests/browser/test_audit_api.py .                                        [100%]\n\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.13/site-packages/starlette/testclient.py:53\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 68 passed, 2 warnings in 3.54s ========================\n",
+  "stderr": "[WebServer] (node:19365) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n(node:19366) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:19367) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "f8d5c20a444918aec97c710bdd66ce60d7aac8e9",
+    "dirty": true
+  },
+  "source_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355",
+  "before_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355",
+  "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "285522d5dd2affb53c0b640fd551678a10994b59f239333ea59431fb702494cb"
+}

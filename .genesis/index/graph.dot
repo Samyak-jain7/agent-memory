@@ -4,6 +4,11 @@ digraph genesis {
   "file:apps/api/__init__.py" [label="apps/api/__init__.py",class="file"];
   "file:apps/api/auth.py" [label="apps/api/auth.py",class="file"];
   "file:apps/api/main.py" [label="apps/api/main.py",class="file"];
+  "file:apps/web/app/api/proxy/route.js" [label="apps/web/app/api/proxy/route.js",class="file"];
+  "file:apps/web/app/layout.jsx" [label="apps/web/app/layout.jsx",class="file"];
+  "file:apps/web/app/page.jsx" [label="apps/web/app/page.jsx",class="file"];
+  "file:apps/web/playwright.config.mjs" [label="apps/web/playwright.config.mjs",class="file"];
+  "file:apps/web/run-tests.mjs" [label="apps/web/run-tests.mjs",class="file"];
   "file:apps/worker/__init__.py" [label="apps/worker/__init__.py",class="file"];
   "file:apps/worker/erase.py" [label="apps/worker/erase.py",class="file"];
   "file:apps/worker/main.py" [label="apps/worker/main.py",class="file"];
@@ -20,6 +25,9 @@ digraph genesis {
   "file:packages/persistence/persistence/retrieval.py" [label="packages/persistence/persistence/retrieval.py",class="file"];
   "file:packages/sdk-python/memory_sdk/__init__.py" [label="packages/sdk-python/memory_sdk/__init__.py",class="file"];
   "file:packages/sdk-python/memory_sdk/client.py" [label="packages/sdk-python/memory_sdk/client.py",class="file"];
+  "file:tests/browser/conftest.py" [label="tests/browser/conftest.py",class="file"];
+  "file:tests/browser/console.spec.cjs" [label="tests/browser/console.spec.cjs",class="file"];
+  "file:tests/browser/test_audit_api.py" [label="tests/browser/test_audit_api.py",class="file"];
   "file:tests/contract/conftest.py" [label="tests/contract/conftest.py",class="file"];
   "file:tests/contract/test_sdk.py" [label="tests/contract/test_sdk.py",class="file"];
   "file:tests/integration/conftest.py" [label="tests/integration/conftest.py",class="file"];
@@ -28,5 +36,33 @@ digraph genesis {
   "file:tests/integration/test_memory_control.py" [label="tests/integration/test_memory_control.py",class="file"];
   "file:tests/integration/test_retrieval.py" [label="tests/integration/test_retrieval.py",class="file"];
   "file:tests/integration/test_worker.py" [label="tests/integration/test_worker.py",class="file"];
-
+  "package:npm:@playwright/test" [label="@playwright/test",class="package"];
+  "package:npm:next" [label="next",class="package"];
+  "package:npm:react" [label="react",class="package"];
+  "runtime:javascript:child_process" [label="child_process",class="runtime"];
+  "symbol:apps/web/app/api/proxy/route.js#function:POST" [label="POST",class="symbol"];
+  "symbol:apps/web/app/api/proxy/route.js#variable:uuid" [label="uuid",class="symbol"];
+  "symbol:apps/web/app/layout.jsx#function:Layout" [label="Layout",class="symbol"];
+  "symbol:apps/web/app/layout.jsx#variable:metadata" [label="metadata",class="symbol"];
+  "symbol:apps/web/app/page.jsx#function:Console" [label="Console",class="symbol"];
+  "symbol:apps/web/run-tests.mjs#variable:r" [label="r",class="symbol"];
+  "symbol:tests/browser/console.spec.cjs#function:keyboardFocus" [label="keyboardFocus",class="symbol"];
+  "symbol:tests/browser/console.spec.cjs#variable:id" [label="id",class="symbol"];
+  "unresolved:apps/web/app/layout.jsx:./style.css" [label="./style.css",class="unresolved"];
+  "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test" [label="../../apps/web/node_modules/@playwright/test",class="unresolved"];
+  "symbol:tests/browser/console.spec.cjs#variable:id" -> "symbol:tests/browser/console.spec.cjs#function:keyboardFocus" [label="calls"];
+  "file:apps/web/app/api/proxy/route.js" -> "symbol:apps/web/app/api/proxy/route.js#function:POST" [label="defines"];
+  "file:apps/web/app/api/proxy/route.js" -> "symbol:apps/web/app/api/proxy/route.js#variable:uuid" [label="defines"];
+  "file:apps/web/app/layout.jsx" -> "symbol:apps/web/app/layout.jsx#function:Layout" [label="defines"];
+  "file:apps/web/app/layout.jsx" -> "symbol:apps/web/app/layout.jsx#variable:metadata" [label="defines"];
+  "file:apps/web/app/page.jsx" -> "symbol:apps/web/app/page.jsx#function:Console" [label="defines"];
+  "file:apps/web/run-tests.mjs" -> "symbol:apps/web/run-tests.mjs#variable:r" [label="defines"];
+  "file:tests/browser/console.spec.cjs" -> "symbol:tests/browser/console.spec.cjs#function:keyboardFocus" [label="defines"];
+  "file:tests/browser/console.spec.cjs" -> "symbol:tests/browser/console.spec.cjs#variable:id" [label="defines"];
+  "file:apps/web/app/api/proxy/route.js" -> "package:npm:next" [label="imports"];
+  "file:apps/web/app/layout.jsx" -> "unresolved:apps/web/app/layout.jsx:./style.css" [label="imports"];
+  "file:apps/web/app/page.jsx" -> "package:npm:react" [label="imports"];
+  "file:apps/web/playwright.config.mjs" -> "package:npm:@playwright/test" [label="imports"];
+  "file:apps/web/run-tests.mjs" -> "runtime:javascript:child_process" [label="imports"];
+  "file:tests/browser/console.spec.cjs" -> "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test" [label="imports"];
 }

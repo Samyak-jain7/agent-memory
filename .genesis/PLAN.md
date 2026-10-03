@@ -98,15 +98,15 @@
 
 ### T-6R — Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.
 
-- state/risk: active / medium
+- state/risk: done / medium
 - requirements: FR-14, NFR-14, AC-12
 - scope: apps/web, tests/browser, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/api
-- gates: console-tests: npm --prefix apps/web test -- --run, independent-review: pending
+- gates: console-tests: npm --prefix apps/web test -- --run, independent-review: pass
 - next: Implement the console against public contracts only and run console-tests.
 
 ### T-7R — Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.
 
-- state/risk: queued / high
+- state/risk: active / high
 - requirements: NFR-9, NFR-10, NFR-11, NFR-12, NFR-13, NFR-15, AC-14, AC-15, AC-16, AC-17, AC-18, AC-19
 - scope: deploy, evals, tests/security, tests/system, scripts, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/api, .github, docker-compose.yml, .env.example, AGENTS.md, CLAUDE.md, apps/web, tests/integration, packages/observability
 - gates: release-verification: python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py, independent-review: pending

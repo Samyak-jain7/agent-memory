@@ -1,0 +1,13 @@
+{
+  "task": "T-6R",
+  "gate": "independent-review",
+  "kind": "review",
+  "attempt": "decc7121-767a-426a-9791-9e52d377f4b1",
+  "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+  "reason": "Independent reviewer accepted current-source console proof including Tab keyboard lifecycle, delayed request race fix, audit isolation, 8 Chromium tests and 68 Python tests. User delegated phase approval.",
+  "observed_at": "2026-10-03T18:54:29.858Z",
+  "source_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355",
+  "config_hash": "04f3debb4ceb0d53b2f119017656e07cb53645568de00067fa8d60dd754f712e",
+  "reviewed_proofs": "ab0f333779d92254516bab93a4ad71bdb4995faaf1c6a676df195b8a1ce8c05c",
+  "hash": "1258576f6f70baae3e77703e19b303a636b8254fadbd29354dc3601e04a5e318"
+}

@@ -185,6 +185,17 @@ def create_app(database_url: str | None = None) -> FastAPI:
         except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
         return ErasureEnvelope(erasure=result,request_id=request.state.request_id)
 
+    from contracts.models import AuditEnvelope
+    from sqlalchemy import text
+    @app.get('/v1/memories/{memory_id}/audit',response_model=AuditEnvelope)
+    def audit(memory_id:UUID,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:
+            with repository._control(principal,memory_id,'memory.audit',request.state.request_id) as (connection,memory):
+                rows=connection.execute(text('SELECT id,actor_id,subject_id,action,resource_id,request_id,outcome,created_at FROM audit_events WHERE resource_id=:id ORDER BY created_at DESC,id DESC LIMIT 100'),{'id':memory_id}).mappings().all()
+                repository._audit(connection,principal,memory['subject_id'],'memory.audit',memory_id,request.state.request_id,'succeeded')
+                return {'events':[dict(row) for row in rows],'request_id':request.state.request_id}
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+
     return app
 
 

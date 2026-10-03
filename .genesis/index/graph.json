@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "feaad750d09169b8361ff5727eb14fc06ae4704c",
-  "sourceHash": "cbdfdff5d08f3e8bf22d027be05fe643487552cc59714aeb1de82d216dad2b72",
+  "revision": "f8d5c20a444918aec97c710bdd66ce60d7aac8e9",
+  "sourceHash": "e1655e038ef5f9e810aaa99e50c291a07bb5593259f5c11151e00069ee6c559b",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -37,7 +37,57 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "b8f07d8a39cbf71bbc95def2814cf405deb343bcf4374c2f604eb6d658189efc"
+      "contentHash": "b3f1f9f197f6dbda65a959e87e70cf32c6804b8695a495485f348ccc3157173d"
+    },
+    {
+      "id": "file:apps/web/app/api/proxy/route.js",
+      "type": "file",
+      "label": "apps/web/app/api/proxy/route.js",
+      "path": "apps/web/app/api/proxy/route.js",
+      "language": "javascript",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "e3c52316b284ba60fbe8b99b85a8f7464dba8cfab198e7b177d2974a3ca6486a"
+    },
+    {
+      "id": "file:apps/web/app/layout.jsx",
+      "type": "file",
+      "label": "apps/web/app/layout.jsx",
+      "path": "apps/web/app/layout.jsx",
+      "language": "javascript",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "195cc3b1e81386edbe184157706dc124bff73c273b468b66573d5125ddfd7f2a"
+    },
+    {
+      "id": "file:apps/web/app/page.jsx",
+      "type": "file",
+      "label": "apps/web/app/page.jsx",
+      "path": "apps/web/app/page.jsx",
+      "language": "javascript",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "8a1c0a37b062b71d39b482e96502a7988bf7a7684474dfeb426c5461509f810d"
+    },
+    {
+      "id": "file:apps/web/playwright.config.mjs",
+      "type": "file",
+      "label": "apps/web/playwright.config.mjs",
+      "path": "apps/web/playwright.config.mjs",
+      "language": "javascript",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "afe141fa51c44e898c822974b0a703d67a453bdc1741d578b6a001a2e6037866"
+    },
+    {
+      "id": "file:apps/web/run-tests.mjs",
+      "type": "file",
+      "label": "apps/web/run-tests.mjs",
+      "path": "apps/web/run-tests.mjs",
+      "language": "javascript",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "2aea4cd88c644f27368df479066f557604bda8fcbbbd19dd73af46e2804e5b38"
     },
     {
       "id": "file:apps/worker/__init__.py",
@@ -87,7 +137,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "cbadf521ef1a4a682fc1bbd7ce1dafe6969bb821fbd52223e3395b0ec628f16a"
+      "contentHash": "987604a889cab064fe6fdf7e9ef6036c556ed9ae95fc2e200846c2b5e3cfb5b5"
     },
     {
       "id": "file:packages/memory-domain/memory_domain/__init__.py",
@@ -200,6 +250,36 @@
       "contentHash": "fbf8957678f438dfefb9da01d5d6dabd6cfa5646e4bdc57e3ca142c1bbd4391d"
     },
     {
+      "id": "file:tests/browser/conftest.py",
+      "type": "file",
+      "label": "tests/browser/conftest.py",
+      "path": "tests/browser/conftest.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "075f357d5d6d8a21b277abfbb7ab1097c66f6fa8ef7cf5cf64efbd720943a43f"
+    },
+    {
+      "id": "file:tests/browser/console.spec.cjs",
+      "type": "file",
+      "label": "tests/browser/console.spec.cjs",
+      "path": "tests/browser/console.spec.cjs",
+      "language": "javascript",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "c149ff8d452510176566f8f44ad75b4cd8c5eca1afad4da74ce430ac4e0445b2"
+    },
+    {
+      "id": "file:tests/browser/test_audit_api.py",
+      "type": "file",
+      "label": "tests/browser/test_audit_api.py",
+      "path": "tests/browser/test_audit_api.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "8cd3617e299f42834a543d187abbfadd8732be546546a57b1f68b630b382f040"
+    },
+    {
       "id": "file:tests/contract/conftest.py",
       "type": "file",
       "label": "tests/contract/conftest.py",
@@ -278,13 +358,303 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "a1ef80976838ba4d2424b8d6594288237bcc313f4459bfc9747dfc41bf2c6cb2"
+    },
+    {
+      "id": "package:npm:@playwright/test",
+      "type": "package",
+      "label": "@playwright/test",
+      "ecosystem": "npm",
+      "confidence": 0.85,
+      "extractor": "import",
+      "contentHash": "55127bf8fcb5e8cf3f6baa09dd89aa73e428bb13fd07f3456c686e81d0f0ac37"
+    },
+    {
+      "id": "package:npm:next",
+      "type": "package",
+      "label": "next",
+      "ecosystem": "npm",
+      "confidence": 0.85,
+      "extractor": "import",
+      "contentHash": "829b826fa053ff800eae160000b068ad0153105748bc231e8db5205b1ea83780"
+    },
+    {
+      "id": "package:npm:react",
+      "type": "package",
+      "label": "react",
+      "ecosystem": "npm",
+      "confidence": 0.85,
+      "extractor": "import",
+      "contentHash": "5235ef4d5d23a83db39d749bfea92bdc3cac601ea2cfae3a8f15e91d7ee494ff"
+    },
+    {
+      "id": "runtime:javascript:child_process",
+      "type": "runtime",
+      "label": "child_process",
+      "language": "javascript",
+      "confidence": 0.85,
+      "extractor": "standard-library",
+      "contentHash": "6e1742450f7f56b80f1004a8a04675b38781504a842956d2dc868e1ff82f444c"
+    },
+    {
+      "id": "symbol:apps/web/app/api/proxy/route.js#function:POST",
+      "type": "symbol",
+      "kind": "function",
+      "name": "POST",
+      "label": "POST",
+      "path": "apps/web/app/api/proxy/route.js",
+      "line": 3,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "e7faf37ff698e29594a8b5033bdd0fce24d3819e54e554e125393b0025846ab5"
+    },
+    {
+      "id": "symbol:apps/web/app/api/proxy/route.js#variable:uuid",
+      "type": "symbol",
+      "kind": "variable",
+      "name": "uuid",
+      "label": "uuid",
+      "path": "apps/web/app/api/proxy/route.js",
+      "line": 2,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "57933b65b588cd4747b4c9fc6cb4e423c336dc25930f949ce5e7763ac9acef16"
+    },
+    {
+      "id": "symbol:apps/web/app/layout.jsx#function:Layout",
+      "type": "symbol",
+      "kind": "function",
+      "name": "Layout",
+      "label": "Layout",
+      "path": "apps/web/app/layout.jsx",
+      "line": 3,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "f302633aae467704f940ebf91c1b9d20552afad61ab3365e1dfbfe80d987b62e"
+    },
+    {
+      "id": "symbol:apps/web/app/layout.jsx#variable:metadata",
+      "type": "symbol",
+      "kind": "variable",
+      "name": "metadata",
+      "label": "metadata",
+      "path": "apps/web/app/layout.jsx",
+      "line": 2,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "1c4009dcdeca39fd5c9228279837d6284c5aefaa467126841e57afc26ba65eec"
+    },
+    {
+      "id": "symbol:apps/web/app/page.jsx#function:Console",
+      "type": "symbol",
+      "kind": "function",
+      "name": "Console",
+      "label": "Console",
+      "path": "apps/web/app/page.jsx",
+      "line": 3,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "86deb43b07a30227b3292a8a9f7262bafa6a37f5e45d88ab20c57c6b2d065103"
+    },
+    {
+      "id": "symbol:apps/web/run-tests.mjs#variable:r",
+      "type": "symbol",
+      "kind": "variable",
+      "name": "r",
+      "label": "r",
+      "path": "apps/web/run-tests.mjs",
+      "line": 4,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "ca5804c9a7e0e405982d102bbd5154b57c2db8ff06d2e23ea228d76af0eb8ea3"
+    },
+    {
+      "id": "symbol:tests/browser/console.spec.cjs#function:keyboardFocus",
+      "type": "symbol",
+      "kind": "function",
+      "name": "keyboardFocus",
+      "label": "keyboardFocus",
+      "path": "tests/browser/console.spec.cjs",
+      "line": 2,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "6fc0b550e20143d4fa7858c41cccfd9b1d9e4b5c26bfed5ef85408306586be76"
+    },
+    {
+      "id": "symbol:tests/browser/console.spec.cjs#variable:id",
+      "type": "symbol",
+      "kind": "variable",
+      "name": "id",
+      "label": "id",
+      "path": "tests/browser/console.spec.cjs",
+      "line": 3,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "4b632640e3a95ba9c79f72471fe60a3daaabdd08a6853d37e18c3f257cb3201a"
+    },
+    {
+      "id": "unresolved:apps/web/app/layout.jsx:./style.css",
+      "type": "unresolved",
+      "label": "./style.css",
+      "confidence": 0.4,
+      "extractor": "import",
+      "contentHash": "e9cc47ca32ca76e876109676af18f85791ca1cd1bec3b3a36d146257148e8b0a"
+    },
+    {
+      "id": "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test",
+      "type": "unresolved",
+      "label": "../../apps/web/node_modules/@playwright/test",
+      "confidence": 0.4,
+      "extractor": "import",
+      "contentHash": "dd61edc636f480320e15820dd2fe5e0c084f2fb714fa605ca15106d74cfc62f5"
     }
   ],
-  "edges": [],
+  "edges": [
+    {
+      "type": "calls",
+      "source": "symbol:tests/browser/console.spec.cjs#variable:id",
+      "target": "symbol:tests/browser/console.spec.cjs#function:keyboardFocus",
+      "tier": "proven",
+      "resolved": true,
+      "confidence": 0.75,
+      "extractor": "conservative-js-calls"
+    },
+    {
+      "type": "defines",
+      "source": "file:apps/web/app/api/proxy/route.js",
+      "target": "symbol:apps/web/app/api/proxy/route.js#function:POST",
+      "line": 3,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
+      "source": "file:apps/web/app/api/proxy/route.js",
+      "target": "symbol:apps/web/app/api/proxy/route.js#variable:uuid",
+      "line": 2,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
+      "source": "file:apps/web/app/layout.jsx",
+      "target": "symbol:apps/web/app/layout.jsx#function:Layout",
+      "line": 3,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
+      "source": "file:apps/web/app/layout.jsx",
+      "target": "symbol:apps/web/app/layout.jsx#variable:metadata",
+      "line": 2,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
+      "source": "file:apps/web/app/page.jsx",
+      "target": "symbol:apps/web/app/page.jsx#function:Console",
+      "line": 3,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
+      "source": "file:apps/web/run-tests.mjs",
+      "target": "symbol:apps/web/run-tests.mjs#variable:r",
+      "line": 4,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
+      "source": "file:tests/browser/console.spec.cjs",
+      "target": "symbol:tests/browser/console.spec.cjs#function:keyboardFocus",
+      "line": 2,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
+      "source": "file:tests/browser/console.spec.cjs",
+      "target": "symbol:tests/browser/console.spec.cjs#variable:id",
+      "line": 3,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "imports",
+      "source": "file:apps/web/app/api/proxy/route.js",
+      "target": "package:npm:next",
+      "specifier": "next/server",
+      "line": 1,
+      "resolved": false,
+      "confidence": 0.5,
+      "extractor": "javascript-imports"
+    },
+    {
+      "type": "imports",
+      "source": "file:apps/web/app/layout.jsx",
+      "target": "unresolved:apps/web/app/layout.jsx:./style.css",
+      "specifier": "./style.css",
+      "line": 1,
+      "resolved": false,
+      "confidence": 0.4,
+      "extractor": "javascript-imports"
+    },
+    {
+      "type": "imports",
+      "source": "file:apps/web/app/page.jsx",
+      "target": "package:npm:react",
+      "specifier": "react",
+      "line": 2,
+      "resolved": false,
+      "confidence": 0.5,
+      "extractor": "javascript-imports"
+    },
+    {
+      "type": "imports",
+      "source": "file:apps/web/playwright.config.mjs",
+      "target": "package:npm:@playwright/test",
+      "specifier": "@playwright/test",
+      "line": 1,
+      "resolved": false,
+      "confidence": 0.5,
+      "extractor": "javascript-imports"
+    },
+    {
+      "type": "imports",
+      "source": "file:apps/web/run-tests.mjs",
+      "target": "runtime:javascript:child_process",
+      "specifier": "node:child_process",
+      "line": 1,
+      "resolved": true,
+      "confidence": 0.85,
+      "extractor": "javascript-imports"
+    },
+    {
+      "type": "imports",
+      "source": "file:tests/browser/console.spec.cjs",
+      "target": "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test",
+      "specifier": "../../apps/web/node_modules/@playwright/test",
+      "line": 1,
+      "resolved": false,
+      "confidence": 0.4,
+      "extractor": "javascript-imports"
+    }
+  ],
   "warnings": [
     "Python AST unavailable: Traceback (most recent call last):\n  File \"<string>\", line 30, in <module>\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py\", line 407, in visit\n    return visitor(node)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py\", line 415, in generic_visit\n    self.visit(item)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py\", line 407, in visit\n    return visitor(node)\n  File \"<string>\", line 7, in visit_Import\nAttributeError: module 'sys' has no attribute 'stdlib_module_names'"
   ],
   "stats": {
-    "unresolvedCalls": 0
+    "unresolvedCalls": 43
   }
 }

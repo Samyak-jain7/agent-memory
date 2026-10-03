@@ -4,11 +4,11 @@
 
 - objective: Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.
 - phase/status: build/active
-- active task: T-6R — Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.
+- active task: T-7R — Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.
 - blocker: none
-- next action: Implement the console against public contracts only and run console-tests.
+- next action: Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification.
 - phase instruction: Implement only the active task and prove it against current sources. Check `genesis query . impact PATH` before editing shared code.
-- gates: console-tests:pending, independent-review:pending
+- gates: release-verification:pending, independent-review:pending
 - recent failures: none
 
 ## Resume
@@ -17,9 +17,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: 10b23e3280d889bc80bf28d7a414212746f626f83c74d540673c8fd9c11488ca. Use --since only after receiving that full packet; kickoff is not the packet.
-- DECISION-be32f824: Trust-focused operator console
+Context fingerprint: d5a6a27a9840680698d02b46e6fdf158aa2ca9b2d7b91407a453bb9df3169062. Use --since only after receiving that full packet; kickoff is not the packet.
 - DECISION-38cab761: Production baseline is launch scope
-- KNOWLEDGE-T1-REVIEW-20261003: Independent foundation review resolved
+- DECISION-DELEGATED-REVIEW-20261003: Task-specific delegated approval
+- DECISION-aecdc4c3: PostgreSQL temporal memory model
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.
