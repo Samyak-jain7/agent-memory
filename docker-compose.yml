@@ -1,0 +1,25 @@
+# Local development only. Production must pass deploy/readiness.py with real evidence.
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: memory_dev
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a local development database password}
+    ports: ["127.0.0.1:54329:5432"]
+    volumes: ["memory-dev-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d memory_dev"]
+      interval: 5s
+      retries: 10
+  api:
+    build: {context: ., dockerfile: deploy/Dockerfile}
+    profiles: ["application"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://memory_service:${MEMORY_DB_PASSWORD:?Set the restricted role password}@postgres:5432/memory_dev
+      MEMORY_AUTH_SECRET: ${MEMORY_AUTH_SECRET:?Set a signing secret}
+      MODEL_PROVIDER: offline
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      postgres: {condition: service_healthy}
+volumes:
+  memory-dev-data:

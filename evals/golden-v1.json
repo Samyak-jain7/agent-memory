@@ -1,0 +1,35 @@
+{
+  "version": "offline-golden-v1",
+  "scope": "deterministic development regression; not live-model quality approval",
+  "development_thresholds": {
+    "extraction_precision": 1,
+    "retrieval_relevance": 1,
+    "citation_correctness": 1,
+    "correction_rate": 0
+  },
+  "cases": [
+    {
+      "text": "I prefer jasmine tea",
+      "expected": true,
+      "query": "jasmine tea"
+    },
+    {
+      "text": "My hobby is hiking",
+      "expected": true,
+      "query": "hiking"
+    },
+    {
+      "text": "I live in Paris",
+      "expected": true,
+      "query": "Paris"
+    },
+    {
+      "text": "Hello there",
+      "expected": false
+    },
+    {
+      "text": "password=synthetic-eval-secret",
+      "expected": false
+    }
+  ]
+}

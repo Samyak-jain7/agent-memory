@@ -12,6 +12,9 @@ digraph genesis {
   "file:apps/worker/__init__.py" [label="apps/worker/__init__.py",class="file"];
   "file:apps/worker/erase.py" [label="apps/worker/erase.py",class="file"];
   "file:apps/worker/main.py" [label="apps/worker/main.py",class="file"];
+  "file:deploy/__init__.py" [label="deploy/__init__.py",class="file"];
+  "file:deploy/readiness.py" [label="deploy/readiness.py",class="file"];
+  "file:evals/run.py" [label="evals/run.py",class="file"];
   "file:packages/contracts/contracts/__init__.py" [label="packages/contracts/contracts/__init__.py",class="file"];
   "file:packages/contracts/contracts/models.py" [label="packages/contracts/contracts/models.py",class="file"];
   "file:packages/memory-domain/memory_domain/__init__.py" [label="packages/memory-domain/memory_domain/__init__.py",class="file"];
@@ -25,6 +28,13 @@ digraph genesis {
   "file:packages/persistence/persistence/retrieval.py" [label="packages/persistence/persistence/retrieval.py",class="file"];
   "file:packages/sdk-python/memory_sdk/__init__.py" [label="packages/sdk-python/memory_sdk/__init__.py",class="file"];
   "file:packages/sdk-python/memory_sdk/client.py" [label="packages/sdk-python/memory_sdk/client.py",class="file"];
+  "file:scripts/__init__.py" [label="scripts/__init__.py",class="file"];
+  "file:scripts/database.py" [label="scripts/database.py",class="file"];
+  "file:scripts/issue_token.py" [label="scripts/issue_token.py",class="file"];
+  "file:scripts/privacy_scan.py" [label="scripts/privacy_scan.py",class="file"];
+  "file:scripts/reindex.py" [label="scripts/reindex.py",class="file"];
+  "file:scripts/serve.py" [label="scripts/serve.py",class="file"];
+  "file:scripts/smoke.py" [label="scripts/smoke.py",class="file"];
   "file:tests/browser/conftest.py" [label="tests/browser/conftest.py",class="file"];
   "file:tests/browser/console.spec.cjs" [label="tests/browser/console.spec.cjs",class="file"];
   "file:tests/browser/test_audit_api.py" [label="tests/browser/test_audit_api.py",class="file"];
@@ -36,6 +46,10 @@ digraph genesis {
   "file:tests/integration/test_memory_control.py" [label="tests/integration/test_memory_control.py",class="file"];
   "file:tests/integration/test_retrieval.py" [label="tests/integration/test_retrieval.py",class="file"];
   "file:tests/integration/test_worker.py" [label="tests/integration/test_worker.py",class="file"];
+  "file:tests/security/conftest.py" [label="tests/security/conftest.py",class="file"];
+  "file:tests/security/test_release_security.py" [label="tests/security/test_release_security.py",class="file"];
+  "file:tests/system/conftest.py" [label="tests/system/conftest.py",class="file"];
+  "file:tests/system/test_release_system.py" [label="tests/system/test_release_system.py",class="file"];
   "package:npm:@playwright/test" [label="@playwright/test",class="package"];
   "package:npm:next" [label="next",class="package"];
   "package:npm:react" [label="react",class="package"];

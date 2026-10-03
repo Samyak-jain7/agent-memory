@@ -1,0 +1,10 @@
+.git
+.genesis
+.humanlayer
+.venv
+**/node_modules
+**/.next
+**/__pycache__
+.env*
+output
+**/test-results

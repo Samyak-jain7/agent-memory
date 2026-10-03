@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T18:54:30.667Z"
+    "updated_at": "2026-10-03T19:10:15.272Z"
   },
   "policy": {
     "ponytail": "full",
@@ -23,11 +23,11 @@
     }
   },
   "lifecycle": {
-    "phase": "build",
-    "status": "active",
-    "active_task": "T-7R",
+    "phase": "verify",
+    "status": "ready",
+    "active_task": null,
     "blocker": null,
-    "next_action": "Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification."
+    "next_action": "Review completed work and choose the next bounded outcome."
   },
   "commands": {},
   "workflow": {
@@ -371,6 +371,15 @@
       "source": ".genesis/evidence/T-1-foundation-tests-91cbf0d7-e5de-4e02-9374-e5298640ad60.json",
       "tags": [],
       "recorded_at": "2026-10-03T16:21:23.639Z",
+      "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-5c679aff",
+      "title": "Verified development release; production launch remains gated",
+      "text": "Independent foundation_review accepted current T-7R proof: 12 security/system checks, real dump/restore and restricted role, offline golden evaluation explicitly not production approved, and real HTTP SDK lifecycle. Additional observed checks: all 80 Python tests passed; Next.js production build and 8 Chromium tests passed; local Docker image built and packaged API/SDK/migrations/readiness imports passed; publishable files and reachable history credential-format scan passed. Production startup and readiness fail without approved numeric/policy targets, platform encryption evidence and live provider evaluation. No deployment or paid model calls performed.",
+      "source": ".genesis/evidence/T-7R-release-verification-e6d2a81f-477e-45a5-bfa5-b9d9c09c2e22.json; observed final local commands on 2026-10-03",
+      "tags": [],
+      "recorded_at": "2026-10-03T19:10:13.972Z",
       "paths": []
     }
   ],
@@ -1438,7 +1447,7 @@
     {
       "id": "T-7R",
       "outcome": "Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.",
-      "state": "active",
+      "state": "done",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -1491,16 +1500,28 @@
           "kind": "command",
           "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-7R-release-verification-e6d2a81f-477e-45a5-bfa5-b9d9c09c2e22.json",
+            "hash": "b7fc7295435c47cbe6a685b44cfa8c0b576c84e95f02a994a2a0424f5bf97b9b",
+            "source_hash": "a59b7f85d9661ce0e8cfb4e5437801b5c65e661018eb7d4be2a13a51ac76ddfd",
+            "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+            "observed_at": "2026-10-03T19:07:08.701Z"
+          }
         },
         {
           "id": "independent-review",
           "kind": "review",
           "command": "",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-7R-independent-review-5deb9b3f-dcc1-4b50-8169-ff1cbe590fba.json",
+            "hash": "196e74a034f8a906f258a82f7fd84e5a85ba3f8658e902cef6b211667ef0c9f7",
+            "source_hash": "a59b7f85d9661ce0e8cfb4e5437801b5c65e661018eb7d4be2a13a51ac76ddfd",
+            "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+            "observed_at": "2026-10-03T19:10:14.396Z"
+          }
         }
       ],
       "next_action": "Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification.",
@@ -1509,7 +1530,7 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T17:45:16.439Z",
-      "updated_at": "2026-10-03T17:45:16.440Z",
+      "updated_at": "2026-10-03T19:10:14.902Z",
       "base_manifest": {
         ".gitignore": "68234caef72dd2be5c4e31d4bae57c4b928f66fa250936835487c6895207819a",
         ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
@@ -1695,6 +1716,15 @@
       "task": "T-6R",
       "human": "Codex delegated by Samyak; independent reviewer foundation_review",
       "reason": "Independent reviewer accepted current-source console proof including Tab keyboard lifecycle, delayed request race fix, audit isolation, 8 Chromium tests and 68 Python tests. User delegated phase approval.",
+      "revision": null
+    },
+    {
+      "id": "5deb9b3f-dcc1-4b50-8169-ff1cbe590fba",
+      "at": "2026-10-03T19:10:14.396Z",
+      "action": "approve",
+      "task": "T-7R",
+      "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+      "reason": "Independent reviewer accepted verified development release proof with matching source hash. Production approval remains explicitly absent and enforced by readiness/startup guards. User delegated phase approvals.",
       "revision": null
     }
   ],
@@ -2318,6 +2348,126 @@
       "cost": null,
       "stop_reason": null,
       "ended_at": "2026-10-03T18:53:24.861Z"
+    },
+    {
+      "id": "7e851a1d-aabc-4495-8a2f-5eae4f132a46",
+      "task": "T-7R",
+      "kind": "gate",
+      "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 20922,
+      "child_pid": 20994,
+      "started_at": "2026-10-03T18:59:41.292Z",
+      "status": "failed",
+      "before_hash": "a1f80d401b99f3f28a1492e58adf3369a2bcaf4faf6e374c023be5dff3daf14d",
+      "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": "command-failed",
+      "ended_at": "2026-10-03T18:59:42.745Z"
+    },
+    {
+      "id": "f02280e2-b047-4f04-bbb1-14802f63805f",
+      "task": "T-7R",
+      "kind": "gate",
+      "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 21448,
+      "child_pid": 21542,
+      "started_at": "2026-10-03T19:01:10.458Z",
+      "status": "failed",
+      "before_hash": "74ed0ee882eb71112317f1566fbff513925d9d4d7afd2acf73697e3572fa8b66",
+      "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": "command-failed",
+      "ended_at": "2026-10-03T19:01:13.028Z"
+    },
+    {
+      "id": "ae665254-3553-4f6f-ab97-e402a94168ca",
+      "task": "T-7R",
+      "kind": "gate",
+      "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 22074,
+      "child_pid": 22146,
+      "started_at": "2026-10-03T19:03:08.717Z",
+      "status": "failed",
+      "before_hash": "c729f6c917244da84b42a9b1a19a3684b76abdaa43b93a0f4871085ae1c57667",
+      "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": "command-failed",
+      "ended_at": "2026-10-03T19:03:11.273Z"
+    },
+    {
+      "id": "fa214426-aa31-45b6-8811-205d499ae053",
+      "task": "T-7R",
+      "kind": "gate",
+      "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 22661,
+      "child_pid": 22733,
+      "started_at": "2026-10-03T19:04:57.829Z",
+      "status": "passed",
+      "before_hash": "54c07e1df43646c460d1c35649474289709928684129432119697f4243b03b7d",
+      "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T19:05:01.193Z"
+    },
+    {
+      "id": "e6d2a81f-477e-45a5-bfa5-b9d9c09c2e22",
+      "task": "T-7R",
+      "kind": "gate",
+      "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 23336,
+      "child_pid": 23421,
+      "started_at": "2026-10-03T19:07:05.840Z",
+      "status": "passed",
+      "before_hash": "a59b7f85d9661ce0e8cfb4e5437801b5c65e661018eb7d4be2a13a51ac76ddfd",
+      "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T19:07:08.701Z"
     }
   ],
   "authorizations": [
@@ -2350,14 +2500,14 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T18:54:30.627Z",
+    "at": "2026-10-03T19:10:15.231Z",
     "revision": {
-      "commit": "f8d5c20a444918aec97c710bdd66ce60d7aac8e9",
+      "commit": "839f996bb794d8f634347f1959f29afce99e42ba",
       "dirty": true,
-      "source_hash": "9e76024b30f445d5ec5acf9265c3259157101da8092861786e3346a777b1f355"
+      "source_hash": "a59b7f85d9661ce0e8cfb4e5437801b5c65e661018eb7d4be2a13a51ac76ddfd"
     },
-    "active_task": "T-7R",
-    "next_action": "Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification."
+    "active_task": null,
+    "next_action": "Review completed work and choose the next bounded outcome."
   },
   "legacy": null
 }

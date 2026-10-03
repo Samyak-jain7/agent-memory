@@ -13,8 +13,8 @@ def engine():
     try:
         with engine.begin() as connection:
             connection.execute(text("DROP SCHEMA public CASCADE; CREATE SCHEMA public"))
-            for migration in sorted(Path("migrations").glob("*.sql")):
-                connection.execute(text(migration.read_text()))
+        from scripts.database import migrate
+        migrate(engine)
     except Exception as error:
         pytest.fail(f"PostgreSQL with pgvector is required: {error}")
     yield engine

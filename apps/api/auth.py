@@ -42,6 +42,7 @@ def principal_from_headers(request:Request,credentials:HTTPAuthorizationCredenti
         if type(payload['exp']) is not int or type(payload['iat']) is not int:raise ValueError()
         now=time.time()
         if payload['exp']<=now or payload['iat']>now+60 or not 0<payload['exp']-payload['iat']<=86400:raise ValueError()
+        if not isinstance(payload.get('tenant'),str) or not isinstance(payload.get('actor'),str):raise ValueError()
         return Principal(UUID(payload['tenant']),UUID(payload['actor']))
     except (KeyError,ValueError,TypeError):
         with operation('memory.authentication.denied',request_id=request.state.request_id,outcome='denied'):

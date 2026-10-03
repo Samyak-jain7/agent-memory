@@ -1,0 +1,32 @@
+name: Verify memory system
+on: [push, pull_request]
+permissions: {contents: read}
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env: {POSTGRES_PASSWORD: verification-only, POSTGRES_DB: memory_test}
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U postgres -d memory_test" --health-interval 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://postgres:verification-only@127.0.0.1:5432/memory_test
+      BACKUP_TEST_CONTAINER: ${{ job.services.postgres.id }}
+      PYTHONDONTWRITEBYTECODE: "1"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.13"}
+      - uses: actions/setup-node@v4
+        with: {node-version: "24"}
+      - run: pip install -e . pytest
+      - run: npm --prefix apps/web ci
+      - run: cd apps/web && npx --no-install playwright install --with-deps chromium
+      - run: npm --prefix apps/web test -- --run
+      - run: python -m pytest tests/security tests/system
+      - run: python evals/run.py
+      - run: python scripts/smoke.py
+      - name: Production readiness must remain blocked without approval
+        run: if python -m deploy.readiness deploy/production.example.json; then exit 1; fi

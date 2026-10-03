@@ -1,0 +1,30 @@
+{
+  "task": "T-7R",
+  "gate": "release-verification",
+  "kind": "command",
+  "attempt": "fa214426-aa31-45b6-8811-205d499ae053",
+  "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+  "started_at": "2026-10-03T19:04:57.829Z",
+  "observed_at": "2026-10-03T19:05:01.193Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 10 items\n\ntests/security/test_release_security.py ........                         [ 80%]\ntests/system/test_release_system.py ..                                   [100%]\n\n============================== 10 passed in 1.36s ==============================\n{\n  \"version\": \"offline-golden-v1\",\n  \"scope\": \"deterministic development regression; not live-model quality approval\",\n  \"model\": \"offline-development-v1\",\n  \"metrics\": {\n    \"extraction_precision\": 1.0,\n    \"retrieval_relevance\": 1.0,\n    \"citation_correctness\": 1.0,\n    \"correction_rate\": 0.0\n  },\n  \"development_passed\": true,\n  \"production_approved\": false\n}\n{\"suite\": \"public-sdk-smoke-v1\", \"transport\": \"real-loopback-http\", \"status\": \"passed\", \"model\": \"offline-development-v1\"}\n",
+  "stderr": "",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "839f996bb794d8f634347f1959f29afce99e42ba",
+    "dirty": true
+  },
+  "source_hash": "54c07e1df43646c460d1c35649474289709928684129432119697f4243b03b7d",
+  "before_hash": "54c07e1df43646c460d1c35649474289709928684129432119697f4243b03b7d",
+  "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "63690522467c606cdb6ac333b4865c240b38b2d33155d4899d093066677c61b3"
+}

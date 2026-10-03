@@ -1,0 +1,30 @@
+{
+  "task": "T-7R",
+  "gate": "release-verification",
+  "kind": "command",
+  "attempt": "7e851a1d-aabc-4495-8a2f-5eae4f132a46",
+  "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+  "started_at": "2026-10-03T18:59:41.292Z",
+  "observed_at": "2026-10-03T18:59:42.745Z",
+  "exit_code": 1,
+  "signal": null,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 8 items\n\ntests/security/test_release_security.py ...F..                           [ 75%]\ntests/system/test_release_system.py .F                                   [100%]\n\n=================================== FAILURES ===================================\n_ test_production_readiness_fails_without_approved_values_or_encryption[value2] _\n\nvalue = {'approval': {}, 'backup_encryption_verified': False, 'database_sslmode': 'verify-full', 'live_provider_evaluated': False, ...}\n\n    @pytest.mark.parametrize('value',[{}, {'mode':'production'},json.loads(__import__('pathlib').Path('deploy/production.example.json').read_text())])\n    def test_production_readiness_fails_without_approved_values_or_encryption(value):\n        errors=validate(value);assert errors\n        assert any('target' in error for error in errors)\n>       assert any('TLS' in error for error in errors)\nE       assert False\nE        +  where False = any(<generator object test_production_readiness_fails_without_approved_values_or_encryption.<locals>.<genexpr> at 0x10d24b030>)\n\ntests/security/test_release_security.py:25: AssertionError\n_______ test_dump_restore_rechecks_isolation_correction_and_suppression ________\n\nengine = Engine(postgresql+psycopg://postgres:***@127.0.0.1:55437/memory_test)\nidentities = {'actor_a': UUID('a2fa65ce-803d-49a6-8aec-b9c83b50fb4e'), 'actor_b': UUID('5f1d32ee-d5a8-4501-bea2-fbb5fd98de64'), 'session_a': UUID('3658bea5-191f-4593-aec6-5f6c5b132cff'), 'subject_a': UUID('67ab1186-316e-4235-943a-63d9c6829d59'), ...}\n\n    def test_dump_restore_rechecks_isolation_correction_and_suppression(engine,identities):\n        container=os.environ.get('BACKUP_TEST_CONTAINER','')\n        assert re.fullmatch(r'[A-Za-z0-9_.-]+',container),'BACKUP_TEST_CONTAINER must identify the disposable test PostgreSQL container'\n        repo=Repository(engine);principal=Principal(identities['tenant_a'],identities['actor_a'])\n        episode=capture(engine,identities);Worker(repo).run_once(identities['tenant_a'])\n>       memory=repo.list_memories(principal,identities['subject_a'],20,None,None,'restore-prepare')['items'][0]\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/system/test_release_system.py:24: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <persistence.repositories.Repository object at 0x10d2d9810>\nprincipal = Principal(tenant_id=UUID('25ad6528-d5e0-4d3b-bec1-6f73204adf14'), actor_id=UUID('a2fa65ce-803d-49a6-8aec-b9c83b50fb4e'))\nsubject = UUID('67ab1186-316e-4235-943a-63d9c6829d59'), request_id = 20\nlimit = None, cursor = None, kind = 'restore-prepare'\n\n    def list_memories(self,principal,subject,request_id,limit=20,cursor=None,kind=None):\n>       limit=max(1,min(limit,100));after=cursor_decode(cursor,principal.tenant_id,subject,kind) if cursor else None\n                    ^^^^^^^^^^^^^^\nE       TypeError: '<' not supported between instances of 'int' and 'NoneType'\n\npackages/persistence/persistence/retrieval.py:65: TypeError\n=========================== short test summary info ============================\nFAILED tests/security/test_release_security.py::test_production_readiness_fails_without_approved_values_or_encryption[value2]\nFAILED tests/system/test_release_system.py::test_dump_restore_rechecks_isolation_correction_and_suppression\n========================= 2 failed, 6 passed in 0.69s ==========================\n",
+  "stderr": "",
+  "failure": "command-failed",
+  "receipt": null,
+  "revision": {
+    "commit": "839f996bb794d8f634347f1959f29afce99e42ba",
+    "dirty": true
+  },
+  "source_hash": "a1f80d401b99f3f28a1492e58adf3369a2bcaf4faf6e374c023be5dff3daf14d",
+  "before_hash": "a1f80d401b99f3f28a1492e58adf3369a2bcaf4faf6e374c023be5dff3daf14d",
+  "config_hash": "7735686c173e9a952ca69e774ccbbaae3277b03389ae6ac406318e11c40bdf27",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "40f0c7b45ea322b87426c9f799882ee890e8fc235cbc902735d17ae3d1fcfbb9"
+}

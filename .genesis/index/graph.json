@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "f8d5c20a444918aec97c710bdd66ce60d7aac8e9",
-  "sourceHash": "e1655e038ef5f9e810aaa99e50c291a07bb5593259f5c11151e00069ee6c559b",
+  "revision": "839f996bb794d8f634347f1959f29afce99e42ba",
+  "sourceHash": "cd9ef93bece02d9743bcddf0af3e7485687a98b5d7c6eb88ab52f000d399c907",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -27,7 +27,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "2b73eaf8887a7562d06ec3d503f93bad48e619a59cc21b8eea01fb754942759a"
+      "contentHash": "6d2ede21bc5b59851d1fa5e4a968d00814557bc6989949d20ea4754649e72874"
     },
     {
       "id": "file:apps/api/main.py",
@@ -37,7 +37,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "b3f1f9f197f6dbda65a959e87e70cf32c6804b8695a495485f348ccc3157173d"
+      "contentHash": "d7750551ca021a2b974dc2417e90387c7d8f07e9fbc539fe351c2811e462cc4f"
     },
     {
       "id": "file:apps/web/app/api/proxy/route.js",
@@ -120,6 +120,36 @@
       "contentHash": "48163a7564b4d670cd9b86683785bf1e845f8d3557a1cc126a5fec82feab5f28"
     },
     {
+      "id": "file:deploy/__init__.py",
+      "type": "file",
+      "label": "deploy/__init__.py",
+      "path": "deploy/__init__.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "file:deploy/readiness.py",
+      "type": "file",
+      "label": "deploy/readiness.py",
+      "path": "deploy/readiness.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "a46e8e1fa9b602fa74e7ee9495b5eb6f8173dd003c4de659e4f8e555223e01d9"
+    },
+    {
+      "id": "file:evals/run.py",
+      "type": "file",
+      "label": "evals/run.py",
+      "path": "evals/run.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "94f47f185756d169f09b017380fa53cdefbbb5935b4e013c94a615957406d02e"
+    },
+    {
       "id": "file:packages/contracts/contracts/__init__.py",
       "type": "file",
       "label": "packages/contracts/contracts/__init__.py",
@@ -187,7 +217,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "b7a7095c1ae77d742cad80befafcc9640f6ef0362f25e2f3f916b84f801835bd"
+      "contentHash": "4554a9f93337aa8054de459c7e9dcfb94a7ef1e64f631df3167c6e1caa982b2e"
     },
     {
       "id": "file:packages/persistence/persistence/__init__.py",
@@ -248,6 +278,76 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "fbf8957678f438dfefb9da01d5d6dabd6cfa5646e4bdc57e3ca142c1bbd4391d"
+    },
+    {
+      "id": "file:scripts/__init__.py",
+      "type": "file",
+      "label": "scripts/__init__.py",
+      "path": "scripts/__init__.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "file:scripts/database.py",
+      "type": "file",
+      "label": "scripts/database.py",
+      "path": "scripts/database.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "f3999cfff73aa525d48f3f8bdecadc6264127ba0d022c32f38c99e764aff9658"
+    },
+    {
+      "id": "file:scripts/issue_token.py",
+      "type": "file",
+      "label": "scripts/issue_token.py",
+      "path": "scripts/issue_token.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "08e2532f6e832b7a29c35325424c57aa739cc15dc327c2de2de249e043b1a1fe"
+    },
+    {
+      "id": "file:scripts/privacy_scan.py",
+      "type": "file",
+      "label": "scripts/privacy_scan.py",
+      "path": "scripts/privacy_scan.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "4a8e6a7515329c55e66f99d02456cb972fd16c0dd5816e399ea6cf1a36467ba0"
+    },
+    {
+      "id": "file:scripts/reindex.py",
+      "type": "file",
+      "label": "scripts/reindex.py",
+      "path": "scripts/reindex.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "424847b24ad2934f3b6c8c492f4a1459ed353b57cabaa7bf2911a8e0ba8a6963"
+    },
+    {
+      "id": "file:scripts/serve.py",
+      "type": "file",
+      "label": "scripts/serve.py",
+      "path": "scripts/serve.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "8a6c32e14ed74f8bb895c768a173236e7841c5ff62d6e23d6b77d5098611a1f6"
+    },
+    {
+      "id": "file:scripts/smoke.py",
+      "type": "file",
+      "label": "scripts/smoke.py",
+      "path": "scripts/smoke.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "441a0e187567543af73f2f4e7aa857752775cd37914331a5a6de34f2b5e56b86"
     },
     {
       "id": "file:tests/browser/conftest.py",
@@ -317,7 +417,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "672dd87c15e8495af38db99dec6d6cbe4f3e79ddc073d5fa245a51f59d65d674"
+      "contentHash": "bdd8d60cacfca5d9f2d67961c62c3163016e2ed6d248bbfcbf4f69d87b3cd5e5"
     },
     {
       "id": "file:tests/integration/test_foundation.py",
@@ -358,6 +458,46 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "a1ef80976838ba4d2424b8d6594288237bcc313f4459bfc9747dfc41bf2c6cb2"
+    },
+    {
+      "id": "file:tests/security/conftest.py",
+      "type": "file",
+      "label": "tests/security/conftest.py",
+      "path": "tests/security/conftest.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "075f357d5d6d8a21b277abfbb7ab1097c66f6fa8ef7cf5cf64efbd720943a43f"
+    },
+    {
+      "id": "file:tests/security/test_release_security.py",
+      "type": "file",
+      "label": "tests/security/test_release_security.py",
+      "path": "tests/security/test_release_security.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "3d22e1ab5a754a3750d305be3ecc4774d96852aedc63f22c1523a6439b350ace"
+    },
+    {
+      "id": "file:tests/system/conftest.py",
+      "type": "file",
+      "label": "tests/system/conftest.py",
+      "path": "tests/system/conftest.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "075f357d5d6d8a21b277abfbb7ab1097c66f6fa8ef7cf5cf64efbd720943a43f"
+    },
+    {
+      "id": "file:tests/system/test_release_system.py",
+      "type": "file",
+      "label": "tests/system/test_release_system.py",
+      "path": "tests/system/test_release_system.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "4b7801a078b3cfb69447b4885de03c39da794b9a1913b7c990a379dff9612d22"
     },
     {
       "id": "package:npm:@playwright/test",

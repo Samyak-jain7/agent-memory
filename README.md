@@ -41,3 +41,73 @@ Run the API without Uvicorn access logs so search text is not logged in request 
 `npm --prefix apps/web test -- --run` builds Next.js and runs actual Chromium keyboard
 lifecycle tests at 1280px and 390px. Browser fixtures isolate UI behavior; Python contract
 and integration tests separately verify the database and public API lifecycle.
+
+
+## Local setup and release verification
+
+This repository is a verified development baseline. The offline extraction/embedding provider
+is a fixture; live provider quality, approved numeric targets, and deployed encryption remain
+production blockers. No production deployment or paid API usage is performed by these commands.
+
+1. Create a Python 3.11+ virtual environment and run `pip install -e . pytest`.
+2. Copy `.env.example` to `.env` and supply local passwords plus a random signing secret.
+   The application does not load dotenv automatically: export these values in your shell.
+3. Run `docker compose up -d postgres`, then `python -m scripts.database migrate` with
+   the trusted `ADMIN_DATABASE_URL`. Migration checksums and an advisory lock prevent races.
+4. Set a random hexadecimal `MEMORY_DB_PASSWORD` (at least 16 characters) and run
+   `python -m scripts.database runtime-role`. It creates a restricted runtime LOGIN role
+   with membership in `memory_app`,
+   no schema ownership, no superuser/BYPASSRLS rights, and no direct table privileges.
+   Set `DATABASE_URL` to that account (URL-encode non-hexadecimal passwords). Admin credentials are only for migrations/provisioning.
+5. Run `python -m scripts.database bootstrap --development --consent --inspect-sources`
+   to create an isolated synthetic development tenant/actor/subject/session. Omit the consent
+   or source flag to retain default-deny behavior. Save the printed UUIDs locally.
+6. Run `python -m scripts.issue_token --tenant UUID --actor UUID` for a one-hour token.
+   Tokens are credentials: paste only into your local operator console or SDK session.
+7. Start `uvicorn apps.api.main:app --no-access-log`, `python -m apps.worker.main --tenant UUID`,
+   `python -m apps.worker.erase --tenant UUID`, and `npm --prefix apps/web run dev`.
+   `MEMORY_TELEMETRY=console` enables the API SDK's local structured trace and metric export;
+   production requires a reviewed exporter and verified collection. Set the same
+   `MEMORY_TELEMETRY=console` for worker and erasure hosts.
+
+Use a separate PostgreSQL17 pgvector container/database named `memory_test` for verification.
+Set `TEST_DATABASE_URL` to it and `BACKUP_TEST_CONTAINER` to that container's exact ID/name.
+The tests delete only that explicitly designated disposable schema. Never point them at real data.
+
+```
+python -m pytest tests/integration tests/contract tests/browser tests/security tests/system
+npm --prefix apps/web ci
+(cd apps/web && npx --no-install playwright install chromium)
+npm --prefix apps/web test -- --run
+python evals/run.py
+python scripts/smoke.py
+python -m deploy.readiness deploy/production.example.json
+```
+
+The last command intentionally exits nonzero: approvals and platform evidence are absent.
+Do not fill its approval fields merely to bypass the gate. Development golden thresholds are
+explicit regression baselines, not approved live-model quality targets. The versioned evaluation
+runs real database extraction, hybrid retrieval and context citations, reporting precision,
+relevance, citation correctness and observed correction need. The smoke flow uses a real local
+HTTP server and the public SDK with synthetic subjects. CI repeats these checks on an empty
+pgvector service. Backup testing performs real `pg_dump`/restore into a uniquely named disposable
+database, reruns isolation/correction/suppression, then removes only that database.
+
+Production launch requires approved values and measurements for latency, throughput, availability,
+retention, erasure, backup expiry and quality, verified HTTPS and database `verify-full` TLS,
+encrypted storage/backups with platform evidence, approved provider data policy and live evaluation,
+and verified telemetry export. Environment examples and test fixture declarations do not prove
+these platform properties. Backups must expire according to the approved erasure policy.
+
+For production, start API and tenant workers only through `python -m scripts.serve api|worker|erase ...`
+with `MEMORY_ENV=production` and `PRODUCTION_READINESS_FILE` pointing to reviewed platform evidence.
+The startup guard also requires an actual `verify-full` database connection with active TLS,
+a runtime role without superuser/BYPASSRLS rights, a strong signing secret, the evaluated live
+provider, telemetry configuration, and retention matching the reviewed measurements.
+The API factory enforces this guard even when started directly.
+Use `python -m scripts.reindex --tenant UUID` to reindex pending legacy current versions; it
+locks active rows, scopes to one tenant, and commits index updates atomically.
+
+`python -m scripts.privacy_scan` checks publishable files and reachable Git history for
+credential formats and tracked environment secrets without printing matched values. It is
+a bounded format check, not proof that arbitrary prose contains no confidential information.

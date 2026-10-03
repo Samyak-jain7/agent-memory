@@ -21,6 +21,8 @@ from opentelemetry import context, propagate
 
 
 def create_app(database_url: str | None = None) -> FastAPI:
+    from deploy.readiness import enforce_environment
+    enforce_environment(database_url or os.environ["DATABASE_URL"])
     engine = create_engine(database_url or os.environ["DATABASE_URL"])
     repository = Repository(engine)
     from memory_domain.context import ContextComposer
@@ -28,6 +30,9 @@ def create_app(database_url: str | None = None) -> FastAPI:
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
+        if os.environ.get('MEMORY_TELEMETRY')=='console':
+            from observability import configure
+            configure()
         yield
         composer.close()
         engine.dispose()
@@ -153,13 +158,15 @@ def create_app(database_url: str | None = None) -> FastAPI:
 
     @app.patch('/v1/memories/{memory_id}',response_model=MemoryCreated)
     def correct(memory_id:UUID,body:CorrectMemoryRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
-        try:result=repository.correct(principal,memory_id,body,request.state.request_id)
+        try:
+            with operation('memory.correct',memory_id=memory_id,request_id=request.state.request_id):result=repository.correct(principal,memory_id,body,request.state.request_id)
         except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
         return MemoryCreated(memory=result,request_id=request.state.request_id)
 
     @app.post('/v1/memories/{memory_id}/forget',response_model=ErasureEnvelope,status_code=202)
     def forget(memory_id:UUID,body:ForgetMemoryRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
-        try:result=repository.forget(principal,memory_id,body,request.state.request_id)
+        try:
+            with operation('memory.suppress',memory_id=memory_id,request_id=request.state.request_id):result=repository.forget(principal,memory_id,body,request.state.request_id)
         except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
         return ErasureEnvelope(erasure=result,request_id=request.state.request_id)
 
@@ -175,7 +182,8 @@ def create_app(database_url: str | None = None) -> FastAPI:
 
     @app.get('/v1/memories/{memory_id}/erasure',response_model=ErasureEnvelope)
     def erasure_status(memory_id:UUID,request:Request,principal:Principal=Depends(principal_from_headers)):
-        try:result=repository.erasure_status(principal,memory_id,request.state.request_id)
+        try:
+            with operation('memory.erasure_status',memory_id=memory_id,request_id=request.state.request_id):result=repository.erasure_status(principal,memory_id,request.state.request_id)
         except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
         return ErasureEnvelope(erasure=result,request_id=request.state.request_id)
 

@@ -1,0 +1,13 @@
+{
+  "mode": "production",
+  "approval": {},
+  "targets": {},
+  "observed": {},
+  "public_api_url": "",
+  "database_sslmode": "verify-full",
+  "storage_encryption_verified": false,
+  "backup_encryption_verified": false,
+  "restore_verified": false,
+  "live_provider_evaluated": false,
+  "telemetry_export_verified": false
+}
