@@ -1,17 +1,24 @@
 """Trusted migration/bootstrap helpers. Runtime users must not own the schema."""
-import hashlib,json,os
+import hashlib,json,os,sysconfig
 from pathlib import Path
 from uuid import uuid4
 from sqlalchemy import text
 from deploy.readiness import validate_application_role
 ROOT=Path(__file__).resolve().parents[1]
 
+def migration_directory():
+    source=ROOT/'migrations'
+    installed=Path(sysconfig.get_path('data'))/'share'/'agent-memory'/'migrations'
+    directory=source if source.is_dir() else installed
+    if not directory.is_dir() or not list(directory.glob('*.sql')):raise RuntimeError('Packaged migrations missing')
+    return directory
+
 def migrate(engine,through=None):
     with engine.begin() as c:
         c.execute(text('SELECT pg_advisory_xact_lock(174643013)'))
         validate_application_role(c,allow_missing=True)
         c.execute(text('CREATE TABLE IF NOT EXISTS schema_migrations(name text PRIMARY KEY,sha256 text NOT NULL,applied_at timestamptz NOT NULL DEFAULT now())'))
-        for path in sorted((ROOT/'migrations').glob('*.sql')):
+        for path in sorted(migration_directory().glob('*.sql')):
             if through and path.name>through:break
             digest=hashlib.sha256(path.read_bytes()).hexdigest()
             old=c.execute(text('SELECT sha256 FROM schema_migrations WHERE name=:name'),{'name':path.name}).scalar_one_or_none()

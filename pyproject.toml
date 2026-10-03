@@ -20,7 +20,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = [".", "packages/contracts", "packages/memory-domain", "packages/persistence", "packages/model-gateway", "packages/observability", "packages/sdk-python"]
-include = ["apps*", "contracts*", "memory_domain*", "persistence*", "model_gateway*", "observability*", "memory_sdk*", "scripts*", "deploy*"]
+include = ["apps.api*", "apps.worker*", "contracts*", "memory_domain*", "persistence*", "model_gateway*", "observability*", "memory_sdk*", "scripts*", "deploy*"]
 
 [dependency-groups]
 dev = ["httpx>=0.27,<1", "pytest>=8,<9"]
@@ -28,3 +28,6 @@ dev = ["httpx>=0.27,<1", "pytest>=8,<9"]
 [tool.pytest.ini_options]
 pythonpath = [".", "packages/contracts", "packages/memory-domain", "packages/persistence", "packages/model-gateway", "packages/observability", "packages/sdk-python"]
 testpaths = ["tests"]
+
+[tool.setuptools.data-files]
+"share/agent-memory/migrations" = ["migrations/*.sql"]

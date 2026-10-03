@@ -36,6 +36,7 @@ digraph genesis {
   "file:scripts/reindex.py" [label="scripts/reindex.py",class="file"];
   "file:scripts/serve.py" [label="scripts/serve.py",class="file"];
   "file:scripts/smoke.py" [label="scripts/smoke.py",class="file"];
+  "file:scripts/verify_distribution.py" [label="scripts/verify_distribution.py",class="file"];
   "file:tests/browser/conftest.py" [label="tests/browser/conftest.py",class="file"];
   "file:tests/browser/console.spec.cjs" [label="tests/browser/console.spec.cjs",class="file"];
   "file:tests/browser/test_audit_api.py" [label="tests/browser/test_audit_api.py",class="file"];

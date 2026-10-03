@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T20:01:55.890Z"
+    "updated_at": "2026-10-03T20:06:38.775Z"
   },
   "policy": {
     "ponytail": "full",
@@ -23,11 +23,11 @@
     }
   },
   "lifecycle": {
-    "phase": "build",
-    "status": "active",
-    "active_task": "T-11",
+    "phase": "verify",
+    "status": "ready",
+    "active_task": null,
     "blocker": null,
-    "next_action": "Run the task pre-flight."
+    "next_action": "Review completed work and choose the next bounded outcome."
   },
   "commands": {},
   "workflow": {
@@ -407,6 +407,15 @@
       "source": "https://github.com/Samyak-jain7/agent-memory/actions/runs/37147726988",
       "tags": [],
       "recorded_at": "2026-10-03T19:27:01.358Z",
+      "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-14c06b0c",
+      "title": "Provider-independent release hardening verified locally",
+      "text": "T-9 encrypted artifacts roundtrip/tamper/wrong-key/permission/bounds and real PostgreSQL encrypted restore accepted. T-10 independent reviewer accepted 37 security/system tests, including implicit database-owner rejection. T-11 final local release gate: 105 Python tests, offline golden evaluation (production_approved=false), real HTTP SDK smoke, actionlint. Manual verification: isolated clean wheel installed outside checkout exposes API, workers, SDK and all six SQL migrations; local Docker image agent-memory:hardening-20261003 imports installed package outside /app as UID10001 with networking disabled/read-only filesystem; publishable working files and reachable Git history credential-pattern scan clean. Production hosting/provider/model/key/policy decisions and measured platform evidence remain unresolved. Proposed defaults in deploy/policy-proposal.md are recommendations only.",
+      "source": "Current T-9/T-10/T-11 CLI proofs and observed local distribution/container/privacy commands",
+      "tags": [],
+      "recorded_at": "2026-10-03T20:05:43.569Z",
       "paths": []
     }
   ],
@@ -2180,7 +2189,7 @@
     {
       "id": "T-11",
       "outcome": "Verify installed package and container isolation and extend hosted CI with privacy and packaging checks",
-      "state": "active",
+      "state": "done",
       "risk": "medium",
       "owner": null,
       "scope": [
@@ -2208,24 +2217,42 @@
           "kind": "command",
           "command": "python -m pytest tests && python evals/run.py && python scripts/smoke.py",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-11-release-regression-867f0502-81a3-4be3-9482-d8e983fdf884.json",
+            "hash": "06d0cc3313f42b79416ba87f95454732fbbfd6f76a137ff056f788c75e7b0f0c",
+            "source_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb",
+            "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+            "observed_at": "2026-10-03T20:04:59.648Z"
+          }
         },
         {
           "id": "workflow-validation",
           "kind": "command",
           "command": "actionlint .github/workflows/verify.yml",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-11-workflow-validation-26c4d7a4-2145-4b68-a385-1f30020d98b2.json",
+            "hash": "96f46e46339c0cb788d854ff7af0931c8b7d759ef784ae3accaec0c3b09d417f",
+            "source_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb",
+            "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+            "observed_at": "2026-10-03T20:05:01.178Z"
+          }
         },
         {
           "id": "independent-review",
           "kind": "review",
           "command": "",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-11-independent-review-05f09f2c-9cf9-4119-b3f8-8132d107c266.json",
+            "hash": "c0d4de5c67566bceba0f80392666e5475115e2cc4b04c8c6cca67cb75f15619e",
+            "source_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb",
+            "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+            "observed_at": "2026-10-03T20:06:37.437Z"
+          }
         }
       ],
       "next_action": "Run the task pre-flight.",
@@ -2234,7 +2261,7 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T19:41:00.963Z",
-      "updated_at": "2026-10-03T19:41:00.963Z",
+      "updated_at": "2026-10-03T20:06:38.234Z",
       "base_manifest": {
         ".env.example": "571d670ebd58441bee7ba352fad3f0db76b381dc1e11259b83aaa7a58a95dd80",
         ".github/workflows/verify.yml": "89042e4a2759e18c40cc794127c59e543e731a1d04dce85c95fefa1035ca0f4a",
@@ -2498,6 +2525,15 @@
       "task": "T-10",
       "human": "Codex delegated by Samyak; independent reviewer foundation_review",
       "reason": "Independent read-only review accepted current evidence: 37 security/system checks passed, including direct worker startup guards, receipt integrity, retention consistency, unsafe role and implicit database-owner regressions. Production platform facts and policies remain pending; no fabricated approval.",
+      "revision": null
+    },
+    {
+      "id": "05f09f2c-9cf9-4119-b3f8-8132d107c266",
+      "at": "2026-10-03T20:06:37.437Z",
+      "action": "approve",
+      "task": "T-11",
+      "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+      "reason": "Independent review accepted current-source 105-test regression, offline evaluation, HTTP SDK smoke and actionlint. Observed isolated clean wheel install, six packaged migrations, nonroot network-disabled read-only container import and clean privacy scan recorded in KNOWLEDGE-14c06b0c. Hosting/provider/policies and platform evidence remain pending.",
       "revision": null
     }
   ],
@@ -3481,6 +3517,102 @@
       "cost": null,
       "stop_reason": null,
       "ended_at": "2026-10-03T20:00:57.145Z"
+    },
+    {
+      "id": "cff66f84-1f66-4565-a1da-686ac86b4b8e",
+      "task": "T-11",
+      "kind": "gate",
+      "command": "python -m pytest tests && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 42092,
+      "child_pid": 42237,
+      "started_at": "2026-10-03T20:03:11.246Z",
+      "status": "passed",
+      "before_hash": "2843b52f81b62a86cba436961299a8a4a8fb4290d094b283916cb70092c406ad",
+      "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T20:03:22.231Z"
+    },
+    {
+      "id": "7db3b4bd-c9e1-49c9-bbcd-ed40300246a4",
+      "task": "T-11",
+      "kind": "gate",
+      "command": "actionlint .github/workflows/verify.yml",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 42092,
+      "child_pid": 42745,
+      "started_at": "2026-10-03T20:03:22.676Z",
+      "status": "passed",
+      "before_hash": "2843b52f81b62a86cba436961299a8a4a8fb4290d094b283916cb70092c406ad",
+      "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T20:03:23.543Z"
+    },
+    {
+      "id": "867f0502-81a3-4be3-9482-d8e983fdf884",
+      "task": "T-11",
+      "kind": "gate",
+      "command": "python -m pytest tests && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 44142,
+      "child_pid": 44323,
+      "started_at": "2026-10-03T20:04:49.771Z",
+      "status": "passed",
+      "before_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb",
+      "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T20:04:59.648Z"
+    },
+    {
+      "id": "26c4d7a4-2145-4b68-a385-1f30020d98b2",
+      "task": "T-11",
+      "kind": "gate",
+      "command": "actionlint .github/workflows/verify.yml",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 44142,
+      "child_pid": 44909,
+      "started_at": "2026-10-03T20:05:00.156Z",
+      "status": "passed",
+      "before_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb",
+      "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T20:05:01.178Z"
     }
   ],
   "authorizations": [
@@ -3513,14 +3645,14 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T20:01:55.852Z",
+    "at": "2026-10-03T20:06:38.735Z",
     "revision": {
-      "commit": "527df6ee28b400534804028e502e18f28b1082be",
+      "commit": "fa2244c908d33a0d337f17fb525f81fdda4e9359",
       "dirty": true,
-      "source_hash": "b1c3aa78039bea95d47f7072126e1c8c34c4f84466cef8aeca8561e4ed0c6e45"
+      "source_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb"
     },
-    "active_task": "T-11",
-    "next_action": "Run the task pre-flight."
+    "active_task": null,
+    "next_action": "Review completed work and choose the next bounded outcome."
   },
   "legacy": null
 }

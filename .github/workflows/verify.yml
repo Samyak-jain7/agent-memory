@@ -16,11 +16,20 @@ jobs:
       NEXT_TELEMETRY_DISABLED: "1"
     steps:
       - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
       - uses: actions/setup-python@v5
         with: {python-version: "3.13"}
       - uses: actions/setup-node@v4
         with: {node-version: "24"}
-      - run: pip install -e . 'pytest>=8,<9'
+      - run: pip install -e . 'pytest>=8,<9' uv
+      - run: python scripts/privacy_scan.py
+      - run: python scripts/verify_distribution.py
+      - run: docker build -f deploy/Dockerfile -t agent-memory:ci .
+      - name: Verify installed container outside checkout
+        run: >-
+          docker run --rm --network none --read-only --workdir /tmp
+          --entrypoint python agent-memory:ci -I -c
+          "import os, apps.api.auth, apps.worker.main, memory_sdk; from scripts.database import migration_directory; assert os.getuid()==10001; assert 'site-packages' in apps.api.auth.__file__; assert len(list(migration_directory().glob('*.sql')))==6; print('Isolated nonroot container verified')"
       - run: npm --prefix apps/web ci
       - run: cd apps/web && npx --no-install playwright install --with-deps chromium
       - run: npm --prefix apps/web test -- --run

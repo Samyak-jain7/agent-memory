@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "527df6ee28b400534804028e502e18f28b1082be",
-  "sourceHash": "c17345ff31faff3e0f9f04fe0e4ebe0aeaa0bbd2d5f61bcb425d5dbae73514f5",
+  "revision": "fa2244c908d33a0d337f17fb525f81fdda4e9359",
+  "sourceHash": "086b16b15f0b5b93bae39934c775d9b138d7e49a804a9375957eb9671e343c31",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -297,7 +297,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "973e9fcb13ffbe89308b6cdceafe130af3bccafca4c81cf5c3e02cce8130e4e3"
+      "contentHash": "e6dd49587aa9d18e80fc8714b1efe63c238afd1dcb6da7dbb0dd77c5475835bc"
     },
     {
       "id": "file:scripts/encrypted_backup.py",
@@ -358,6 +358,16 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "441a0e187567543af73f2f4e7aa857752775cd37914331a5a6de34f2b5e56b86"
+    },
+    {
+      "id": "file:scripts/verify_distribution.py",
+      "type": "file",
+      "label": "scripts/verify_distribution.py",
+      "path": "scripts/verify_distribution.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "61d4a1068c8d43ee2bbcd30308e4f102e415c6ab5b680c5ab1a8d032794e3784"
     },
     {
       "id": "file:tests/browser/conftest.py",

@@ -1,0 +1,13 @@
+{
+  "task": "T-11",
+  "gate": "independent-review",
+  "kind": "review",
+  "attempt": "05f09f2c-9cf9-4119-b3f8-8132d107c266",
+  "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+  "reason": "Independent review accepted current-source 105-test regression, offline evaluation, HTTP SDK smoke and actionlint. Observed isolated clean wheel install, six packaged migrations, nonroot network-disabled read-only container import and clean privacy scan recorded in KNOWLEDGE-14c06b0c. Hosting/provider/policies and platform evidence remain pending.",
+  "observed_at": "2026-10-03T20:06:37.437Z",
+  "source_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb",
+  "config_hash": "591a6bd70ef32aef23323fc80dfcd7ac5775ed84f4abe006a2e8caff732d84b0",
+  "reviewed_proofs": "2ad72957c4706a2ef28c8e01a5a1fa1bf17e1dda2dbd134693c9560a7c5fe4d2",
+  "hash": "c0d4de5c67566bceba0f80392666e5475115e2cc4b04c8c6cca67cb75f15619e"
+}
