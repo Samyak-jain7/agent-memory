@@ -53,6 +53,7 @@ class JobResource(BaseModel):
 
 class MemoryResource(Resource):
     kind: str
+    indexing_state: Literal["pending", "ready"] = "pending"
     lifecycle_state: Literal["active"]
     version_id: UUID
     content: str
@@ -86,4 +87,34 @@ class JobEnvelope(BaseModel):
 
 
 class PolicyRejected(Exception):
+    pass
+
+
+class MemoryPage(BaseModel):
+    items: list[MemoryResource]
+    next_cursor: str | None = None
+    limit: int
+    ranking_version: str | None = None
+    request_id: str
+
+class ContextRequest(BaseModel):
+    subject_id: UUID
+    query: str = Field(default='',max_length=512)
+    token_budget: int = Field(default=2048,ge=32,le=32000)
+    deadline_ms: int = Field(default=250,ge=50,le=2000)
+
+class ContextEnvelope(BaseModel):
+    text: str
+    core_profile: list[UUID]
+    memory_ids: list[UUID]
+    citations: dict[str,list[UUID]]
+    token_budget: int
+    budget_used: int
+    budget_unit: Literal['utf8-byte-upper-bound']='utf8-byte-upper-bound'
+    degraded: bool
+    truncated: bool
+    ranking_version: str='hybrid-v1'
+    request_id: str
+
+class CursorError(Exception):
     pass

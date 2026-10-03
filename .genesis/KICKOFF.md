@@ -4,11 +4,11 @@
 
 - objective: Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.
 - phase/status: build/active
-- active task: T-3R — Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.
+- active task: T-4R — Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.
 - blocker: none
-- next action: Implement retrieval and context composition on the approved persistence contracts, then run retrieval-tests.
+- next action: Implement temporal correction and suppression using shared repository filters, then run control-tests.
 - phase instruction: Implement only the active task and prove it against current sources. Check `genesis query . impact PATH` before editing shared code.
-- gates: retrieval-tests:pending, independent-review:pending
+- gates: control-tests:pending, independent-review:pending
 - recent failures: none
 
 ## Resume
@@ -17,9 +17,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: 35bd45ee89ea540724ed6272c9b423b1474a809812a624b83fb49d6cca77ee22. Use --since only after receiving that full packet; kickoff is not the packet.
-- DECISION-90a4914f: Hybrid retrieval and bounded context
-- KNOWLEDGE-fd4fa2b8: Target system separates online reads from memory formation
-- DECISION-097da683: First release includes automatic memory formation
+Context fingerprint: d00e7bb211e08a94f2b5f9d62f2bf97a0b08e5623d4fc6b74a45e37c6b752ee8. Use --since only after receiving that full packet; kickoff is not the packet.
+- DECISION-eb9b87d8: PostgreSQL-backed initial workflow queue
+- DECISION-aecdc4c3: PostgreSQL temporal memory model
+- KNOWLEDGE-083939b5: Repository is specification-only
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

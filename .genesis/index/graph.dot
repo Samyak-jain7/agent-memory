@@ -9,13 +9,16 @@ digraph genesis {
   "file:packages/contracts/contracts/__init__.py" [label="packages/contracts/contracts/__init__.py",class="file"];
   "file:packages/contracts/contracts/models.py" [label="packages/contracts/contracts/models.py",class="file"];
   "file:packages/memory-domain/memory_domain/__init__.py" [label="packages/memory-domain/memory_domain/__init__.py",class="file"];
+  "file:packages/memory-domain/memory_domain/context.py" [label="packages/memory-domain/memory_domain/context.py",class="file"];
   "file:packages/memory-domain/memory_domain/service.py" [label="packages/memory-domain/memory_domain/service.py",class="file"];
   "file:packages/model-gateway/model_gateway/__init__.py" [label="packages/model-gateway/model_gateway/__init__.py",class="file"];
   "file:packages/observability/observability/__init__.py" [label="packages/observability/observability/__init__.py",class="file"];
   "file:packages/persistence/persistence/__init__.py" [label="packages/persistence/persistence/__init__.py",class="file"];
   "file:packages/persistence/persistence/repositories.py" [label="packages/persistence/persistence/repositories.py",class="file"];
+  "file:packages/persistence/persistence/retrieval.py" [label="packages/persistence/persistence/retrieval.py",class="file"];
   "file:tests/integration/conftest.py" [label="tests/integration/conftest.py",class="file"];
   "file:tests/integration/test_foundation.py" [label="tests/integration/test_foundation.py",class="file"];
+  "file:tests/integration/test_retrieval.py" [label="tests/integration/test_retrieval.py",class="file"];
   "file:tests/integration/test_worker.py" [label="tests/integration/test_worker.py",class="file"];
 
 }

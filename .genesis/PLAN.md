@@ -74,15 +74,15 @@
 
 ### T-3R — Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.
 
-- state/risk: active / high
+- state/risk: done / high
 - requirements: FR-6, FR-7, FR-8, FR-9, NFR-2, NFR-3, AC-5, AC-6, AC-7
 - scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_retrieval.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, packages/model-gateway, tests/integration
-- gates: retrieval-tests: python -m pytest tests/integration, independent-review: pending
+- gates: retrieval-tests: python -m pytest tests/integration, independent-review: pass
 - next: Implement retrieval and context composition on the approved persistence contracts, then run retrieval-tests.
 
 ### T-4R — Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.
 
-- state/risk: queued / high
+- state/risk: active / high
 - requirements: FR-10, FR-11, NFR-2, NFR-6, AC-8, AC-9
 - scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_memory_control.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/worker, tests/integration
 - gates: control-tests: python -m pytest tests/integration, independent-review: pending

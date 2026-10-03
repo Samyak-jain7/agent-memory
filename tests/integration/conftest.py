@@ -38,4 +38,3 @@ def identities(engine):
         connection.execute(text("INSERT INTO actor_subject_grants(tenant_id,actor_id,subject_id) VALUES (:tenant_a,:actor_a,:subject_a),(:tenant_b,:actor_b,:subject_b)"), values)
         connection.execute(text("INSERT INTO sessions(id,tenant_id,subject_id) VALUES (:session_a,:tenant_a,:subject_a)"), values)
     return values
-

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "84ae1165a2bb2b9f68f894e70f0546a8c0c01854",
-  "sourceHash": "88e1e3556a4c952843d860fe1f9e2d7ecbee0f74a7c42d7cbe8ebca40345a71a",
+  "revision": "83395a0bf224f21749ba8d4cb0916e1c52adab50",
+  "sourceHash": "98072e1fbee111419e41f06da60937d328f2b656398202115166346265ca1b92",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -37,7 +37,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "c9373f7f4d92330e7d9f1f97041a075b9ce571918f38632868b65083ffad3997"
+      "contentHash": "dca4941aebc51962a1a10177f300d5155306dfa74f5303cb38190b457ffe778c"
     },
     {
       "id": "file:apps/worker/__init__.py",
@@ -77,7 +77,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "9d0b9b98a6993b7b76e74fce7300f4576ae3712a37e863ff620d0062ce688047"
+      "contentHash": "c0edb590178058ca102ea5d4dab7f6ac7a8a6aa3b002d463013595a7b0468415"
     },
     {
       "id": "file:packages/memory-domain/memory_domain/__init__.py",
@@ -88,6 +88,16 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "file:packages/memory-domain/memory_domain/context.py",
+      "type": "file",
+      "label": "packages/memory-domain/memory_domain/context.py",
+      "path": "packages/memory-domain/memory_domain/context.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "88ae6d6e3e9f2f6718c71ec41ac26a35a53c18ed15738eb449cef028e1c39b5b"
     },
     {
       "id": "file:packages/memory-domain/memory_domain/service.py",
@@ -137,7 +147,17 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "db58bc9e613eec30f560d5bffacede8943eaae5bf10649ebdcfdfd56490882c9"
+      "contentHash": "03bf7caf183702eeb538a866b983f524a08072983bac3160b2b57f1010fe6fc3"
+    },
+    {
+      "id": "file:packages/persistence/persistence/retrieval.py",
+      "type": "file",
+      "label": "packages/persistence/persistence/retrieval.py",
+      "path": "packages/persistence/persistence/retrieval.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "351043c79882b7303a15993587e46c9db55f79145d788cfe2a9ea23568c95997"
     },
     {
       "id": "file:tests/integration/conftest.py",
@@ -147,7 +167,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "d92c3bb00007e3b5175cd819fc4dd427709cae9c8b3ba63dad7132f9bcbacf03"
+      "contentHash": "206705ee8984ada02a73935c441a3dd4e5b6311d250c8c5f67d6d7b3569c3989"
     },
     {
       "id": "file:tests/integration/test_foundation.py",
@@ -158,6 +178,16 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "4126c511558720834ef95e1ce8f9874dea5458ad375dc38955b098a5ede0d5f4"
+    },
+    {
+      "id": "file:tests/integration/test_retrieval.py",
+      "type": "file",
+      "label": "tests/integration/test_retrieval.py",
+      "path": "tests/integration/test_retrieval.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "a1332ca7fe04b19201c1c5bd9c7590f45db1b52377b6bdf2e85491464803ede5"
     },
     {
       "id": "file:tests/integration/test_worker.py",

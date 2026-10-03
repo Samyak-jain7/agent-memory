@@ -23,10 +23,13 @@ from opentelemetry import context, propagate
 def create_app(database_url: str | None = None) -> FastAPI:
     engine = create_engine(database_url or os.environ["DATABASE_URL"])
     repository = Repository(engine)
+    from memory_domain.context import ContextComposer
+    composer=ContextComposer(repository)
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
         yield
+        composer.close()
         engine.dispose()
 
     app = FastAPI(title="Memory System", version="1.0.0", lifespan=lifespan)
@@ -87,6 +90,29 @@ def create_app(database_url: str | None = None) -> FastAPI:
     ) -> MemoryCreated:
         memory = MemoryService(repository).add_memory(principal, body, request.state.request_id)
         return MemoryCreated(memory=memory, request_id=request.state.request_id)
+
+    from fastapi import Query, HTTPException
+    from contracts.models import MemoryPage,ContextRequest,ContextEnvelope,CursorError
+    @app.exception_handler(CursorError)
+    async def invalid_cursor(request:Request,error:CursorError):
+        return JSONResponse(status_code=400,content={'detail':{'code':'invalid_cursor'}})
+
+    @app.get('/v1/memories',response_model=MemoryPage)
+    def list_memories(request:Request,subject_id:UUID,limit:int=Query(20,ge=1,le=100),cursor:str|None=Query(None,max_length=2048),kind:str|None=None,principal:Principal=Depends(principal_from_headers)):
+        try:items,next_cursor=repository.list_memories(principal,subject_id,request.state.request_id,limit,cursor,kind)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+        return MemoryPage(items=items,next_cursor=next_cursor,limit=limit,request_id=request.state.request_id)
+
+    @app.get('/v1/search',response_model=MemoryPage)
+    def search(request:Request,subject_id:UUID,q:str=Query(...,min_length=1,max_length=512),limit:int=Query(20,ge=1,le=100),principal:Principal=Depends(principal_from_headers)):
+        try:items=repository.search(principal,subject_id,q,request.state.request_id,limit)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+        return MemoryPage(items=items,limit=limit,ranking_version='hybrid-v1',request_id=request.state.request_id)
+
+    @app.post('/v1/context',response_model=ContextEnvelope)
+    def context_build(body:ContextRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:return composer.build(principal,body,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
 
     @app.get("/v1/memories/{memory_id}", response_model=MemoryCreated)
     def get_memory(

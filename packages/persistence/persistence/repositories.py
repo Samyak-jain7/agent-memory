@@ -8,9 +8,13 @@ from observability import carrier, operation
 from memory_domain.service import CaptureResult, IdempotencyConflict
 
 
-class Repository:
-    def __init__(self, engine: Engine):
+from .retrieval import Retrieval
+
+
+class Repository(Retrieval):
+    def __init__(self, engine: Engine, provider=None):
         self.engine = engine
+        self.provider = provider
         self.after_episode_insert = lambda: None
         self.after_candidate_insert = lambda index: None
 
@@ -104,8 +108,9 @@ class Repository:
                 VALUES (:id,:tenant,:memory,:content,'explicit',:confidence,:importance,:at,:actor,:at)"""), {"id": version_id, "tenant": principal.tenant_id, "memory": memory_id, "content": request.content, "confidence": request.confidence, "importance": request.importance, "at": created_at, "actor": principal.actor_id})
                 connection.execute(text("INSERT INTO memory_sources (tenant_id,memory_version_id,episode_id) VALUES (:tenant,:version,:episode)"), {"tenant": principal.tenant_id, "version": version_id, "episode": source})
                 connection.execute(text("UPDATE memories SET current_version_id=:version WHERE id=:memory AND tenant_id=:tenant"), {"version": version_id, "memory": memory_id, "tenant": principal.tenant_id})
+                self._index(connection,principal.tenant_id,version_id,request.content)
                 self._audit(connection, principal, request.subject_id, "memory.add", memory_id, request_id, "succeeded")
-                return MemoryResource(id=memory_id, tenant_id=principal.tenant_id, subject_id=request.subject_id, created_at=created_at, kind=request.kind, lifecycle_state="active", version_id=version_id, content=request.content, origin="explicit", confidence=request.confidence, importance=request.importance, actor_id=principal.actor_id, source_episode_ids=[source])
+                return MemoryResource(id=memory_id, tenant_id=principal.tenant_id, subject_id=request.subject_id, created_at=created_at, kind=request.kind, indexing_state="ready", lifecycle_state="active", version_id=version_id, content=request.content, origin="explicit", confidence=request.confidence, importance=request.importance, actor_id=principal.actor_id, source_episode_ids=[source])
         except PermissionError:
             self._record_denial(principal, request.subject_id, "memory.add", None, request_id)
             raise
@@ -120,7 +125,7 @@ class Repository:
         with self.engine.begin() as connection:
             self._scope(connection, principal.tenant_id)
             row = connection.execute(text("""SELECT m.id,m.tenant_id,m.subject_id,m.created_at,m.kind,m.lifecycle_state,v.id version_id,v.content,v.origin,v.confidence,v.importance,v.actor_id,
-                array_agg(ms.episode_id) source_episode_ids FROM memories m JOIN memory_versions v ON v.id=m.current_version_id JOIN memory_sources ms ON ms.memory_version_id=v.id
+                COALESCE((SELECT state FROM memory_indexes WHERE version_id=v.id),'pending') indexing_state, array_agg(ms.episode_id) source_episode_ids FROM memories m JOIN memory_versions v ON v.id=m.current_version_id JOIN memory_sources ms ON ms.memory_version_id=v.id
                 WHERE m.id=:id AND m.tenant_id=:tenant AND m.lifecycle_state='active' GROUP BY m.id,v.id"""), {"id": memory_id, "tenant": principal.tenant_id}).mappings().first()
             if row and self._authorized(connection, principal, row["subject_id"]):
                 self._audit(connection, principal, row["subject_id"], "memory.read", memory_id, request_id, "succeeded")
@@ -185,6 +190,7 @@ class Repository:
                     c.execute(text("INSERT INTO memory_sources(tenant_id,memory_version_id,episode_id) VALUES (:tenant,:version,:episode)"),{'tenant':job['tenant_id'],'version':version_id,'episode':job['episode_id']})
                     c.execute(text("UPDATE memories SET current_version_id=:version WHERE id=:id"),{'id':memory_id,'version':version_id})
                     self._audit(c,principal,job['subject_id'],'memory.formed',memory_id,job['request_id'],'succeeded')
+                    self._index(c,job['tenant_id'],version_id,candidate.content)
                     self.after_candidate_insert(index)
                     outcomes.append({'index':index,'outcome':'accepted','memory_id':str(memory_id),'evaluation_version':policy.version})
                 state='succeeded' if any(o['outcome']=='accepted' for o in outcomes) else 'rejected'
