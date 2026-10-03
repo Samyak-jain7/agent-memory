@@ -26,7 +26,12 @@ def test_dump_restore_rechecks_isolation_correction_and_suppression(engine,ident
     assert source_db.startswith('memory_test')
     target='memory_test_restore_'+uuid4().hex[:12]
     dump=subprocess.run(['docker','exec',container,'pg_dump','--username','postgres','--no-owner','--dbname',source_db],check=True,capture_output=True).stdout
-    # Synthetic disposable data stays in memory; no plaintext backup artifact is retained.
+    from scripts.encrypted_backup import encrypt_backup,decrypt_backup
+    key=os.urandom(32);artifact=encrypt_backup(dump,key,{'deployment_id':'synthetic-restore','release_sha':'0'*40})
+    assert b'I prefer tea' not in artifact
+    dump,manifest=decrypt_backup(artifact,key)
+    assert manifest['deployment_id']=='synthetic-restore'
+    # Synthetic decrypted data stays in memory; only authenticated ciphertext can be persisted.
     admin=create_engine(make_url(os.environ['TEST_DATABASE_URL']).set(database='postgres'),isolation_level='AUTOCOMMIT')
     restored=None
     try:

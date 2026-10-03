@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "b9f4fb33d30516275f0f80412f93f38581d0e6c6",
-  "sourceHash": "24dbea6ea0cf3765847b7b741d295bed296df615d2471d025e98525ad8c31ca3",
+  "revision": "5f5c5f7ef70e70ac5562905859fad7dda117456e",
+  "sourceHash": "fae2a4ed7f06e113f3bc141b8222c86b3db86b5237e07775aae18eb08ba49530",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -300,6 +300,16 @@
       "contentHash": "f3999cfff73aa525d48f3f8bdecadc6264127ba0d022c32f38c99e764aff9658"
     },
     {
+      "id": "file:scripts/encrypted_backup.py",
+      "type": "file",
+      "label": "scripts/encrypted_backup.py",
+      "path": "scripts/encrypted_backup.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "0fefffb8e0abf02b95507af12fb889f1d59101227917255430a2350cbbded8d0"
+    },
+    {
       "id": "file:scripts/issue_token.py",
       "type": "file",
       "label": "scripts/issue_token.py",
@@ -470,6 +480,16 @@
       "contentHash": "075f357d5d6d8a21b277abfbb7ab1097c66f6fa8ef7cf5cf64efbd720943a43f"
     },
     {
+      "id": "file:tests/security/test_encrypted_backup.py",
+      "type": "file",
+      "label": "tests/security/test_encrypted_backup.py",
+      "path": "tests/security/test_encrypted_backup.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "de1db91442b0dc2a6ac48512b4e75a75951795d9c533dba401907100cb47d338"
+    },
+    {
       "id": "file:tests/security/test_release_security.py",
       "type": "file",
       "label": "tests/security/test_release_security.py",
@@ -497,7 +517,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "4b7801a078b3cfb69447b4885de03c39da794b9a1913b7c990a379dff9612d22"
+      "contentHash": "235383ce96fc74ffce05705e5f14196168c7e9e560d15fe0485d886088fba99c"
     },
     {
       "id": "package:npm:@playwright/test",

@@ -111,3 +111,24 @@ locks active rows, scopes to one tenant, and commits index updates atomically.
 `python -m scripts.privacy_scan` checks publishable files and reachable Git history for
 credential formats and tracked environment secrets without printing matched values. It is
 a bounded format check, not proof that arbitrary prose contains no confidential information.
+
+## Authenticated backup artifacts
+
+`python -m scripts.encrypted_backup --output /secure/backup.ambak --deployment-id ID
+--release-sha COMMIT --retention-seconds APPROVED_VALUE` runs the installed PostgreSQL
+`pg_dump` client using `ADMIN_DATABASE_URL` and writes only AES-256-GCM authenticated
+ciphertext with mode 0600. The operator must provide `BACKUP_ENCRYPTION_KEY` as a
+base64-encoded 32-byte key through an approved secret manager; this project never creates
+or persists a production backup key automatically. Keep the key out of command arguments.
+Production database connections require `verify-full` TLS. The artifact authenticates its
+manifest, release/deployment identity and plaintext digest; fresh random nonces protect
+independent artifacts. Tampering, truncation and wrong keys fail closed.
+
+The utility deliberately caps in-memory dumps at 256 MiB; larger databases require an
+approved streaming backup service. A manifest expiry is policy metadata, not deletion:
+the selected platform must enforce and verify storage encryption, access control, expiry,
+key rotation and recovery. Never restore an old backup into a serving database without
+reapplying every suppression/erasure that occurred after the backup; restore into quarantine
+until that reconciliation is verified. The synthetic restore test now decrypts an
+authenticated artifact in memory before real PostgreSQL restore and isolation checks.
+This proves the artifact encryption/restore mechanism, not a deployed backup policy.

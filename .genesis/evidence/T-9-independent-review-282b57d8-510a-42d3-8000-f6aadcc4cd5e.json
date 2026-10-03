@@ -1,0 +1,13 @@
+{
+  "task": "T-9",
+  "gate": "independent-review",
+  "kind": "review",
+  "attempt": "282b57d8-510a-42d3-8000-f6aadcc4cd5e",
+  "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+  "reason": "Independent reviewer accepted actual AES256GCM artifact, bounded credential-safe dump handling and synthetic restore proof:12 passed current-source checks. Platform key management/encryption/expiry remain unresolved and unclaimed.",
+  "observed_at": "2026-10-03T19:50:25.419Z",
+  "source_hash": "3ebd9f1cd7971a8358fcf93ce0336bbe0d103be1a022da27b1d9c22b08b0a61c",
+  "config_hash": "164b0746c9c0d13c76e23d4fa7140df97d71f9528ea6e402f002042eabbfd3de",
+  "reviewed_proofs": "be0e54a592bd5588f2b385eb33e9e1726e7db41ba48862484fd05b8ca946581d",
+  "hash": "35c71ca305967cdbaaf6b2c3687ad9f470ef4a3a204bd486a3dcbfc6d5ce323a"
+}

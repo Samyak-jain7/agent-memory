@@ -30,6 +30,7 @@ digraph genesis {
   "file:packages/sdk-python/memory_sdk/client.py" [label="packages/sdk-python/memory_sdk/client.py",class="file"];
   "file:scripts/__init__.py" [label="scripts/__init__.py",class="file"];
   "file:scripts/database.py" [label="scripts/database.py",class="file"];
+  "file:scripts/encrypted_backup.py" [label="scripts/encrypted_backup.py",class="file"];
   "file:scripts/issue_token.py" [label="scripts/issue_token.py",class="file"];
   "file:scripts/privacy_scan.py" [label="scripts/privacy_scan.py",class="file"];
   "file:scripts/reindex.py" [label="scripts/reindex.py",class="file"];
@@ -47,6 +48,7 @@ digraph genesis {
   "file:tests/integration/test_retrieval.py" [label="tests/integration/test_retrieval.py",class="file"];
   "file:tests/integration/test_worker.py" [label="tests/integration/test_worker.py",class="file"];
   "file:tests/security/conftest.py" [label="tests/security/conftest.py",class="file"];
+  "file:tests/security/test_encrypted_backup.py" [label="tests/security/test_encrypted_backup.py",class="file"];
   "file:tests/security/test_release_security.py" [label="tests/security/test_release_security.py",class="file"];
   "file:tests/system/conftest.py" [label="tests/system/conftest.py",class="file"];
   "file:tests/system/test_release_system.py" [label="tests/system/test_release_system.py",class="file"];
