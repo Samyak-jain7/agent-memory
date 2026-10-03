@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T20:06:38.775Z"
+    "updated_at": "2026-10-03T20:09:50.120Z"
   },
   "policy": {
     "ponytail": "full",
@@ -416,6 +416,15 @@
       "source": "Current T-9/T-10/T-11 CLI proofs and observed local distribution/container/privacy commands",
       "tags": [],
       "recorded_at": "2026-10-03T20:05:43.569Z",
+      "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-8f935024",
+      "title": "Production hardening published and hosted CI passed",
+      "text": "Private GitHub repository Samyak-jain7/agent-memory remains PRIVATE. Product commit 8ec0b1943bc8c0243acf4a5c89c16f298f95af79 passed hosted run 37150355898: clean full-history credential-pattern scan, isolated wheel with six migrations, Docker build and nonroot read-only network-disabled installed imports, Next.js build and 8 Chromium lifecycle checks, integration/contract/audit tests, security/system tests including encrypted backup/restore and effective-role ownership boundaries, offline evaluation and real HTTP SDK smoke. Independent foundation_review accepted T-9, T-10, T-11. Local full regression 105 passed. Production deployment remains pending owner-selected hosting, model provider/models/key handling, approved targets/policies and real measured platform evidence. Policy proposal is explicitly unapproved. No live model calls, production credentials or deployments were created.",
+      "source": "https://github.com/Samyak-jain7/agent-memory/actions/runs/37150355898",
+      "tags": [],
+      "recorded_at": "2026-10-03T20:09:49.536Z",
       "paths": []
     }
   ],
@@ -3645,9 +3654,9 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T20:06:38.735Z",
+    "at": "2026-10-03T20:09:50.076Z",
     "revision": {
-      "commit": "fa2244c908d33a0d337f17fb525f81fdda4e9359",
+      "commit": "8ec0b1943bc8c0243acf4a5c89c16f298f95af79",
       "dirty": true,
       "source_hash": "2fd3415328598d737fb76f1703c91177517e4f577eb3bb1c6502117582d790eb"
     },

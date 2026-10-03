@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "fa2244c908d33a0d337f17fb525f81fdda4e9359",
+  "revision": "8ec0b1943bc8c0243acf4a5c89c16f298f95af79",
   "sourceHash": "086b16b15f0b5b93bae39934c775d9b138d7e49a804a9375957eb9671e343c31",
   "provenance": {
     "tool": "genesis-graphizer",
