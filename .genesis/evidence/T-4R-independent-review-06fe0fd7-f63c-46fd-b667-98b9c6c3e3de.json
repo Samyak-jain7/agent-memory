@@ -1,0 +1,13 @@
+{
+  "task": "T-4R",
+  "gate": "independent-review",
+  "kind": "review",
+  "attempt": "06fe0fd7-f63c-46fd-b667-98b9c6c3e3de",
+  "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+  "reason": "Independent reviewer accepted memory controls and erasure safeguards; 59 current-source isolated integration tests pass.",
+  "observed_at": "2026-10-03T18:28:30.940Z",
+  "source_hash": "2cad4b0286e5af010a0459f54a07ee284d80f12a302a68b8b190b5d7ba1bb9b9",
+  "config_hash": "264dc5fba00902ac40f6a4a72c8bcea150a98c26e7d4ae2ddb98e3a3c3a7a65f",
+  "reviewed_proofs": "c63894e0ee9f8fadd3f88c7dc35cb4787675e5ab06b62d35ec0df825a2076820",
+  "hash": "8dc0f7cfba5621f23fcfbb4e9997709a9ac7e09f6881e4f4c5ecb3fe62d32578"
+}

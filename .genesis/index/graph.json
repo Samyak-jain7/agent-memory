@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "83395a0bf224f21749ba8d4cb0916e1c52adab50",
-  "sourceHash": "98072e1fbee111419e41f06da60937d328f2b656398202115166346265ca1b92",
+  "revision": "e07a6430c86a4abfaea2f857d48a529f55e45335",
+  "sourceHash": "fd0fcc7d8607f1039b97ee10a25e522ed359303239c3cdb335eca9ee6f7297a7",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -37,7 +37,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "dca4941aebc51962a1a10177f300d5155306dfa74f5303cb38190b457ffe778c"
+      "contentHash": "a28e888e6b27fa3fdf8395d9da8ff2aebac00cba69eb5d17ac6cca3c612eefa5"
     },
     {
       "id": "file:apps/worker/__init__.py",
@@ -48,6 +48,16 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "file:apps/worker/erase.py",
+      "type": "file",
+      "label": "apps/worker/erase.py",
+      "path": "apps/worker/erase.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "49615a61714255e76015aff5a24da6c53545916b894a46daf7907238a10a9bf9"
     },
     {
       "id": "file:apps/worker/main.py",
@@ -77,7 +87,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "c0edb590178058ca102ea5d4dab7f6ac7a8a6aa3b002d463013595a7b0468415"
+      "contentHash": "2befa0ea18dd34670ff9545b120498b7719d994fef374c2033c9de4206e48810"
     },
     {
       "id": "file:packages/memory-domain/memory_domain/__init__.py",
@@ -140,6 +150,16 @@
       "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
+      "id": "file:packages/persistence/persistence/control.py",
+      "type": "file",
+      "label": "packages/persistence/persistence/control.py",
+      "path": "packages/persistence/persistence/control.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "aa469d1c44474325449dd6ee2ed6227835c3f7a8f18e751a5b515f939fad5cd2"
+    },
+    {
       "id": "file:packages/persistence/persistence/repositories.py",
       "type": "file",
       "label": "packages/persistence/persistence/repositories.py",
@@ -147,7 +167,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "03bf7caf183702eeb538a866b983f524a08072983bac3160b2b57f1010fe6fc3"
+      "contentHash": "0769c173ad5f7cf5d557efb8a0987adbc1ab53c89e4e1c2dbe97dee8cf00ae3a"
     },
     {
       "id": "file:packages/persistence/persistence/retrieval.py",
@@ -167,7 +187,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "206705ee8984ada02a73935c441a3dd4e5b6311d250c8c5f67d6d7b3569c3989"
+      "contentHash": "9fe473d9edad1331b5b037dcd0b8ca50c1fe9e7042a90cccc4bb4227cd285e80"
     },
     {
       "id": "file:tests/integration/test_foundation.py",
@@ -178,6 +198,16 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "4126c511558720834ef95e1ce8f9874dea5458ad375dc38955b098a5ede0d5f4"
+    },
+    {
+      "id": "file:tests/integration/test_memory_control.py",
+      "type": "file",
+      "label": "tests/integration/test_memory_control.py",
+      "path": "tests/integration/test_memory_control.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "44e500d61ca5f9b99a004a325b7b8e16e82dba4c272ef1111134c316cfeb21ae"
     },
     {
       "id": "file:tests/integration/test_retrieval.py",

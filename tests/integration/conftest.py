@@ -36,5 +36,6 @@ def identities(engine):
         connection.execute(text("INSERT INTO subjects(id,tenant_id) VALUES (:subject_a,:tenant_a),(:subject_a2,:tenant_a),(:subject_b,:tenant_b)"), values)
         connection.execute(text("UPDATE subjects SET memory_consent=true"))
         connection.execute(text("INSERT INTO actor_subject_grants(tenant_id,actor_id,subject_id) VALUES (:tenant_a,:actor_a,:subject_a),(:tenant_b,:actor_b,:subject_b)"), values)
+        connection.execute(text("UPDATE actor_subject_grants SET can_inspect_sources=true"))
         connection.execute(text("INSERT INTO sessions(id,tenant_id,subject_id) VALUES (:session_a,:tenant_a,:subject_a)"), values)
     return values

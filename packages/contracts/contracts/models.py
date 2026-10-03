@@ -118,3 +118,57 @@ class ContextEnvelope(BaseModel):
 
 class CursorError(Exception):
     pass
+
+
+class CorrectMemoryRequest(BaseModel):
+    expected_version_id: UUID
+    content: str = Field(min_length=1,max_length=8000)
+    source: SourceInput
+    confidence: float = Field(ge=0,le=1)
+    importance: float = Field(default=.5,ge=0,le=1)
+
+class ForgetMemoryRequest(BaseModel):
+    confirm: Literal[True]
+    expected_version_id: UUID
+
+class VersionResource(BaseModel):
+    id: UUID
+    content: str | None
+    origin: str
+    actor_id: UUID
+    valid_from: datetime
+    valid_to: datetime | None
+    supersedes_version_id: UUID | None
+    source_episode_ids: list[UUID]
+
+class HistoryEnvelope(BaseModel):
+    memory_id: UUID
+    lifecycle_state: str
+    versions: list[VersionResource]
+    request_id: str
+
+class ErasureResource(BaseModel):
+    id: UUID
+    memory_id: UUID
+    state: Literal['pending','completed','blocked']
+    available_at: datetime
+    completed_at: datetime | None
+    retained_shared_episodes: int
+    error_code: str | None
+    erasure_scope: str='memory_and_unshared_episode_content'
+
+class ErasureEnvelope(BaseModel):
+    erasure: ErasureResource
+    request_id: str
+
+class SourceEpisode(BaseModel):
+    id: UUID
+    created_at: datetime
+    messages: list[Message]
+
+class SourcesEnvelope(BaseModel):
+    episodes: list[SourceEpisode]
+    request_id: str
+
+class VersionConflict(Exception):
+    pass

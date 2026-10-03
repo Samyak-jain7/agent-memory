@@ -132,6 +132,45 @@ def create_app(database_url: str | None = None) -> FastAPI:
             raise HTTPException(404,detail={'code':'resource_not_found'})
         return JobEnvelope(job=result,request_id=request.state.request_id)
 
+    from contracts.models import CorrectMemoryRequest,ForgetMemoryRequest,HistoryEnvelope,ErasureEnvelope,SourcesEnvelope,VersionConflict
+    @app.exception_handler(VersionConflict)
+    async def version_conflict(request:Request,error:VersionConflict):
+        return JSONResponse(status_code=409,content={'detail':{'code':'version_conflict'}})
+
+    @app.patch('/v1/memories/{memory_id}',response_model=MemoryCreated)
+    def correct(memory_id:UUID,body:CorrectMemoryRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:result=repository.correct(principal,memory_id,body,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+        return MemoryCreated(memory=result,request_id=request.state.request_id)
+
+    @app.post('/v1/memories/{memory_id}/forget',response_model=ErasureEnvelope,status_code=202)
+    def forget(memory_id:UUID,body:ForgetMemoryRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:result=repository.forget(principal,memory_id,body,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+        return ErasureEnvelope(erasure=result,request_id=request.state.request_id)
+
+    @app.get('/v1/memories/{memory_id}/history',response_model=HistoryEnvelope)
+    def history(memory_id:UUID,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:return repository.history(principal,memory_id,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+
+    @app.get('/v1/memories/{memory_id}/sources',response_model=SourcesEnvelope)
+    def sources(memory_id:UUID,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:return repository.sources(principal,memory_id,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+
+    @app.get('/v1/memories/{memory_id}/erasure',response_model=ErasureEnvelope)
+    def erasure_status(memory_id:UUID,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:result=repository.erasure_status(principal,memory_id,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+        return ErasureEnvelope(erasure=result,request_id=request.state.request_id)
+
+    @app.post('/v1/memories/{memory_id}/erasure/retry',response_model=ErasureEnvelope,status_code=202)
+    def retry_erasure(memory_id:UUID,body:ForgetMemoryRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:result=repository.retry_erasure(principal,memory_id,body,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+        return ErasureEnvelope(erasure=result,request_id=request.state.request_id)
+
     return app
 
 

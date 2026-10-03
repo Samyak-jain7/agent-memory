@@ -82,15 +82,15 @@
 
 ### T-4R — Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.
 
-- state/risk: active / high
+- state/risk: done / high
 - requirements: FR-10, FR-11, NFR-2, NFR-6, AC-8, AC-9
 - scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_memory_control.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/worker, tests/integration
-- gates: control-tests: python -m pytest tests/integration, independent-review: pending
+- gates: control-tests: python -m pytest tests/integration, independent-review: pass
 - next: Implement temporal correction and suppression using shared repository filters, then run control-tests.
 
 ### T-5R — Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.
 
-- state/risk: queued / medium
+- state/risk: active / medium
 - requirements: FR-13, NFR-8, AC-4, AC-11
 - scope: packages/contracts, packages/sdk-python, tests/contract, README.md, .gitignore, pyproject.toml, migrations, apps/api, tests/integration
 - gates: sdk-contract-tests: python -m pytest tests/integration tests/contract, independent-review: pending

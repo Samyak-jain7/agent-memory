@@ -4,11 +4,11 @@
 
 - objective: Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.
 - phase/status: build/active
-- active task: T-4R — Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.
+- active task: T-5R — Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.
 - blocker: none
-- next action: Implement temporal correction and suppression using shared repository filters, then run control-tests.
+- next action: Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests.
 - phase instruction: Implement only the active task and prove it against current sources. Check `genesis query . impact PATH` before editing shared code.
-- gates: control-tests:pending, independent-review:pending
+- gates: sdk-contract-tests:pending, independent-review:pending
 - recent failures: none
 
 ## Resume
@@ -17,9 +17,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: d00e7bb211e08a94f2b5f9d62f2bf97a0b08e5623d4fc6b74a45e37c6b752ee8. Use --since only after receiving that full packet; kickoff is not the packet.
-- DECISION-eb9b87d8: PostgreSQL-backed initial workflow queue
-- DECISION-aecdc4c3: PostgreSQL temporal memory model
-- KNOWLEDGE-083939b5: Repository is specification-only
+Context fingerprint: a1939c1daf59b5956ab2c2f09cc7e0777c900412d1d4164ffccb741d01e7e90b. Use --since only after receiving that full packet; kickoff is not the packet.
+- DECISION-4d81ce4a: Python service and SDK with Next.js console
+- DECISION-76d9d401: Asynchronous capture contract
+- DECISION-097da683: First release includes automatic memory formation
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

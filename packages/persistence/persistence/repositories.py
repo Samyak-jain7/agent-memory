@@ -9,9 +9,10 @@ from memory_domain.service import CaptureResult, IdempotencyConflict
 
 
 from .retrieval import Retrieval
+from .control import Control
 
 
-class Repository(Retrieval):
+class Repository(Retrieval,Control):
     def __init__(self, engine: Engine, provider=None):
         self.engine = engine
         self.provider = provider
@@ -94,7 +95,7 @@ class Repository(Retrieval):
                 self._scope(connection, principal.tenant_id)
                 if not self._authorized(connection, principal, request.subject_id):
                     raise PermissionError
-                source = connection.execute(text("SELECT id FROM episodes WHERE id=:id AND tenant_id=:tenant AND subject_id=:subject"), {"id": request.source.episode_id, "tenant": principal.tenant_id, "subject": request.subject_id}).scalar_one_or_none()
+                source = connection.execute(text("SELECT id FROM episodes WHERE id=:id AND tenant_id=:tenant AND subject_id=:subject AND erased_at IS NULL"), {"id": request.source.episode_id, "tenant": principal.tenant_id, "subject": request.subject_id}).scalar_one_or_none()
                 if source is None:
                     raise PermissionError
                 from model_gateway import Candidate, Policy

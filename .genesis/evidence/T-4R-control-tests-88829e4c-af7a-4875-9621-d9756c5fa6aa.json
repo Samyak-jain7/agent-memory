@@ -1,0 +1,30 @@
+{
+  "task": "T-4R",
+  "gate": "control-tests",
+  "kind": "command",
+  "attempt": "88829e4c-af7a-4875-9621-d9756c5fa6aa",
+  "command": "python -m pytest tests/integration",
+  "started_at": "2026-10-03T18:25:04.834Z",
+  "observed_at": "2026-10-03T18:25:08.215Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 58 items\n\ntests/integration/test_foundation.py ...........................         [ 46%]\ntests/integration/test_memory_control.py ........                        [ 60%]\ntests/integration/test_retrieval.py .............                        [ 82%]\ntests/integration/test_worker.py ..........                              [100%]\n\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.13/site-packages/starlette/testclient.py:53\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 58 passed, 2 warnings in 2.68s ========================\n",
+  "stderr": "",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "e07a6430c86a4abfaea2f857d48a529f55e45335",
+    "dirty": true
+  },
+  "source_hash": "8f52bea7f64bcedc939d8b1af3409e136414d5f86dccacad44d73bf3cf6ed97e",
+  "before_hash": "8f52bea7f64bcedc939d8b1af3409e136414d5f86dccacad44d73bf3cf6ed97e",
+  "config_hash": "264dc5fba00902ac40f6a4a72c8bcea150a98c26e7d4ae2ddb98e3a3c3a7a65f",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "fd875e74232b5f6256495e4c8f065e7e446f3df4793605ce924aed6c37b7ba69"
+}

@@ -5,6 +5,7 @@ digraph genesis {
   "file:apps/api/auth.py" [label="apps/api/auth.py",class="file"];
   "file:apps/api/main.py" [label="apps/api/main.py",class="file"];
   "file:apps/worker/__init__.py" [label="apps/worker/__init__.py",class="file"];
+  "file:apps/worker/erase.py" [label="apps/worker/erase.py",class="file"];
   "file:apps/worker/main.py" [label="apps/worker/main.py",class="file"];
   "file:packages/contracts/contracts/__init__.py" [label="packages/contracts/contracts/__init__.py",class="file"];
   "file:packages/contracts/contracts/models.py" [label="packages/contracts/contracts/models.py",class="file"];
@@ -14,10 +15,12 @@ digraph genesis {
   "file:packages/model-gateway/model_gateway/__init__.py" [label="packages/model-gateway/model_gateway/__init__.py",class="file"];
   "file:packages/observability/observability/__init__.py" [label="packages/observability/observability/__init__.py",class="file"];
   "file:packages/persistence/persistence/__init__.py" [label="packages/persistence/persistence/__init__.py",class="file"];
+  "file:packages/persistence/persistence/control.py" [label="packages/persistence/persistence/control.py",class="file"];
   "file:packages/persistence/persistence/repositories.py" [label="packages/persistence/persistence/repositories.py",class="file"];
   "file:packages/persistence/persistence/retrieval.py" [label="packages/persistence/persistence/retrieval.py",class="file"];
   "file:tests/integration/conftest.py" [label="tests/integration/conftest.py",class="file"];
   "file:tests/integration/test_foundation.py" [label="tests/integration/test_foundation.py",class="file"];
+  "file:tests/integration/test_memory_control.py" [label="tests/integration/test_memory_control.py",class="file"];
   "file:tests/integration/test_retrieval.py" [label="tests/integration/test_retrieval.py",class="file"];
   "file:tests/integration/test_worker.py" [label="tests/integration/test_worker.py",class="file"];
 
