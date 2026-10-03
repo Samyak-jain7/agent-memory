@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T19:23:37.632Z"
+    "updated_at": "2026-10-03T19:27:02.466Z"
   },
   "policy": {
     "ponytail": "full",
@@ -23,11 +23,11 @@
     }
   },
   "lifecycle": {
-    "phase": "build",
-    "status": "active",
-    "active_task": "T-8R",
+    "phase": "verify",
+    "status": "ready",
+    "active_task": null,
     "blocker": null,
-    "next_action": "Run the task pre-flight."
+    "next_action": "Review completed work and choose the next bounded outcome."
   },
   "commands": {},
   "workflow": {
@@ -398,6 +398,15 @@
       "source": "https://github.com/Samyak-jain7/agent-memory/actions/runs/37147316115; current T-8R integration-regression proof",
       "tags": [],
       "recorded_at": "2026-10-03T19:23:36.405Z",
+      "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-c05153a5",
+      "title": "Private GitHub publication and hosted verification confirmed",
+      "text": "Created https://github.com/Samyak-jain7/agent-memory and independently verified visibility PRIVATE and default branch full-stack-memory-layer-for-ai-agents-7ix3z6. Hosted run 37147726988 succeeded for code commit b9f4fb33d30516275f0f80412f93f38581d0e6c6: Next.js build, 8 Chromium tests, 68 integration/contract/audit tests, 12 security/system tests, real backup/restore, offline golden evaluation, real HTTP SDK smoke, and expected blocked production-readiness guard all passed. Final publication records change Genesis metadata only; product source remains the verified code. Production launch remains blocked pending genuine target/policy approvals and deployed encryption/live-provider evidence.",
+      "source": "https://github.com/Samyak-jain7/agent-memory/actions/runs/37147726988",
+      "tags": [],
+      "recorded_at": "2026-10-03T19:27:01.358Z",
       "paths": []
     }
   ],
@@ -1740,7 +1749,7 @@
     {
       "id": "T-8R",
       "outcome": "Verify hosted CI with valid service context, declared test dependency bounds, and request-scoped trace correlation assertions",
-      "state": "active",
+      "state": "done",
       "risk": "medium",
       "owner": null,
       "scope": [
@@ -1805,7 +1814,7 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-10-03T19:20:54.336Z",
-      "updated_at": "2026-10-03T19:20:54.336Z",
+      "updated_at": "2026-10-03T19:27:02.011Z",
       "base_manifest": {
         ".env.example": "571d670ebd58441bee7ba352fad3f0db76b381dc1e11259b83aaa7a58a95dd80",
         ".github/workflows/verify.yml": "7e8d14f9e6dbd89887735a4917209e071bff0ee596e373b03823bbdcba6858da",
@@ -2895,14 +2904,14 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T19:23:37.588Z",
+    "at": "2026-10-03T19:27:02.421Z",
     "revision": {
-      "commit": "28551b68219ce7b9fe46ca227d7505809dabc5e3",
+      "commit": "b9f4fb33d30516275f0f80412f93f38581d0e6c6",
       "dirty": true,
       "source_hash": "40d34cf4a1457c105bc75822a8bc78eae398b31998f83107ca1fbecf7587d871"
     },
-    "active_task": "T-8R",
-    "next_action": "Run the task pre-flight."
+    "active_task": null,
+    "next_action": "Review completed work and choose the next bounded outcome."
   },
   "legacy": null
 }
