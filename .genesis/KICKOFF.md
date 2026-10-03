@@ -5,8 +5,8 @@
 - objective: Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.
 - phase/status: build/active
 - active task: T-1 — Establish the Python workspace, versioned API contracts, tenant-scoped temporal memory schema, atomic episode capture, explicit memory add, audit foundation, and migration-backed repositories.
-- blocker: scope-violation; inspect attempt 878c3e95-ebed-414b-9f0f-4fe5c68bb56e before retrying
-- next action: Scaffold only the approved foundation scope, implement migrations and contracts, then run foundation-tests.
+- blocker: none
+- next action: Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2.
 - phase instruction: Implement only the active task and prove it against current sources. Check `genesis query . impact PATH` before editing shared code.
 - gates: foundation-tests:pass, independent-review:pending
 - recent failures: none
@@ -17,9 +17,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: b0ead8ab09c9a9f41c898b454688989b7f9e70c1ec48d95607f14aa7a0f9e4c9. Use --since only after receiving that full packet; kickoff is not the packet.
+Context fingerprint: db4e797a3ff206792a4a6a980c56d7cb8e55ae12daa4d38a8917bdbe643e3e8e. Use --since only after receiving that full packet; kickoff is not the packet.
+- KNOWLEDGE-T1-REVIEW-20261003: Independent foundation review resolved
 - DECISION-eb9b87d8: PostgreSQL-backed initial workflow queue
-- DECISION-38cab761: Production baseline is launch scope
 - DECISION-be32f824: Trust-focused operator console
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

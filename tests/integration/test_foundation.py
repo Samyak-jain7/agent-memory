@@ -10,6 +10,7 @@ from uuid import uuid4
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
+from sqlalchemy.engine import make_url
 
 from apps.api.auth import Principal
 from apps.api.main import create_app
@@ -17,16 +18,19 @@ from contracts.models import CaptureEpisodeRequest, Message
 from persistence.repositories import Repository
 
 
-DATABASE_URL = os.environ.get("TEST_DATABASE_URL", "postgresql+psycopg://postgres:postgres@localhost:5432/postgres")
+DATABASE_URL = os.environ.get("TEST_DATABASE_URL", "")
 
 
 @pytest.fixture(scope="session")
 def engine():
+    if not DATABASE_URL or not (make_url(DATABASE_URL).database or "").startswith("memory_test"):
+        pytest.fail("TEST_DATABASE_URL must explicitly select a disposable memory_test database")
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as connection:
             connection.execute(text("DROP SCHEMA public CASCADE; CREATE SCHEMA public"))
-            connection.execute(text(Path("migrations/001_foundation.sql").read_text()))
+            for migration in sorted(Path("migrations").glob("*.sql")):
+                connection.execute(text(migration.read_text()))
     except Exception as error:
         pytest.fail(f"PostgreSQL with pgvector is required: {error}")
     yield engine
@@ -36,7 +40,7 @@ def engine():
 @pytest.fixture(autouse=True)
 def clean_database(engine):
     with engine.begin() as connection:
-        connection.execute(text("TRUNCATE audit_events,memory_sources,memory_versions,memories,formation_jobs,episodes,sessions,subjects,actors,tenants CASCADE"))
+        connection.execute(text("TRUNCATE audit_events,memory_sources,memory_versions,memories,formation_jobs,episodes,sessions,actor_subject_grants,subjects,actors,tenants CASCADE"))
 
 
 @pytest.fixture
@@ -46,6 +50,7 @@ def identities(engine):
         connection.execute(text("INSERT INTO tenants(id,name) VALUES (:tenant_a,'A'),(:tenant_b,'B')"), values)
         connection.execute(text("INSERT INTO actors(id,tenant_id) VALUES (:actor_a,:tenant_a),(:actor_b,:tenant_b)"), values)
         connection.execute(text("INSERT INTO subjects(id,tenant_id) VALUES (:subject_a,:tenant_a),(:subject_a2,:tenant_a),(:subject_b,:tenant_b)"), values)
+        connection.execute(text("INSERT INTO actor_subject_grants(tenant_id,actor_id,subject_id) VALUES (:tenant_a,:actor_a,:subject_a),(:tenant_b,:actor_b,:subject_b)"), values)
         connection.execute(text("INSERT INTO sessions(id,tenant_id,subject_id) VALUES (:session_a,:tenant_a,:subject_a)"), values)
     return values
 
@@ -190,3 +195,104 @@ def test_supersession_cannot_cross_tenants(engine, identities):
                 VALUES (:version_a,:tenant_a,:memory_a,'A','explicit',1,1,now(),:actor_a,now())"""), values)
             connection.execute(text("""INSERT INTO memory_versions(id,tenant_id,memory_id,content,origin,confidence,importance,valid_from,supersedes_version_id,actor_id,created_at)
                 VALUES (:version_b,:tenant_b,:memory_b,'B','explicit',1,1,now(),:version_a,:actor_b,now())"""), values)
+
+
+@pytest.fixture
+def stored_memory(identities):
+    client = TestClient(create_app(DATABASE_URL))
+    captured = client.post("/v1/episodes", json=episode_body(identities), headers=headers(identities))
+    assert captured.status_code == 202
+    created = client.post("/v1/memories", json={"subject_id": str(identities["subject_a"]),
+        "kind": "preference", "content": "Prefers tea", "confidence": 1,
+        "source": {"episode_id": captured.json()["episode"]["id"]}}, headers=headers(identities))
+    assert created.status_code == 201
+    return client, captured.json(), created.json()["memory"]
+
+
+def test_revoked_subject_grant_denies_read_and_capture(engine, identities, stored_memory):
+    client, captured, memory = stored_memory
+    with engine.begin() as connection:
+        connection.execute(text("DELETE FROM actor_subject_grants WHERE tenant_id=:tenant AND actor_id=:actor"),
+            {"tenant": identities["tenant_a"], "actor": identities["actor_a"]})
+    assert client.get(f"/v1/memories/{memory['id']}", headers=headers(identities)).status_code == 404
+    assert client.post("/v1/episodes", json=episode_body(identities, "denied"), headers=headers(identities)).status_code == 404
+    with engine.connect() as connection:
+        assert connection.execute(text("SELECT count(*) FROM audit_events WHERE outcome='denied'")).scalar_one() == 2
+
+
+@pytest.mark.parametrize("state", ["leased", "succeeded", "rejected", "retryable_failure", "dead_letter"])
+def test_capture_replay_returns_current_processing_state(engine, identities, state):
+    client = TestClient(create_app(DATABASE_URL))
+    initial = client.post("/v1/episodes", json=episode_body(identities), headers=headers(identities)).json()
+    with engine.begin() as connection:
+        connection.execute(text("UPDATE formation_jobs SET state=:state WHERE id=:id"),
+            {"state": state, "id": initial["job"]["id"]})
+    replay = client.post("/v1/episodes", json=episode_body(identities), headers=headers(identities))
+    assert replay.status_code == 200
+    assert replay.json()["episode"]["id"] == initial["episode"]["id"]
+    assert replay.json()["job"]["state"] == state
+
+
+@pytest.mark.parametrize("statement", [
+    "UPDATE episodes SET content='[]'::jsonb",
+    "DELETE FROM episodes",
+    "UPDATE audit_events SET outcome='changed'",
+    "DELETE FROM audit_events",
+    "UPDATE memory_versions SET content='changed'",
+    "DELETE FROM memory_versions",
+    "DELETE FROM memory_sources",
+    "INSERT INTO actor_subject_grants SELECT tenant_id,id,:subject FROM actors",
+])
+def test_application_role_cannot_mutate_evidence_or_grants(engine, identities, stored_memory, statement):
+    with pytest.raises(Exception, match="permission denied"):
+        with engine.begin() as connection:
+            Repository._scope(connection, identities["tenant_a"])
+            connection.execute(text(statement), {"subject": identities["subject_a2"]})
+
+
+def test_tenant_table_is_isolated(engine, identities):
+    with engine.begin() as connection:
+        Repository._scope(connection, identities["tenant_a"])
+        assert connection.execute(text("SELECT id FROM tenants")).scalars().all() == [identities["tenant_a"]]
+    with pytest.raises(Exception, match="permission denied"):
+        with engine.begin() as connection:
+            Repository._scope(connection, identities["tenant_a"])
+            connection.execute(text("UPDATE tenants SET name='changed'"))
+
+
+def test_last_evidence_cannot_be_removed_even_by_owner(engine, identities, stored_memory):
+    _, _, memory = stored_memory
+    with pytest.raises(Exception, match="active memory requires source evidence"):
+        with engine.begin() as connection:
+            connection.execute(text("DELETE FROM memory_sources WHERE memory_version_id=:id"), {"id": memory["version_id"]})
+
+
+def test_source_cannot_reference_another_subject(engine, identities, stored_memory):
+    client, _, memory = stored_memory
+    session = uuid4()
+    with engine.begin() as connection:
+        connection.execute(text("INSERT INTO actor_subject_grants VALUES (:tenant,:actor,:subject)"),
+            {"tenant": identities["tenant_a"], "actor": identities["actor_a"], "subject": identities["subject_a2"]})
+        connection.execute(text("INSERT INTO sessions(id,tenant_id,subject_id) VALUES (:id,:tenant,:subject)"),
+            {"id": session, "tenant": identities["tenant_a"], "subject": identities["subject_a2"]})
+    body = episode_body(identities, "other-subject")
+    body.update(session_id=str(session), subject_id=str(identities["subject_a2"]))
+    other = client.post("/v1/episodes", json=body, headers=headers(identities))
+    assert other.status_code == 202
+    with pytest.raises(Exception, match="source evidence must belong to the memory subject"):
+        with engine.begin() as connection:
+            connection.execute(text("INSERT INTO memory_sources(tenant_id,memory_version_id,episode_id) VALUES (:tenant,:version,:episode)"),
+                {"tenant": identities["tenant_a"], "version": memory["version_id"], "episode": other.json()["episode"]["id"]})
+
+
+
+def test_memory_subject_cannot_change_after_evidence_link(engine, identities, stored_memory):
+    _, _, memory = stored_memory
+    with pytest.raises(Exception, match="permission denied"):
+        with engine.begin() as connection:
+            Repository._scope(connection, identities["tenant_a"])
+            connection.execute(text("UPDATE memories SET subject_id=:subject WHERE id=:id"),
+                {"subject": identities["subject_a2"], "id": memory["id"]})
+    with engine.connect() as connection:
+        assert connection.execute(text("SELECT subject_id FROM memories WHERE id=:id"),
+            {"id": memory["id"]}).scalar_one() == identities["subject_a"]

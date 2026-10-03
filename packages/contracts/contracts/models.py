@@ -47,7 +47,7 @@ class JobResource(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: UUID
     episode_id: UUID
-    state: Literal["pending"]
+    state: Literal["pending", "leased", "succeeded", "rejected", "retryable_failure", "dead_letter"]
     created_at: datetime
 
 

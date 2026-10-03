@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-09-19T11:43:29.476Z"
+    "updated_at": "2026-10-03T16:21:23.938Z"
   },
   "policy": {
     "ponytail": "full",
@@ -26,8 +26,8 @@
     "phase": "build",
     "status": "active",
     "active_task": "T-1",
-    "blocker": "scope-violation; inspect attempt 878c3e95-ebed-414b-9f0f-4fe5c68bb56e before retrying",
-    "next_action": "Scaffold only the approved foundation scope, implement migrations and contracts, then run foundation-tests."
+    "blocker": null,
+    "next_action": "Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2."
   },
   "commands": {},
   "workflow": {
@@ -353,6 +353,15 @@
       "tags": [],
       "recorded_at": "2026-09-19T11:03:56.793Z",
       "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-T1-REVIEW-20261003",
+      "title": "Independent foundation review resolved",
+      "text": "Independent reviewer agent foundation_review inspected T-1 source and final current-source proof. All six review findings resolved: subject grants, immutable evidence privileges, provenance/subject checks, all job states, tenant RLS, stable memory subject identity. Final gate evidence records 27 passed. This is an agent review report, not a human gate approval.",
+      "source": ".genesis/evidence/T-1-foundation-tests-91cbf0d7-e5de-4e02-9374-e5298640ad60.json",
+      "tags": [],
+      "recorded_at": "2026-10-03T16:21:23.639Z",
+      "paths": []
     }
   ],
   "tasks": [
@@ -445,11 +454,11 @@
           "mandatory": true,
           "status": "pass",
           "evidence": {
-            "path": ".genesis/evidence/T-1-foundation-tests-788d466d-915a-4cc1-91a4-740f324862d2.json",
-            "hash": "52e000ff7c7f893744b8d1c4f42d107eac6b4f953bd3c04a471d1b33543691c6",
-            "source_hash": "411d6c713becaed306d988f21311d13358d127985b352114ddfe1b19892c179a",
+            "path": ".genesis/evidence/T-1-foundation-tests-91cbf0d7-e5de-4e02-9374-e5298640ad60.json",
+            "hash": "b662b3b2bfbcaa9bd30853d3f22e36b3b2aa58b794a59185843426b010e5adfa",
+            "source_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0",
             "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
-            "observed_at": "2026-09-19T11:43:04.386Z"
+            "observed_at": "2026-10-03T16:19:40.439Z"
           }
         },
         {
@@ -461,16 +470,19 @@
           "evidence": null
         }
       ],
-      "next_action": "Scaffold only the approved foundation scope, implement migrations and contracts, then run foundation-tests.",
-      "blocker": "scope-violation; inspect attempt 878c3e95-ebed-414b-9f0f-4fe5c68bb56e before retrying",
-      "notes": [],
+      "next_action": "Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2.",
+      "blocker": null,
+      "notes": [
+        "Reconciled historical scope mismatch: uv.lock and apps/__init__.py are absent; new verification disables bytecode writes. Preserve failed attempts; harden reviewed foundation gaps within approved T-1 scope.",
+        "Independent agent review passed on current source; human independent-review gate remains pending as required by Genesis. No historical evidence removed or fabricated."
+      ],
       "failures": [],
       "limitations": [
         "changes outside task scope: apps/__init__.py, apps/__pycache__/__init__.cpython-313.pyc, uv.lock",
         "changes outside task scope: apps/__pycache__/__init__.cpython-313.pyc"
       ],
       "created_at": "2026-09-19T11:12:02.164Z",
-      "updated_at": "2026-09-19T11:12:02.165Z",
+      "updated_at": "2026-10-03T16:21:23.776Z",
       "base_manifest": {
         ".gitignore": "e12c6ade92e0042a012d4efdf2e7ab8dfd248bc31ec8c191f9b53b068be736e9",
         ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
@@ -994,6 +1006,110 @@
       "cost": null,
       "stop_reason": null,
       "ended_at": "2026-09-19T11:43:04.386Z"
+    },
+    {
+      "id": "4ab8c230-ea3a-47ce-9fbc-c488db508917",
+      "task": "T-1",
+      "kind": "worker",
+      "command": "python -m pytest tests/integration/test_foundation.py",
+      "timeout": 119998,
+      "authorization": "AUTH-T1-20261003",
+      "pid": 98833,
+      "child_pid": 98872,
+      "started_at": "2026-10-03T16:17:54.216Z",
+      "status": "passed",
+      "before_hash": "5c6588a41e186067a0459456819311eba868b809afa23489a5e13297a0124c56",
+      "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T16:17:57.169Z",
+      "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 26 items\n\ntests/integration/test_foundation.py ..........................          [100%]\n\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.13/site-packages/starlette/testclient.py:53\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 26 passed, 2 warnings in 2.53s ========================\n",
+      "stderr": "",
+      "exit_code": 0,
+      "after_hash": "5c6588a41e186067a0459456819311eba868b809afa23489a5e13297a0124c56"
+    },
+    {
+      "id": "d249b876-3d60-42f3-84b5-f2a395ae0986",
+      "task": "T-1",
+      "kind": "gate",
+      "command": "python -m pytest tests/integration/test_foundation.py",
+      "timeout": 116960,
+      "authorization": "AUTH-T1-20261003",
+      "pid": 98833,
+      "child_pid": 98990,
+      "started_at": "2026-10-03T16:17:57.253Z",
+      "status": "passed",
+      "before_hash": "5c6588a41e186067a0459456819311eba868b809afa23489a5e13297a0124c56",
+      "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T16:17:59.397Z"
+    },
+    {
+      "id": "000b0f33-0eb7-49dc-8c33-ca0112b39bda",
+      "task": "T-1",
+      "kind": "worker",
+      "command": "python -m pytest tests/integration/test_foundation.py",
+      "timeout": 119997,
+      "authorization": "AUTH-T1-20261003",
+      "pid": 99107,
+      "child_pid": 99150,
+      "started_at": "2026-10-03T16:19:35.730Z",
+      "status": "passed",
+      "before_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0",
+      "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T16:19:38.650Z",
+      "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 27 items\n\ntests/integration/test_foundation.py ...........................         [100%]\n\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.13/site-packages/starlette/testclient.py:53\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 27 passed, 2 warnings in 2.51s ========================\n",
+      "stderr": "",
+      "exit_code": 0,
+      "after_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0"
+    },
+    {
+      "id": "91cbf0d7-e5de-4e02-9374-e5298640ad60",
+      "task": "T-1",
+      "kind": "gate",
+      "command": "python -m pytest tests/integration/test_foundation.py",
+      "timeout": 116973,
+      "authorization": "AUTH-T1-20261003",
+      "pid": 99107,
+      "child_pid": 99263,
+      "started_at": "2026-10-03T16:19:38.737Z",
+      "status": "passed",
+      "before_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0",
+      "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-03T16:19:40.439Z"
     }
   ],
   "authorizations": [
@@ -1008,20 +1124,32 @@
       "status": "active",
       "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
       "created_at": "2026-09-19T11:40:51.656Z"
+    },
+    {
+      "id": "AUTH-T1-20261003",
+      "task": "T-1",
+      "command": "python -m pytest tests/integration/test_foundation.py",
+      "human": "Samyak",
+      "reason": "User requested continuing and completing the approved project; authorization covers local isolated project tests.",
+      "expires_at": "2026-10-04T00:00:00.000Z",
+      "timeout": 120000,
+      "status": "active",
+      "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
+      "created_at": "2026-10-03T16:16:05.914Z"
     }
   ],
   "experiments": [],
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-09-19T11:43:29.442Z",
+    "at": "2026-10-03T16:21:23.914Z",
     "revision": {
-      "commit": "bafcd672a4c50d143767441c6dd85ccd5ae660fa",
-      "dirty": false,
-      "source_hash": "411d6c713becaed306d988f21311d13358d127985b352114ddfe1b19892c179a"
+      "commit": "0ad79e8c5a2241e0e7ac6f5bba0727426a2e9bb3",
+      "dirty": true,
+      "source_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0"
     },
     "active_task": "T-1",
-    "next_action": "Scaffold only the approved foundation scope, implement migrations and contracts, then run foundation-tests."
+    "next_action": "Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2."
   },
   "legacy": null
 }

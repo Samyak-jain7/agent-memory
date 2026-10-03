@@ -14,7 +14,7 @@
 - requirements: FR-1, FR-2, FR-3, FR-5, FR-15, NFR-1, NFR-4, NFR-5, NFR-7, NFR-8, NFR-9, AC-1, AC-2, AC-4, AC-10, AC-13
 - scope: pyproject.toml, apps/api, packages/contracts, packages/memory-domain, packages/persistence, migrations, tests/integration
 - gates: foundation-tests: python -m pytest tests/integration/test_foundation.py, independent-review: pending
-- next: Scaffold only the approved foundation scope, implement migrations and contracts, then run foundation-tests.
+- next: Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2.
 
 ### T-2 — Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.
 

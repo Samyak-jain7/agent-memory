@@ -21,7 +21,8 @@ class Repository:
     def _authorized(connection, principal, subject_id: UUID) -> bool:
         return connection.execute(
             text("""SELECT EXISTS (
-                SELECT 1 FROM actors a JOIN subjects s ON s.tenant_id = a.tenant_id
+                SELECT 1 FROM actors a JOIN actor_subject_grants g ON g.tenant_id=a.tenant_id AND g.actor_id=a.id
+                JOIN subjects s ON s.tenant_id=g.tenant_id AND s.id=g.subject_id
                 WHERE a.id=:actor AND s.id=:subject AND a.tenant_id=:tenant AND a.active AND s.active
             )"""),
             {"actor": principal.actor_id, "subject": subject_id, "tenant": principal.tenant_id},
