@@ -4,11 +4,11 @@
 
 - objective: Build a production-grade, tenant-isolated full-stack memory platform for AI agents that durably captures episodes, asynchronously forms provenance-linked versioned memories, exposes API and Python SDK retrieval and bounded context composition, and provides operator inspection, correction, and forgetting controls.
 - phase/status: build/active
-- active task: T-1 — Establish the Python workspace, versioned API contracts, tenant-scoped temporal memory schema, atomic episode capture, explicit memory add, audit foundation, and migration-backed repositories.
+- active task: T-2R — Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.
 - blocker: none
-- next action: Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2.
+- next action: Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes.
 - phase instruction: Implement only the active task and prove it against current sources. Check `genesis query . impact PATH` before editing shared code.
-- gates: foundation-tests:pass, independent-review:pending
+- gates: worker-tests:pending, independent-review:pending
 - recent failures: none
 
 ## Resume
@@ -17,9 +17,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: db4e797a3ff206792a4a6a980c56d7cb8e55ae12daa4d38a8917bdbe643e3e8e. Use --since only after receiving that full packet; kickoff is not the packet.
-- KNOWLEDGE-T1-REVIEW-20261003: Independent foundation review resolved
+Context fingerprint: 68d33a14fdc2e3a6c154a411cc020e287e1f77f8196cf432164429025d593bf8. Use --since only after receiving that full packet; kickoff is not the packet.
 - DECISION-eb9b87d8: PostgreSQL-backed initial workflow queue
-- DECISION-be32f824: Trust-focused operator console
+- KNOWLEDGE-fd4fa2b8: Target system separates online reads from memory formation
+- DECISION-097da683: First release includes automatic memory formation
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

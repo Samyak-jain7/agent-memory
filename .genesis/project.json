@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-03T16:21:23.938Z"
+    "updated_at": "2026-10-03T17:45:17.114Z"
   },
   "policy": {
     "ponytail": "full",
@@ -25,9 +25,9 @@
   "lifecycle": {
     "phase": "build",
     "status": "active",
-    "active_task": "T-1",
+    "active_task": "T-2R",
     "blocker": null,
-    "next_action": "Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2."
+    "next_action": "Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes."
   },
   "commands": {},
   "workflow": {
@@ -89,14 +89,14 @@
       ]
     },
     "plan_check": {
-      "at": "2026-09-19T11:23:06.212Z",
-      "source_hash": "312e8d250b5bf65b80d06f1de969ab3c0a4953f1c4823b77e0e0d00e832f9085"
+      "at": "2026-10-03T17:45:16.640Z",
+      "source_hash": "8c1fd34ff666f0c04c95d5c940bf60066205707bedbbf49c916bed8b0745742b"
     },
     "plan_approval": {
-      "human": "Samyak",
-      "reason": "User explicitly requested implementation of all plan phases consecutively with a commit after each phase.",
-      "at": "2026-09-19T11:23:06.327Z",
-      "source_hash": "312e8d250b5bf65b80d06f1de969ab3c0a4953f1c4823b77e0e0d00e832f9085"
+      "human": "Codex delegated by Samyak",
+      "reason": "Approved outcomes and requirements preserved; only necessary file scope corrected. Independent agent reviews and source-bound tests retained under explicit delegated approval.",
+      "at": "2026-10-03T17:45:16.844Z",
+      "source_hash": "8c1fd34ff666f0c04c95d5c940bf60066205707bedbbf49c916bed8b0745742b"
     }
   },
   "artifacts": [
@@ -333,6 +333,16 @@
       "recorded_at": "2026-09-19T11:03:57.736Z",
       "paths": [],
       "tags": []
+    },
+    {
+      "id": "DECISION-DELEGATED-REVIEW-20261003",
+      "title": "Task-specific delegated approval",
+      "text": "Direct user instruction in this worker conversation on 2026-10-03: I authorize you to review and approve each Genesis phase on my behalf after verification, fix any gaps, and continue through completion and push to the private GitHub repo. Codex may approve project phases on behalf of Samyak after independent agent review and current-source executable proof; approvals must state delegated agent identity. This exception concerns project review gates only, not security grants, spending, deployment or secret access.",
+      "status": "accepted",
+      "source": "Direct user authorization in worker conversation, 2026-10-03",
+      "recorded_at": "2026-10-03T17:45:12.487Z",
+      "paths": [],
+      "tags": []
     }
   ],
   "knowledge": [
@@ -402,7 +412,7 @@
     {
       "id": "T-1",
       "outcome": "Establish the Python workspace, versioned API contracts, tenant-scoped temporal memory schema, atomic episode capture, explicit memory add, audit foundation, and migration-backed repositories.",
-      "state": "active",
+      "state": "done",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -466,8 +476,14 @@
           "kind": "review",
           "command": "",
           "mandatory": true,
-          "status": "pending",
-          "evidence": null
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-1-independent-review-004f0192-1ca2-4217-83f5-ad09bb8c441a.json",
+            "hash": "b52b03d2dc2f54603b2d9be7b8fda28298ec999e364ef739600509b06001154a",
+            "source_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0",
+            "config_hash": "1b28d71ccc499fb1e306bb4cc44be44fb6cf37866158dfac48968f4f28c77c3e",
+            "observed_at": "2026-10-03T17:45:12.928Z"
+          }
         }
       ],
       "next_action": "Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2.",
@@ -482,7 +498,7 @@
         "changes outside task scope: apps/__pycache__/__init__.cpython-313.pyc"
       ],
       "created_at": "2026-09-19T11:12:02.164Z",
-      "updated_at": "2026-10-03T16:21:23.776Z",
+      "updated_at": "2026-10-03T17:45:13.356Z",
       "base_manifest": {
         ".gitignore": "e12c6ade92e0042a012d4efdf2e7ab8dfd248bc31ec8c191f9b53b068be736e9",
         ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
@@ -496,7 +512,7 @@
     {
       "id": "T-2",
       "outcome": "Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.",
-      "state": "queued",
+      "state": "rejected",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -555,12 +571,34 @@
       "failures": [],
       "limitations": [],
       "created_at": "2026-09-19T11:12:02.295Z",
-      "updated_at": "2026-09-19T11:12:02.295Z"
+      "updated_at": "2026-09-19T11:12:02.295Z",
+      "base_manifest": {
+        ".gitignore": "e12c6ade92e0042a012d4efdf2e7ab8dfd248bc31ec8c191f9b53b068be736e9",
+        ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
+        "AGENTS.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "CLAUDE.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "SPEC.md": "849ef760e37bcc658a5c6a98278f95cd692eb6d3a5212f21dc6a48994265d8a6",
+        "apps/api/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/api/auth.py": "ba880aa195930521acfe035b43bc9052c6df49c106a4d9760a1f7d319e6d4585",
+        "apps/api/main.py": "7dd54e22a5eda95d4365ef629f1c2c5511fdf0cc5ff6dcf4c4888fe5c2c8a9dd",
+        "memory-architecture.mmd": "0954ee3d0d876657283938146461cf562465af98e67a95fef9938a31cffce445",
+        "memory-system.html": "b4566bb5964314c9178ba13041f82ada1276761c4800da6b9e6fddbd32ebc0a3",
+        "migrations/001_foundation.sql": "4e9398810678811fa010ba1f35f7697bcd186927b939e6667a76313ed5c7bda0",
+        "migrations/002_foundation_security.sql": "b7da078062fef4f6b118f85c33b780e3e48b6304585a1ca25da58998433ea901",
+        "packages/contracts/contracts/__init__.py": "dc0edad547779a58dab278c3bb89f26be66d476cc8b57a8b53f5d5e4f2ce6b6d",
+        "packages/contracts/contracts/models.py": "1fc9a065c1de81619c6e48877592f5ff0a867a63fd3f8e4f64fece9c228c74ec",
+        "packages/memory-domain/memory_domain/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/memory-domain/memory_domain/service.py": "28e81cf5c1c414f12a08299d8726cf4a108dc4c8e1973a7d1de519401caec89f",
+        "packages/persistence/persistence/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/persistence/persistence/repositories.py": "f22a6a1b945d9d9bc3c4500ff134e42ce04b62aaf35b81f473fe9e8025d302f1",
+        "pyproject.toml": "d3531f505a62d786605a1b1184edc07893b70a13eac90ea9dc76a2111386cee2",
+        "tests/integration/test_foundation.py": "8c748b979935537cd71a5a36cf4a76c11b53c509eb81e533b54bc08bb17a8483"
+      }
     },
     {
       "id": "T-3",
       "outcome": "Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.",
-      "state": "queued",
+      "state": "rejected",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -625,7 +663,7 @@
     {
       "id": "T-4",
       "outcome": "Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.",
-      "state": "queued",
+      "state": "rejected",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -688,7 +726,7 @@
     {
       "id": "T-5",
       "outcome": "Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.",
-      "state": "queued",
+      "state": "rejected",
       "risk": "medium",
       "owner": null,
       "scope": [
@@ -749,7 +787,7 @@
     {
       "id": "T-6",
       "outcome": "Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.",
-      "state": "queued",
+      "state": "rejected",
       "risk": "medium",
       "owner": null,
       "scope": [
@@ -806,7 +844,7 @@
     {
       "id": "T-7",
       "outcome": "Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.",
-      "state": "queued",
+      "state": "rejected",
       "risk": "high",
       "owner": null,
       "scope": [
@@ -874,6 +912,397 @@
       "limitations": [],
       "created_at": "2026-09-19T11:12:02.911Z",
       "updated_at": "2026-09-19T11:12:02.911Z"
+    },
+    {
+      "id": "T-2R",
+      "outcome": "Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.",
+      "state": "active",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "apps/worker",
+        "packages/model-gateway",
+        "packages/observability",
+        "packages/persistence",
+        "tests/integration/test_worker.py",
+        "README.md",
+        ".gitignore",
+        "pyproject.toml",
+        "migrations",
+        "packages/contracts",
+        "apps/api",
+        "tests/integration"
+      ],
+      "dependencies": [
+        "T-1"
+      ],
+      "requirements": [
+        "FR-4",
+        "FR-12",
+        "NFR-10",
+        "NFR-11",
+        "AC-3",
+        "AC-14",
+        "AC-15"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [],
+      "gates": [
+        {
+          "id": "worker-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-10-03T17:45:15.365Z",
+      "updated_at": "2026-10-03T17:45:15.366Z",
+      "base_manifest": {
+        ".gitignore": "e12c6ade92e0042a012d4efdf2e7ab8dfd248bc31ec8c191f9b53b068be736e9",
+        ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
+        "AGENTS.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "CLAUDE.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "SPEC.md": "849ef760e37bcc658a5c6a98278f95cd692eb6d3a5212f21dc6a48994265d8a6",
+        "apps/api/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/api/auth.py": "ba880aa195930521acfe035b43bc9052c6df49c106a4d9760a1f7d319e6d4585",
+        "apps/api/main.py": "7dd54e22a5eda95d4365ef629f1c2c5511fdf0cc5ff6dcf4c4888fe5c2c8a9dd",
+        "memory-architecture.mmd": "0954ee3d0d876657283938146461cf562465af98e67a95fef9938a31cffce445",
+        "memory-system.html": "b4566bb5964314c9178ba13041f82ada1276761c4800da6b9e6fddbd32ebc0a3",
+        "migrations/001_foundation.sql": "4e9398810678811fa010ba1f35f7697bcd186927b939e6667a76313ed5c7bda0",
+        "migrations/002_foundation_security.sql": "b7da078062fef4f6b118f85c33b780e3e48b6304585a1ca25da58998433ea901",
+        "packages/contracts/contracts/__init__.py": "dc0edad547779a58dab278c3bb89f26be66d476cc8b57a8b53f5d5e4f2ce6b6d",
+        "packages/contracts/contracts/models.py": "1fc9a065c1de81619c6e48877592f5ff0a867a63fd3f8e4f64fece9c228c74ec",
+        "packages/memory-domain/memory_domain/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/memory-domain/memory_domain/service.py": "28e81cf5c1c414f12a08299d8726cf4a108dc4c8e1973a7d1de519401caec89f",
+        "packages/persistence/persistence/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/persistence/persistence/repositories.py": "f22a6a1b945d9d9bc3c4500ff134e42ce04b62aaf35b81f473fe9e8025d302f1",
+        "pyproject.toml": "d3531f505a62d786605a1b1184edc07893b70a13eac90ea9dc76a2111386cee2",
+        "tests/integration/test_foundation.py": "8c748b979935537cd71a5a36cf4a76c11b53c509eb81e533b54bc08bb17a8483"
+      }
+    },
+    {
+      "id": "T-3R",
+      "outcome": "Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "packages/memory-domain",
+        "packages/persistence",
+        "apps/api",
+        "tests/integration/test_retrieval.py",
+        "README.md",
+        ".gitignore",
+        "pyproject.toml",
+        "migrations",
+        "packages/contracts",
+        "packages/model-gateway",
+        "tests/integration"
+      ],
+      "dependencies": [
+        "T-1"
+      ],
+      "requirements": [
+        "FR-6",
+        "FR-7",
+        "FR-8",
+        "FR-9",
+        "NFR-2",
+        "NFR-3",
+        "AC-5",
+        "AC-6",
+        "AC-7"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [],
+      "gates": [
+        {
+          "id": "retrieval-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement retrieval and context composition on the approved persistence contracts, then run retrieval-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-10-03T17:45:15.635Z",
+      "updated_at": "2026-10-03T17:45:15.636Z"
+    },
+    {
+      "id": "T-4R",
+      "outcome": "Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "packages/memory-domain",
+        "packages/persistence",
+        "apps/api",
+        "tests/integration/test_memory_control.py",
+        "README.md",
+        ".gitignore",
+        "pyproject.toml",
+        "migrations",
+        "packages/contracts",
+        "apps/worker",
+        "tests/integration"
+      ],
+      "dependencies": [
+        "T-1",
+        "T-3R"
+      ],
+      "requirements": [
+        "FR-10",
+        "FR-11",
+        "NFR-2",
+        "NFR-6",
+        "AC-8",
+        "AC-9"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [],
+      "gates": [
+        {
+          "id": "control-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement temporal correction and suppression using shared repository filters, then run control-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-10-03T17:45:15.837Z",
+      "updated_at": "2026-10-03T17:45:15.838Z"
+    },
+    {
+      "id": "T-5R",
+      "outcome": "Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.",
+      "state": "queued",
+      "risk": "medium",
+      "owner": null,
+      "scope": [
+        "packages/contracts",
+        "packages/sdk-python",
+        "tests/contract",
+        "README.md",
+        ".gitignore",
+        "pyproject.toml",
+        "migrations",
+        "apps/api",
+        "tests/integration"
+      ],
+      "dependencies": [
+        "T-2R",
+        "T-3R",
+        "T-4R"
+      ],
+      "requirements": [
+        "FR-13",
+        "NFR-8",
+        "AC-4",
+        "AC-11"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [],
+      "gates": [
+        {
+          "id": "sdk-contract-tests",
+          "kind": "command",
+          "command": "python -m pytest tests/integration tests/contract",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-10-03T17:45:16.024Z",
+      "updated_at": "2026-10-03T17:45:16.025Z"
+    },
+    {
+      "id": "T-6R",
+      "outcome": "Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.",
+      "state": "queued",
+      "risk": "medium",
+      "owner": null,
+      "scope": [
+        "apps/web",
+        "tests/browser",
+        "README.md",
+        ".gitignore",
+        "pyproject.toml",
+        "migrations",
+        "packages/contracts",
+        "apps/api"
+      ],
+      "dependencies": [
+        "T-5R"
+      ],
+      "requirements": [
+        "FR-14",
+        "NFR-14",
+        "AC-12"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [],
+      "gates": [
+        {
+          "id": "console-tests",
+          "kind": "command",
+          "command": "npm --prefix apps/web test -- --run",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement the console against public contracts only and run console-tests.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-10-03T17:45:16.230Z",
+      "updated_at": "2026-10-03T17:45:16.232Z"
+    },
+    {
+      "id": "T-7R",
+      "outcome": "Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.",
+      "state": "queued",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "deploy",
+        "evals",
+        "tests/security",
+        "tests/system",
+        "scripts",
+        "README.md",
+        ".gitignore",
+        "pyproject.toml",
+        "migrations",
+        "packages/contracts",
+        "apps/api",
+        ".github",
+        "docker-compose.yml",
+        ".env.example",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "apps/web",
+        "tests/integration",
+        "packages/observability"
+      ],
+      "dependencies": [
+        "T-2R",
+        "T-4R",
+        "T-5R",
+        "T-6R"
+      ],
+      "requirements": [
+        "NFR-9",
+        "NFR-10",
+        "NFR-11",
+        "NFR-12",
+        "NFR-13",
+        "NFR-15",
+        "AC-14",
+        "AC-15",
+        "AC-16",
+        "AC-17",
+        "AC-18",
+        "AC-19"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [],
+      "gates": [
+        {
+          "id": "release-verification",
+          "kind": "command",
+          "command": "python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pending",
+          "evidence": null
+        }
+      ],
+      "next_action": "Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-10-03T17:45:16.439Z",
+      "updated_at": "2026-10-03T17:45:16.440Z"
     }
   ],
   "learning_proposals": [],
@@ -895,6 +1324,69 @@
       "task": "T-1",
       "human": null,
       "reason": null,
+      "revision": null
+    },
+    {
+      "id": "004f0192-1ca2-4217-83f5-ad09bb8c441a",
+      "at": "2026-10-03T17:45:12.928Z",
+      "action": "approve",
+      "task": "T-1",
+      "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+      "reason": "Direct user delegated approval. Independent reviewer accepted final source; 27 current-source isolated integration tests pass. Agent approval on behalf of user.",
+      "revision": null
+    },
+    {
+      "id": "3240c9f9-fb8a-4457-bdad-8d54d7cefec2",
+      "at": "2026-10-03T17:45:13.657Z",
+      "action": "reject",
+      "task": "T-2",
+      "human": null,
+      "reason": "Superseded by same approved outcome with explicit cross-cutting file scope; preserve original task/history.",
+      "revision": null
+    },
+    {
+      "id": "0694a91e-04f2-4e23-b48f-ad087ca1f9c7",
+      "at": "2026-10-03T17:45:13.858Z",
+      "action": "reject",
+      "task": "T-3",
+      "human": null,
+      "reason": "Superseded by same approved outcome with explicit cross-cutting file scope; preserve original task/history.",
+      "revision": null
+    },
+    {
+      "id": "730ffb63-d2cd-4e7e-b7b5-e8fba45daa11",
+      "at": "2026-10-03T17:45:14.059Z",
+      "action": "reject",
+      "task": "T-4",
+      "human": null,
+      "reason": "Superseded by same approved outcome with explicit cross-cutting file scope; preserve original task/history.",
+      "revision": null
+    },
+    {
+      "id": "e17b5b85-5b71-4cb7-b4dd-b68c61d51a06",
+      "at": "2026-10-03T17:45:14.259Z",
+      "action": "reject",
+      "task": "T-5",
+      "human": null,
+      "reason": "Superseded by same approved outcome with explicit cross-cutting file scope; preserve original task/history.",
+      "revision": null
+    },
+    {
+      "id": "78cb775c-6947-4125-bd4b-1707faaff760",
+      "at": "2026-10-03T17:45:14.453Z",
+      "action": "reject",
+      "task": "T-6",
+      "human": null,
+      "reason": "Superseded by same approved outcome with explicit cross-cutting file scope; preserve original task/history.",
+      "revision": null
+    },
+    {
+      "id": "4d6eff3e-1b06-4de3-9eed-f4b53dc4a02b",
+      "at": "2026-10-03T17:45:14.871Z",
+      "action": "reject",
+      "task": "T-7",
+      "human": null,
+      "reason": "Superseded by same approved outcome with explicit cross-cutting file scope; preserve original task/history.",
       "revision": null
     }
   ],
@@ -1142,14 +1634,14 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-03T16:21:23.914Z",
+    "at": "2026-10-03T17:45:17.061Z",
     "revision": {
-      "commit": "0ad79e8c5a2241e0e7ac6f5bba0727426a2e9bb3",
+      "commit": "9982db07ec33d24fd2e75da00953a6df2e1aefe1",
       "dirty": true,
       "source_hash": "44b3e22685dcebdc6731bf80be6b217a99151ceb16395352d15dfc96ae9b45f0"
     },
-    "active_task": "T-1",
-    "next_action": "Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2."
+    "active_task": "T-2R",
+    "next_action": "Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes."
   },
   "legacy": null
 }

@@ -4,21 +4,21 @@
 
 - workflow: new-product
 - phase: build
-- plan approval: Samyak at 2026-09-19T11:23:06.327Z
+- plan approval: Codex delegated by Samyak at 2026-10-03T17:45:16.844Z
 
 ## Tasks
 
 ### T-1 — Establish the Python workspace, versioned API contracts, tenant-scoped temporal memory schema, atomic episode capture, explicit memory add, audit foundation, and migration-backed repositories.
 
-- state/risk: active / high
+- state/risk: done / high
 - requirements: FR-1, FR-2, FR-3, FR-5, FR-15, NFR-1, NFR-4, NFR-5, NFR-7, NFR-8, NFR-9, AC-1, AC-2, AC-4, AC-10, AC-13
 - scope: pyproject.toml, apps/api, packages/contracts, packages/memory-domain, packages/persistence, migrations, tests/integration
-- gates: foundation-tests: python -m pytest tests/integration/test_foundation.py, independent-review: pending
+- gates: foundation-tests: python -m pytest tests/integration/test_foundation.py, independent-review: pass
 - next: Obtain independent human approval of the verified foundation diff and 27-test proof, then complete T-1 through Genesis to activate T-2.
 
 ### T-2 — Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.
 
-- state/risk: queued / high
+- state/risk: rejected / high
 - requirements: FR-4, FR-12, NFR-10, NFR-11, AC-3, AC-14, AC-15
 - scope: apps/worker, packages/model-gateway, packages/observability, packages/persistence, tests/integration/test_worker.py
 - gates: worker-tests: python -m pytest tests/integration/test_worker.py, independent-review: pending
@@ -26,7 +26,7 @@
 
 ### T-3 — Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.
 
-- state/risk: queued / high
+- state/risk: rejected / high
 - requirements: FR-6, FR-7, FR-8, FR-9, NFR-2, NFR-3, AC-5, AC-6, AC-7
 - scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_retrieval.py
 - gates: retrieval-tests: python -m pytest tests/integration/test_retrieval.py, independent-review: pending
@@ -34,7 +34,7 @@
 
 ### T-4 — Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.
 
-- state/risk: queued / high
+- state/risk: rejected / high
 - requirements: FR-10, FR-11, NFR-2, NFR-6, AC-8, AC-9
 - scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_memory_control.py
 - gates: control-tests: python -m pytest tests/integration/test_memory_control.py, independent-review: pending
@@ -42,7 +42,7 @@
 
 ### T-5 — Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.
 
-- state/risk: queued / medium
+- state/risk: rejected / medium
 - requirements: FR-13, NFR-8, AC-4, AC-11
 - scope: packages/contracts, packages/sdk-python, tests/contract
 - gates: sdk-contract-tests: python -m pytest tests/contract, independent-review: pending
@@ -50,7 +50,7 @@
 
 ### T-6 — Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.
 
-- state/risk: queued / medium
+- state/risk: rejected / medium
 - requirements: FR-14, NFR-14, AC-12
 - scope: apps/web, tests/browser
 - gates: console-tests: npm --prefix apps/web test -- --run, independent-review: pending
@@ -58,9 +58,57 @@
 
 ### T-7 — Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.
 
-- state/risk: queued / high
+- state/risk: rejected / high
 - requirements: NFR-9, NFR-10, NFR-11, NFR-12, NFR-13, NFR-15, AC-14, AC-15, AC-16, AC-17, AC-18, AC-19
 - scope: deploy, evals, tests/security, tests/system, scripts
+- gates: release-verification: python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py, independent-review: pending
+- next: Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification.
+
+### T-2R — Implement crash-safe asynchronous formation with PostgreSQL leases, extraction and policy evaluation, retries, dead-lettering, idempotent version writes, and correlated telemetry.
+
+- state/risk: active / high
+- requirements: FR-4, FR-12, NFR-10, NFR-11, AC-3, AC-14, AC-15
+- scope: apps/worker, packages/model-gateway, packages/observability, packages/persistence, tests/integration/test_worker.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/api, tests/integration
+- gates: worker-tests: python -m pytest tests/integration, independent-review: pending
+- next: Implement the worker against T-1 contracts and prove crash recovery with deterministic provider fakes.
+
+### T-3R — Implement tenant-scoped hybrid retrieval, deterministic versioned ranking, bounded context composition, citations, and graceful degraded results.
+
+- state/risk: queued / high
+- requirements: FR-6, FR-7, FR-8, FR-9, NFR-2, NFR-3, AC-5, AC-6, AC-7
+- scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_retrieval.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, packages/model-gateway, tests/integration
+- gates: retrieval-tests: python -m pytest tests/integration, independent-review: pending
+- next: Implement retrieval and context composition on the approved persistence contracts, then run retrieval-tests.
+
+### T-4R — Implement append-only correction, concurrency protection, immediate forget suppression across every read path, erasure-state workflow, and authorized history inspection.
+
+- state/risk: queued / high
+- requirements: FR-10, FR-11, NFR-2, NFR-6, AC-8, AC-9
+- scope: packages/memory-domain, packages/persistence, apps/api, tests/integration/test_memory_control.py, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/worker, tests/integration
+- gates: control-tests: python -m pytest tests/integration, independent-review: pending
+- next: Implement temporal correction and suppression using shared repository filters, then run control-tests.
+
+### T-5R — Publish the OpenAPI contract and ergonomic typed Python SDK for capture, memory operations, search, context, and job status with stable errors, cursors, and request IDs.
+
+- state/risk: queued / medium
+- requirements: FR-13, NFR-8, AC-4, AC-11
+- scope: packages/contracts, packages/sdk-python, tests/contract, README.md, .gitignore, pyproject.toml, migrations, apps/api, tests/integration
+- gates: sdk-contract-tests: python -m pytest tests/integration tests/contract, independent-review: pending
+- next: Generate transport models from the approved OpenAPI contract, add only the ergonomic Python surface, and run sdk-contract-tests.
+
+### T-6R — Build the accessible responsive operator console for tenant-scoped search, provenance, version history, correction, forgetting confirmation, and audit or job status.
+
+- state/risk: queued / medium
+- requirements: FR-14, NFR-14, AC-12
+- scope: apps/web, tests/browser, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/api
+- gates: console-tests: npm --prefix apps/web test -- --run, independent-review: pending
+- next: Implement the console against public contracts only and run console-tests.
+
+### T-7R — Add release verification for encryption and filtering, telemetry correlation, migrations, backup and restore, golden evaluations, numeric readiness gates, and the clean-environment SDK smoke flow.
+
+- state/risk: queued / high
+- requirements: NFR-9, NFR-10, NFR-11, NFR-12, NFR-13, NFR-15, AC-14, AC-15, AC-16, AC-17, AC-18, AC-19
+- scope: deploy, evals, tests/security, tests/system, scripts, README.md, .gitignore, pyproject.toml, migrations, packages/contracts, apps/api, .github, docker-compose.yml, .env.example, AGENTS.md, CLAUDE.md, apps/web, tests/integration, packages/observability
 - gates: release-verification: python -m pytest tests/security tests/system && python evals/run.py && python scripts/smoke.py, independent-review: pending
 - next: Implement only the release evidence and deployment checks needed by approved requirements, then run release-verification.
 
