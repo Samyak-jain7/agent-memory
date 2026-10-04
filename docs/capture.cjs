@@ -7,7 +7,7 @@ const fs=require('node:fs');const path=require('node:path');
  const browser=await chromium.launch();
  try{
   const page=await browser.newPage({viewport:{width:1440,height:1100},deviceScaleFactor:1});
-  await page.goto(connection.url);await page.getByLabel('Access token').fill(connection.token);await page.getByLabel('Subject ID',{exact:true}).fill(connection.subject_id);
+  await page.goto(connection.url);await page.evaluate(()=>document.fonts.ready);await page.getByLabel('Access token').fill(connection.token);await page.getByLabel('Subject ID',{exact:true}).fill(connection.subject_id);
   await page.getByRole('button',{name:'Load suggestions'}).click();
   await page.getByRole('button',{name:/I prefer jasmine tea.*Review by/}).click();
   await page.getByText('Review the source before deciding. Model scores are uncalibrated.').waitFor();

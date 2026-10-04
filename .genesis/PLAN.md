@@ -4,7 +4,7 @@
 
 - workflow: new-product
 - phase: verify
-- plan approval: Codex delegated by Samyak at 2026-10-04T12:25:50.574Z
+- plan approval: Codex delegated by Samyak at 2026-10-04T13:01:48.943Z
 
 ## Tasks
 
@@ -174,5 +174,13 @@
 - requirements: FR-11
 - scope: README.md, docs
 - gates: docs-check: python docs/check.py
+- next: Run the task pre-flight.
+
+### T-15 — Restore original editorial console direction with local Newsreader/Plex fonts, accessible burgundy styling and genuine refreshed screenshots
+
+- state/risk: done / medium
+- requirements: FR-11, NFR-12
+- scope: apps/web, tests/browser, docs, README.md
+- gates: console-regression: npm --prefix apps/web test -- --run, docs-check: python docs/check.py, independent-review: pass
 - next: Run the task pre-flight.
 

@@ -83,3 +83,38 @@ test('supervised rejection conflict permits refresh without stale evidence',asyn
  });
  await page.goto('/');await page.getByLabel('Access token').fill('token');await page.getByLabel('Subject ID',{exact:true}).fill(id);await page.getByRole('button',{name:'Load suggestions'}).click();await page.getByRole('button',{name:/I prefer tea Review by/}).click();await page.getByRole('button',{name:'Reject suggestion',exact:true}).click();await page.getByRole('button',{name:'Confirm rejection'}).click();await expect(page.getByRole('status')).toContainText('version_conflict');await page.getByRole('button',{name:'Cancel review'}).click();await page.getByRole('button',{name:'Load suggestions'}).click();await expect(page.getByText('Review evidence')).toHaveCount(0);
 });
+
+test('editorial typography, contrast, empty/error states and long evidence remain usable',async({page})=>{
+ const long='SyntheticUnbrokenEvidence'.repeat(160)+' — I prefer detailed explanations. '.repeat(30);
+ const memory={id,version_id:version,content:long,kind:'profile',origin:'explicit',confidence:.8,importance:.5,indexing_state:'ready',source_episode_ids:[source]};
+ let fail=true;
+ const external=[];page.on('request',r=>{if(!new URL(r.url()).hostname.match(/^(127\.0\.0\.1|localhost)$/))external.push(r.url())});
+ await page.route('**/api/proxy',async route=>{
+  const req=route.request().postDataJSON();let status=200,data;
+  if(fail){fail=false;status=503;data={error:{code:'service_unavailable',request_id:source}}}
+  else if(req.path.endsWith('/history'))data={versions:[{id:version,content:long,origin:'explicit',valid_from:'2026-01-01T00:00:00Z'}]};
+  else if(req.path.endsWith('/audit'))data={events:[]};
+  else if(req.path.endsWith('/sources'))data={episodes:[{id:source,messages:[{role:'user',content:long}]}]};
+  else data={items:[memory],next_cursor:null};
+  await route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
+ });
+ await page.goto('/');await page.evaluate(()=>document.fonts.ready);
+ await expect(page.getByText('Your agent’s context, in view.')).toBeVisible();
+ await page.getByLabel('Access token').fill('synthetic-token');await page.getByLabel('Subject ID',{exact:true}).fill(id);
+ await page.getByRole('button',{name:'Search memories',exact:true}).click();await expect(page.getByRole('status')).toContainText('service_unavailable');
+ await page.getByRole('button',{name:'Search memories',exact:true}).click();await page.locator('.collection .card').click();await page.getByRole('button',{name:'Inspect source evidence'}).click();await expect(page.getByRole('status')).toContainText('Source evidence loaded');
+ const metrics=await page.evaluate(()=>{
+  const rgb=s=>(s.match(/[\d.]+/g)||[]).slice(0,3).map(Number);
+  const luminance=c=>c.map(x=>x/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((n,x,i)=>n+x*[.2126,.7152,.0722][i],0);
+  const contrast=(a,b)=>{const x=luminance(rgb(a)),y=luminance(rgb(b));return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+  function background(el){while(el){const c=getComputedStyle(el).backgroundColor;if(c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;el=el.parentElement}return 'rgb(255,255,255)'}
+  const nodes=[...document.querySelectorAll('p,small,label,button,input,select,textarea,dt,dd')].filter(el=>el.getBoundingClientRect().width>0&&!el.disabled);
+  const ratios=nodes.map(el=>({text:el.tagName,ratio:contrast(getComputedStyle(el).color,background(el))}));
+  const button=document.querySelector('.search button'),input=document.querySelector('input');
+  return {heading:getComputedStyle(document.querySelector('h1')).fontFamily,label:getComputedStyle(document.querySelector('label')).fontFamily,newsreader:document.fonts.check('600 30px Newsreader'),plex:document.fonts.check('500 12px "IBM Plex Mono"'),paper:getComputedStyle(document.body).backgroundColor,accent:getComputedStyle(button).backgroundColor,minimum:Math.min(...ratios.map(x=>x.ratio)),border:contrast(getComputedStyle(input).borderTopColor,background(input)),overflow:document.documentElement.scrollWidth>innerWidth,rounded:getComputedStyle(document.querySelector('.card')).borderRadius};
+ });
+ expect(metrics.heading).toContain('Newsreader');expect(metrics.label).toContain('IBM Plex Mono');expect(metrics.newsreader&&metrics.plex).toBe(true);expect(metrics.paper).toBe('rgb(255, 255, 255)');expect(metrics.accent).toBe('rgb(124, 33, 40)');expect(metrics.rounded).toBe('0px');expect(metrics.minimum).toBeGreaterThanOrEqual(4.5);expect(metrics.border).toBeGreaterThanOrEqual(3);expect(metrics.overflow).toBe(false);expect(external).toEqual([]);
+ await keyboardFocus(page,page.getByLabel('Corrected content'));await expect(page.getByLabel('Corrected content')).toBeFocused();
+ const focus=await page.getByLabel('Corrected content').evaluate(el=>({width:getComputedStyle(el).outlineWidth,color:getComputedStyle(el).outlineColor}));expect(focus.width).toBe('3px');expect(focus.color).toBe('rgb(124, 33, 40)');
+ await page.emulateMedia({reducedMotion:'reduce'});expect(await page.locator('body').evaluate(el=>getComputedStyle(el).transitionDuration)).toBe('0s');
+});

@@ -15,9 +15,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: cbe07e5fb8bbeeade61202f1f03fbda26ef1f00d36692e9e480a8de0fd3eae6a. Use --since only after receiving that full packet; kickoff is not the packet.
+Context fingerprint: 68641eb447905eeb9e909dc642dbeee7d666489307510bd014915e3a530dd3ec. Use --since only after receiving that full packet; kickoff is not the packet.
+- KNOWLEDGE-bf9cea77: Original editorial console design restored and verified
 - KNOWLEDGE-9b6cd903: Human-readable README and verified offline first-use guides
 - KNOWLEDGE-5fc9bfda: Supervised review verified on disposable synthetic storage
-- KNOWLEDGE-c03820db: Frozen Jev prompt comparison fails the holdout acceptance gate
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

@@ -79,4 +79,4 @@ The approve response returns `memory_id`. Retrieve it with `GET /v1/memories/{me
 
 ## Screenshot provenance
 
-Both images are Chromium screenshots of the actual Next.js console backed by the local API, a restricted database runtime role and a fresh synthetic pgvector database. Extraction/embeddings use the offline fixture; no provider dashboards or live model requests are involved. Connection inputs are outside the captured viewport region. See [capture script](capture.cjs) for reproducibility.
+Both images are Chromium screenshots of the actual Next.js console backed by the local API, a restricted database runtime role and a fresh synthetic pgvector database. Extraction/embeddings use the offline fixture; no provider dashboards or live model requests are involved. The console follows the original editorial design with locally served Newsreader and IBM Plex Mono, fine rules and burgundy accents. Connection inputs are outside the captured viewport region. See [capture script](capture.cjs) for reproducibility.

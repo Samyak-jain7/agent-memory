@@ -1,0 +1,13 @@
+{
+  "task": "T-15",
+  "gate": "independent-review",
+  "kind": "review",
+  "attempt": "ccfb526a-5860-41bf-ada2-adde4bc0106c",
+  "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+  "reason": "Independent reviewer accepted current source a263d391fda84e5ea33858ae030d037aa1e6dbe5bc8502ee9c5aa655d0d203a6 and current mandatory proof:14 desktop/mobile Chromium workflows, fonts/contrast/focus/long evidence/reduced motion checks,78API-contract checks,6Markdown/image checks. Original editorial reference restored, local licensed fonts, genuine offline screenshots. No permission, automatic threshold or model-call changes.",
+  "observed_at": "2026-10-04T13:20:13.001Z",
+  "source_hash": "a263d391fda84e5ea33858ae030d037aa1e6dbe5bc8502ee9c5aa655d0d203a6",
+  "config_hash": "fa64ffe5a9a16a6c099fdbb1470132f4485735863e08f624ece11aaaeb2ed994",
+  "reviewed_proofs": "ee48be56f0c0fc3b6cad6f5bc8c66b9c067f5cd3c3c68ea63f76c7f7720dbd98",
+  "hash": "71aaabc4a7e30830cdb9f1a2c1e862f35568be4fd414b64a4f2480ec7f90fac5"
+}
