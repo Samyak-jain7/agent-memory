@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-04T03:00:02.068Z"
+    "updated_at": "2026-10-04T09:43:44.697Z"
   },
   "policy": {
     "ponytail": "full",
@@ -444,7 +444,9 @@
       "source": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite; https://docs.typesafe.ai/models; current T-12 proofs and safe browser account metadata",
       "tags": [],
       "recorded_at": "2026-10-04T02:56:21.490Z",
-      "paths": []
+      "paths": [],
+      "status": "superseded",
+      "superseded_by": "KNOWLEDGE-763e7a19"
     },
     {
       "id": "KNOWLEDGE-8e025cb4",
@@ -454,6 +456,16 @@
       "tags": [],
       "recorded_at": "2026-10-04T03:00:00.826Z",
       "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-763e7a19",
+      "title": "Live Gemini and Jev smoke reveals a Jev recall blocker",
+      "text": "User completed private credential entry. Authorized free-only synthetic live smoke returned gemini-3.5-flash-lite for three extraction cases: supported tea/hiking facts extracted, assistant-only Paris and injected yacht excluded, arithmetic produced no memory; latencies 1.536-1.800 seconds, 461 total tokens. After owner confirmed TypeSafe no-cost monthly grant and specifically approved two requests, jev-1.13.0 returned valid Noul/model/usage contracts in 0.608 and 0.302 seconds, 1951 input plus 283 output tokens. Both unsupported controls rejected; all three supported preferences also rejected. Recorded support/useful/safe scores: tea .92/.89/.94; hiking .65/.79/.91; concise .84/.77/.93. Unchanged provisional thresholds .95/.80/.99 explain every rejection. Offline reconstruction from recorded scores through MockTransport reproduced all outcomes, independent of answer order; all-one accepted and all-zero rejected. No schema, polarity, normalization or comparison bug found. Array-index candidate indirection, model metadata and broad negative safety wording without explicit criteria are prompt hypotheses, not demonstrated causes. No threshold changes, extra live requests or production-quality claim. New paired synthetic development/holdout evaluation and approved production targets remain needed. Runtime keys and synthetic result/review files are private, ignored and mode0600; normal configuration stays offline.",
+      "source": "Private synthetic smoke results 2026-10-04; offline recorded-score replay; https://docs.typesafe.ai/primitives/noul; https://docs.typesafe.ai/model-jaggedness/jev-1.13",
+      "tags": [],
+      "recorded_at": "2026-10-04T09:42:40.962Z",
+      "paths": [],
+      "supersedes": "KNOWLEDGE-a673bbb5"
     }
   ],
   "tasks": [
@@ -3944,9 +3956,9 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-04T03:00:01.958Z",
+    "at": "2026-10-04T09:43:44.646Z",
     "revision": {
-      "commit": "b213f34f4e58e35e53a77c4973bf475cb7c7c515",
+      "commit": "eb35c32dce0ce46a33a45a4f343cf09de3c18902",
       "dirty": true,
       "source_hash": "d316bfd61a1220af839b2e148cfea7a7f1a57e092e045906b0b21f572c1f3334"
     },
