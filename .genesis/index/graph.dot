@@ -14,6 +14,9 @@ digraph genesis {
   "file:apps/worker/main.py" [label="apps/worker/main.py",class="file"];
   "file:deploy/__init__.py" [label="deploy/__init__.py",class="file"];
   "file:deploy/readiness.py" [label="deploy/readiness.py",class="file"];
+  "file:docs/capture.cjs" [label="docs/capture.cjs",class="file"];
+  "file:docs/check.py" [label="docs/check.py",class="file"];
+  "file:docs/demo.py" [label="docs/demo.py",class="file"];
   "file:evals/run.py" [label="evals/run.py",class="file"];
   "file:packages/contracts/contracts/__init__.py" [label="packages/contracts/contracts/__init__.py",class="file"];
   "file:packages/contracts/contracts/models.py" [label="packages/contracts/contracts/models.py",class="file"];
@@ -61,15 +64,18 @@ digraph genesis {
   "package:npm:next" [label="next",class="package"];
   "package:npm:react" [label="react",class="package"];
   "runtime:javascript:child_process" [label="child_process",class="runtime"];
+  "runtime:javascript:fs" [label="fs",class="runtime"];
   "symbol:apps/web/app/api/proxy/route.js#function:POST" [label="POST",class="symbol"];
   "symbol:apps/web/app/api/proxy/route.js#variable:uuid" [label="uuid",class="symbol"];
   "symbol:apps/web/app/layout.jsx#function:Layout" [label="Layout",class="symbol"];
   "symbol:apps/web/app/layout.jsx#variable:metadata" [label="metadata",class="symbol"];
   "symbol:apps/web/app/page.jsx#function:Console" [label="Console",class="symbol"];
   "symbol:apps/web/run-tests.mjs#variable:r" [label="r",class="symbol"];
+  "symbol:docs/capture.cjs#variable:fs" [label="fs",class="symbol"];
   "symbol:tests/browser/console.spec.cjs#function:keyboardFocus" [label="keyboardFocus",class="symbol"];
   "symbol:tests/browser/console.spec.cjs#variable:id" [label="id",class="symbol"];
   "unresolved:apps/web/app/layout.jsx:./style.css" [label="./style.css",class="unresolved"];
+  "unresolved:docs/capture.cjs:../apps/web/node_modules/playwright" [label="../apps/web/node_modules/playwright",class="unresolved"];
   "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test" [label="../../apps/web/node_modules/@playwright/test",class="unresolved"];
   "symbol:tests/browser/console.spec.cjs#variable:id" -> "symbol:tests/browser/console.spec.cjs#function:keyboardFocus" [label="calls"];
   "file:apps/web/app/api/proxy/route.js" -> "symbol:apps/web/app/api/proxy/route.js#function:POST" [label="defines"];
@@ -78,6 +84,7 @@ digraph genesis {
   "file:apps/web/app/layout.jsx" -> "symbol:apps/web/app/layout.jsx#variable:metadata" [label="defines"];
   "file:apps/web/app/page.jsx" -> "symbol:apps/web/app/page.jsx#function:Console" [label="defines"];
   "file:apps/web/run-tests.mjs" -> "symbol:apps/web/run-tests.mjs#variable:r" [label="defines"];
+  "file:docs/capture.cjs" -> "symbol:docs/capture.cjs#variable:fs" [label="defines"];
   "file:tests/browser/console.spec.cjs" -> "symbol:tests/browser/console.spec.cjs#function:keyboardFocus" [label="defines"];
   "file:tests/browser/console.spec.cjs" -> "symbol:tests/browser/console.spec.cjs#variable:id" [label="defines"];
   "file:apps/web/app/api/proxy/route.js" -> "package:npm:next" [label="imports"];
@@ -85,5 +92,7 @@ digraph genesis {
   "file:apps/web/app/page.jsx" -> "package:npm:react" [label="imports"];
   "file:apps/web/playwright.config.mjs" -> "package:npm:@playwright/test" [label="imports"];
   "file:apps/web/run-tests.mjs" -> "runtime:javascript:child_process" [label="imports"];
+  "file:docs/capture.cjs" -> "runtime:javascript:fs" [label="imports"];
+  "file:docs/capture.cjs" -> "unresolved:docs/capture.cjs:../apps/web/node_modules/playwright" [label="imports"];
   "file:tests/browser/console.spec.cjs" -> "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test" [label="imports"];
 }

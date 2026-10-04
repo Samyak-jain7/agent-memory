@@ -4,7 +4,7 @@
 
 - workflow: new-product
 - phase: verify
-- plan approval: Codex delegated by Samyak at 2026-10-04T11:03:24.395Z
+- plan approval: Codex delegated by Samyak at 2026-10-04T12:25:50.574Z
 
 ## Tasks
 
@@ -166,5 +166,13 @@
 - requirements: FR-4, NFR-9, NFR-13
 - scope: apps, packages, migrations, tests, scripts, README.md, .env.example, .github
 - gates: release-regression: python -m pytest tests && python evals/run.py && python scripts/smoke.py, browser-review: npm --prefix apps/web test -- --run, independent-review: pass
+- next: Run the task pre-flight.
+
+### T-14 — Publish concise README, verified practical local guides and genuine offline synthetic app screenshots
+
+- state/risk: done / low
+- requirements: FR-11
+- scope: README.md, docs
+- gates: docs-check: python docs/check.py
 - next: Run the task pre-flight.
 

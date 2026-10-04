@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "074aa36f11ab773b1954d9c43d1d1906f2260aae",
-  "sourceHash": "82c514a348ae160c6adf0faa4becac5c0dbdc306661d5defeb7fbc71f5ac7fe6",
+  "revision": "dcd21a6107b9d443e3ead860eb2cf2c7ef85a7fd",
+  "sourceHash": "ddc82b3e951787a822ebd0eb14a514d26029938372608af5f4d3d0b0009be5ef",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -138,6 +138,36 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "9fc4daa079a3abf0b1170c4d0a3028081df36d8fefdc782f45e6123deb9dfb16"
+    },
+    {
+      "id": "file:docs/capture.cjs",
+      "type": "file",
+      "label": "docs/capture.cjs",
+      "path": "docs/capture.cjs",
+      "language": "javascript",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "14ebc57a6aac0e0276039f95461c2efd2b770abd52ba9ae5490ec516170807b9"
+    },
+    {
+      "id": "file:docs/check.py",
+      "type": "file",
+      "label": "docs/check.py",
+      "path": "docs/check.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "d2169d170a7116bb7b7541457445be0739b15dc9a0f57f976665e520da37bcbc"
+    },
+    {
+      "id": "file:docs/demo.py",
+      "type": "file",
+      "label": "docs/demo.py",
+      "path": "docs/demo.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "5bf79c65511aa28937c663cd3d507a5f6309099a90de0aee1931927864e6e776"
     },
     {
       "id": "file:evals/run.py",
@@ -606,6 +636,15 @@
       "contentHash": "6e1742450f7f56b80f1004a8a04675b38781504a842956d2dc868e1ff82f444c"
     },
     {
+      "id": "runtime:javascript:fs",
+      "type": "runtime",
+      "label": "fs",
+      "language": "javascript",
+      "confidence": 0.85,
+      "extractor": "standard-library",
+      "contentHash": "ce2a049758b0dbddfa6a0d8494e0984d628f657a4f878a68363051b6a88a7a66"
+    },
+    {
       "id": "symbol:apps/web/app/api/proxy/route.js#function:POST",
       "type": "symbol",
       "kind": "function",
@@ -678,6 +717,18 @@
       "contentHash": "ca5804c9a7e0e405982d102bbd5154b57c2db8ff06d2e23ea228d76af0eb8ea3"
     },
     {
+      "id": "symbol:docs/capture.cjs#variable:fs",
+      "type": "symbol",
+      "kind": "variable",
+      "name": "fs",
+      "label": "fs",
+      "path": "docs/capture.cjs",
+      "line": 3,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols",
+      "contentHash": "3f471b1b34768d9fcc822c02e8159f0293ed7c5de4e3edbc6afb7bf2c45c3331"
+    },
+    {
       "id": "symbol:tests/browser/console.spec.cjs#function:keyboardFocus",
       "type": "symbol",
       "kind": "function",
@@ -708,6 +759,14 @@
       "confidence": 0.4,
       "extractor": "import",
       "contentHash": "e9cc47ca32ca76e876109676af18f85791ca1cd1bec3b3a36d146257148e8b0a"
+    },
+    {
+      "id": "unresolved:docs/capture.cjs:../apps/web/node_modules/playwright",
+      "type": "unresolved",
+      "label": "../apps/web/node_modules/playwright",
+      "confidence": 0.4,
+      "extractor": "import",
+      "contentHash": "845abf068ec6df27da97580c1fc296fd2f8a0fd91a56a272a73f05a2669164ef"
     },
     {
       "id": "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test",
@@ -784,6 +843,15 @@
     },
     {
       "type": "defines",
+      "source": "file:docs/capture.cjs",
+      "target": "symbol:docs/capture.cjs#variable:fs",
+      "line": 3,
+      "resolved": true,
+      "confidence": 0.8,
+      "extractor": "conservative-js-symbols"
+    },
+    {
+      "type": "defines",
       "source": "file:tests/browser/console.spec.cjs",
       "target": "symbol:tests/browser/console.spec.cjs#function:keyboardFocus",
       "line": 2,
@@ -852,6 +920,26 @@
     },
     {
       "type": "imports",
+      "source": "file:docs/capture.cjs",
+      "target": "runtime:javascript:fs",
+      "specifier": "node:fs",
+      "line": 3,
+      "resolved": true,
+      "confidence": 0.85,
+      "extractor": "javascript-imports"
+    },
+    {
+      "type": "imports",
+      "source": "file:docs/capture.cjs",
+      "target": "unresolved:docs/capture.cjs:../apps/web/node_modules/playwright",
+      "specifier": "../apps/web/node_modules/playwright",
+      "line": 2,
+      "resolved": false,
+      "confidence": 0.4,
+      "extractor": "javascript-imports"
+    },
+    {
+      "type": "imports",
       "source": "file:tests/browser/console.spec.cjs",
       "target": "unresolved:tests/browser/console.spec.cjs:../../apps/web/node_modules/@playwright/test",
       "specifier": "../../apps/web/node_modules/@playwright/test",
@@ -865,6 +953,6 @@
     "Python AST unavailable: Traceback (most recent call last):\n  File \"<string>\", line 30, in <module>\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py\", line 407, in visit\n    return visitor(node)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py\", line 415, in generic_visit\n    self.visit(item)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ast.py\", line 407, in visit\n    return visitor(node)\n  File \"<string>\", line 7, in visit_Import\nAttributeError: module 'sys' has no attribute 'stdlib_module_names'"
   ],
   "stats": {
-    "unresolvedCalls": 49
+    "unresolvedCalls": 53
   }
 }

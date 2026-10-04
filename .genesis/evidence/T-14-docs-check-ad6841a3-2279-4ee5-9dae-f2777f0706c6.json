@@ -1,0 +1,30 @@
+{
+  "task": "T-14",
+  "gate": "docs-check",
+  "kind": "command",
+  "attempt": "ad6841a3-2279-4ee5-9dae-f2777f0706c6",
+  "command": "python docs/check.py",
+  "started_at": "2026-10-04T12:35:39.027Z",
+  "observed_at": "2026-10-04T12:35:40.061Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "review.png: 1344x767, 68087 bytes\nmemory.png: 1344x1138, 93845 bytes\n6 Markdown files: links, Python examples and screenshot artifacts verified.\n",
+  "stderr": "",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "dcd21a6107b9d443e3ead860eb2cf2c7ef85a7fd",
+    "dirty": true
+  },
+  "source_hash": "005688c6daadb83e1d5c7cc0555c57fe6ffd21ba29d7a125394c8301a670f3fd",
+  "before_hash": "005688c6daadb83e1d5c7cc0555c57fe6ffd21ba29d7a125394c8301a670f3fd",
+  "config_hash": "e9de4f11cefd6fffafcf056db528c1c3450ad0f0493ca77b75f1bf759c8bff17",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "fc0d2dfa15db05639095dcc3b3d3c5b5efad6c0ad694b7496aec1c0b11b1b056"
+}
