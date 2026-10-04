@@ -58,3 +58,21 @@ def provider_from_env():
     if name=='offline': return OfflineProvider()
     if name=='openai': return OpenAIProvider()
     raise ValueError('Unsupported MODEL_PROVIDER')
+
+
+def extraction_provider_from_env():
+    name=os.getenv('EXTRACTION_PROVIDER',os.getenv('MODEL_PROVIDER','offline'))
+    if name=='gemini':
+        from .live import GeminiExtractor
+        return GeminiExtractor()
+    if name==os.getenv('MODEL_PROVIDER','offline'):return provider_from_env()
+    if name=='offline':return OfflineProvider()
+    raise ValueError('Unsupported EXTRACTION_PROVIDER')
+
+def verifier_from_env():
+    name=os.getenv('MEMORY_VERIFIER','none')
+    if name=='none':return None
+    if name=='jev':
+        from .live import JevVerifier
+        return JevVerifier()
+    raise ValueError('Unsupported MEMORY_VERIFIER')

@@ -136,3 +136,32 @@ This proves the artifact encryption/restore mechanism, not a deployed backup pol
 Production evidence must identify `deployment_id` and a 40-character `release_sha`; runtime `MEMORY_DEPLOYMENT_ID` and `MEMORY_RELEASE_SHA` must match. `evidence_receipts` must contain storage, backup, restore, provider, telemetry, retention, erasure, backup_expiry, deployment, and approval receipts. Each includes matching deployment/release, UTC `verified_at` within seven days, `artifact_path` relative to the readiness document directory, `artifact_sha256`, and named verifier `provenance`. Artifacts are limited to 1 MiB and must remain within that directory; hashes are checked before startup. Keep private evidence outside the source repository. Receipt validation is an integrity check; real platform verification remains required. See [proposed policy defaults](deploy/policy-proposal.md) for unapproved recommendations.
 
 Release packaging is checked with `python scripts/verify_distribution.py` (requires `uv`): it builds a wheel from temporary clean inputs, installs it in a new environment, and imports API, workers, SDK and packaged migrations outside the checkout. CI also scans publishable files and complete reachable Git history for credential patterns, builds the Docker image, and imports its installed package as UID 10001 with networking disabled and a read-only filesystem. These checks complement lifecycle and browser tests; they do not deploy the application.
+
+### Gemini Flash extraction and Jev verification
+
+Set `EXTRACTION_PROVIDER=gemini` to select Google AI Studio's Gemini Developer API extractor. The pinned default is `EXTRACTION_MODEL=gemini-3.5-flash-lite`, a stable model intended for simple extraction and supporting structured output. `EXTRACTION_MODEL` may select another explicitly reviewed stable Flash model; moving `latest` and preview aliases are rejected. Requests use the stateless REST `generateContent` endpoint with a JSON Schema, no tools, and a 4096-token output bound. Local validation rejects malformed, truncated, blocked, oversized, or unknown-field output. The source messages remain untrusted data.
+
+Set `MEMORY_VERIFIER=jev` and supply `TYPESAFE_API_KEY` securely to have TypeSafe Jev evaluate candidates before persistence. The pinned default `JEV_MODEL=jev-1.13.0` can be changed to another reviewed exact version. Three parallel Noul questions per candidate check source support, usefulness, and sensitive content. Provisional development acceptance thresholds are 0.95, 0.80, and 0.99 respectively; these require live golden-set evaluation and approval before production. Rejected or uncertain candidates are excluded; a verifier failure prevents persistence and enters the existing bounded job-failure flow. Consent is checked again before verification, and sensitive outputs are filtered locally before transmission to Jev.
+
+Extraction and verification are independent of `MODEL_PROVIDER`, which continues to select embeddings. The default offline embeddings remain a development fixture. Selecting Gemini extraction does not silently switch embedding providers or introduce another live service. A production embedding model and evaluation remain pending.
+
+Free tier only: do not enable billing, add payment methods, buy credits, or use a billed project/account. No paid fallback or automatic HTTP retry is implemented. Both providers require a separate, private account/model review file before their first request (`GEMINI_FREE_TIER_FILE`, `TYPESAFE_FREE_TIER_FILE`). The review must be obtained from current account evidence and remaining free quota; a key alone is insufficient. Each JSON file contains exactly:
+
+```json
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "account_id": "YOUR_VERIFIED_FREE_PROJECT_ID",
+  "billing_enabled": false,
+  "remaining_requests": 1,
+  "verified_at": "ACTUAL_UTC_TIMESTAMP",
+  "expires_at": "UTC_TIMESTAMP_WITHIN_24_HOURS",
+  "evidence": "Reference to the actual account/model/quota verification"
+}
+```
+
+For Jev use `provider: "typesafe"`, the verified TypeSafe account and exact Jev version. Do not create these files from guesses or set `billing_enabled` false for a paid account. Files are bounded, strictly parsed, matched to provider/model and expire within 24 hours. The reviewed request budget is per process, not a provider billing cap; it cannot establish that an arbitrary credential belongs to a free account or coordinate quotas across processes. Actual provider-side billing must remain disabled and account/key binding must be verified by the operator. HTTP 402/429 stops that adapter instance, and the affected job is not automatically retried; restart only after reviewing quota. Missing/stale evidence fails before transmission.
+
+Google's free tier may use prompts and responses to improve its products. Use synthetic evaluation data until the owner has approved real-data transmission and provider data policies. TypeSafe's public model page lists input-token charges; free account eligibility and remaining grants must be checked in the console before any request. No live account/model quality or free-quota verification is claimed by the mocked tests. Keep keys and private review files outside source control and supply secrets only through the operator's secure local environment.
+
+Official references checked 2026-10-04: [Gemini Flash-Lite](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite), [Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing), [REST generation contract](https://ai.google.dev/api/generate-content), [TypeSafe API](https://docs.typesafe.ai/api), [Jev versions](https://docs.typesafe.ai/models).

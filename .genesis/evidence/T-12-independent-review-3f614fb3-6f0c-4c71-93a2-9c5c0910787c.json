@@ -1,0 +1,13 @@
+{
+  "task": "T-12",
+  "gate": "independent-review",
+  "kind": "review",
+  "attempt": "3f614fb3-6f0c-4c71-93a2-9c5c0910787c",
+  "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+  "reason": "Independent review accepted current-source mocked adapters, strict contracts, consent/privacy boundaries, quota handling and total deadline cancellation. Provider-contracts130passed and full142test regression plus offlineeval/realHTTPsmoke passed. Acceptance covers offline adapter engineering only; real account/key/free quota/terms and live quality remain pending.",
+  "observed_at": "2026-10-04T02:56:22.220Z",
+  "source_hash": "d316bfd61a1220af839b2e148cfea7a7f1a57e092e045906b0b21f572c1f3334",
+  "config_hash": "836ed8b4ddbb676e2c79f2100897268fcc209f18c573b2df54242e64391c626a",
+  "reviewed_proofs": "127e10df358613ce4c175eb5747eb1eb14f1fb0bf76ffc4bb64cd402b0225460",
+  "hash": "8b96a8ae2f1df15f344907c00f32b5db5ab8515dafc0ac366f0434bc5531ba4d"
+}

@@ -4,7 +4,7 @@
 
 - workflow: new-product
 - phase: verify
-- plan approval: Codex delegated by Samyak at 2026-10-03T19:41:01.754Z
+- plan approval: Codex delegated by Samyak at 2026-10-04T02:43:39.082Z
 
 ## Tasks
 
@@ -150,5 +150,13 @@
 - requirements: NFR-9, NFR-12, AC-14, AC-19
 - scope: .github, deploy, scripts, README.md, pyproject.toml
 - gates: release-regression: python -m pytest tests && python evals/run.py && python scripts/smoke.py, workflow-validation: actionlint .github/workflows/verify.yml, independent-review: pass
+- next: Run the task pre-flight.
+
+### T-12 — Integrate stable Gemini Flash extraction and Jev candidate verification with strict mocked contracts and free-only live guards
+
+- state/risk: done / high
+- requirements: FR-4, NFR-9, NFR-10, NFR-13
+- scope: packages/model-gateway, apps/worker, tests, README.md, .env.example, scripts
+- gates: provider-contracts: python -m pytest tests/security tests/integration, release-regression: python -m pytest tests && python evals/run.py && python scripts/smoke.py, independent-review: pass
 - next: Run the task pre-flight.
 

@@ -21,6 +21,7 @@ digraph genesis {
   "file:packages/memory-domain/memory_domain/context.py" [label="packages/memory-domain/memory_domain/context.py",class="file"];
   "file:packages/memory-domain/memory_domain/service.py" [label="packages/memory-domain/memory_domain/service.py",class="file"];
   "file:packages/model-gateway/model_gateway/__init__.py" [label="packages/model-gateway/model_gateway/__init__.py",class="file"];
+  "file:packages/model-gateway/model_gateway/live.py" [label="packages/model-gateway/model_gateway/live.py",class="file"];
   "file:packages/observability/observability/__init__.py" [label="packages/observability/observability/__init__.py",class="file"];
   "file:packages/persistence/persistence/__init__.py" [label="packages/persistence/persistence/__init__.py",class="file"];
   "file:packages/persistence/persistence/control.py" [label="packages/persistence/persistence/control.py",class="file"];
@@ -50,6 +51,7 @@ digraph genesis {
   "file:tests/integration/test_worker.py" [label="tests/integration/test_worker.py",class="file"];
   "file:tests/security/conftest.py" [label="tests/security/conftest.py",class="file"];
   "file:tests/security/test_encrypted_backup.py" [label="tests/security/test_encrypted_backup.py",class="file"];
+  "file:tests/security/test_live_adapters.py" [label="tests/security/test_live_adapters.py",class="file"];
   "file:tests/security/test_release_security.py" [label="tests/security/test_release_security.py",class="file"];
   "file:tests/system/conftest.py" [label="tests/system/conftest.py",class="file"];
   "file:tests/system/test_release_system.py" [label="tests/system/test_release_system.py",class="file"];

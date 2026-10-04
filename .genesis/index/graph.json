@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "project": "memory-system",
-  "revision": "8ec0b1943bc8c0243acf4a5c89c16f298f95af79",
-  "sourceHash": "086b16b15f0b5b93bae39934c775d9b138d7e49a804a9375957eb9671e343c31",
+  "revision": "03183de4acd89f368a2b79efb5377fd4c8fadb72",
+  "sourceHash": "9579b035d463882d7a6af3b7b7420c82ba2d34c413a96941c8f809c1e4280950",
   "provenance": {
     "tool": "genesis-graphizer",
     "method": "static-analysis",
@@ -117,7 +117,7 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "add05b405845b43ae0f7d3d124a42d67c57c26bec1514998f6e0b57feb608fa2"
+      "contentHash": "2e4b56aa949963bcf7de8013399c15570eb5f88f82d2018e4dfc6bfafabc1024"
     },
     {
       "id": "file:deploy/__init__.py",
@@ -207,7 +207,17 @@
       "language": "python",
       "confidence": 1,
       "extractor": "filesystem",
-      "contentHash": "c527e4afce0683bf5e13c05ead7bad8d4a4fe6bc03e65b01186b8b373eda57dc"
+      "contentHash": "a40e0b4f4ce190745d0381cebd9a8818b2087de6267cc7c43dc37bdff2d20e31"
+    },
+    {
+      "id": "file:packages/model-gateway/model_gateway/live.py",
+      "type": "file",
+      "label": "packages/model-gateway/model_gateway/live.py",
+      "path": "packages/model-gateway/model_gateway/live.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "20624c7582ab5c8030ac83ab65e99e9321f2909b3c965f078d796713fb19e095"
     },
     {
       "id": "file:packages/observability/observability/__init__.py",
@@ -498,6 +508,16 @@
       "confidence": 1,
       "extractor": "filesystem",
       "contentHash": "de1db91442b0dc2a6ac48512b4e75a75951795d9c533dba401907100cb47d338"
+    },
+    {
+      "id": "file:tests/security/test_live_adapters.py",
+      "type": "file",
+      "label": "tests/security/test_live_adapters.py",
+      "path": "tests/security/test_live_adapters.py",
+      "language": "python",
+      "confidence": 1,
+      "extractor": "filesystem",
+      "contentHash": "d592a72f589c63423c83cb501e84717247ac47e3c18e9b9744b98f5f89681518"
     },
     {
       "id": "file:tests/security/test_release_security.py",
