@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-04T02:56:23.728Z"
+    "updated_at": "2026-10-04T03:00:02.068Z"
   },
   "policy": {
     "ponytail": "full",
@@ -444,6 +444,15 @@
       "source": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite; https://docs.typesafe.ai/models; current T-12 proofs and safe browser account metadata",
       "tags": [],
       "recorded_at": "2026-10-04T02:56:21.490Z",
+      "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-8e025cb4",
+      "title": "Gemini and Jev integration published; hosted CI green",
+      "text": "Product commit b213f34f4e58e35e53a77c4973bf475cb7c7c515 passed hosted GitHub Actions run37172581136. Independent foundation_review accepted T-12 current-source offline adapter engineering: provider-contracts130passed, full142Python regression, deterministic offlineeval and realHTTP SDK smoke; hosted checks additionally passed8Chromium browser lifecycle checks, clean wheel install, Docker build/nonroot read-only network-disabled imports, credential-pattern scan, security/system/restore tests and production-readiness-negative gate. Exact defaults gemini-3.5-flash-lite and jev-1.13.0 configurable only to pinned reviewed models. No real credentials or private free-tier review files created, no billing/payment/card/credits changes, no live provider requests. Browser native calls respond; AIStudio AgentMemory newproject dialog prepared but unsubmitted under SamyakJain signedinaccount, TypeSafeGoogle signin blocked pending explicit terms acceptance. Action-time confirmation questions pending for Gemini project/authkey and TypeSafeTerms/Privacy. After approval user secure local credential entry is required; actual account/key/free model quota and data policies must be verified before any synthetic live evaluation. No production launch claim.",
+      "source": "https://github.com/Samyak-jain7/agent-memory/actions/runs/37172581136",
+      "tags": [],
+      "recorded_at": "2026-10-04T03:00:00.826Z",
       "paths": []
     }
   ],
@@ -3935,9 +3944,9 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-04T02:56:23.684Z",
+    "at": "2026-10-04T03:00:01.958Z",
     "revision": {
-      "commit": "03183de4acd89f368a2b79efb5377fd4c8fadb72",
+      "commit": "b213f34f4e58e35e53a77c4973bf475cb7c7c515",
       "dirty": true,
       "source_hash": "d316bfd61a1220af839b2e148cfea7a7f1a57e092e045906b0b21f572c1f3334"
     },
