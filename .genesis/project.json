@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-04T09:43:44.697Z"
+    "updated_at": "2026-10-04T10:54:49.021Z"
   },
   "policy": {
     "ponytail": "full",
@@ -466,6 +466,15 @@
       "recorded_at": "2026-10-04T09:42:40.962Z",
       "paths": [],
       "supersedes": "KNOWLEDGE-a673bbb5"
+    },
+    {
+      "id": "KNOWLEDGE-c03820db",
+      "title": "Frozen Jev prompt comparison fails the holdout acceptance gate",
+      "text": "Owner approved up to20 additional synthetic Jev requests and50000 input tokens using only confirmed no-cost grant. Frozen specification SHA25677639987b43375e9ba544614ef67387365b5e722a9eaa03f30e3ecac24bceaf0 defined baseline/clearer prompts,10 fixtures split5development/5holdout, labels and unchanged support/useful/safe thresholds .95/.80/.99 before evaluation. Per variant:20 supported,14 unsupported and6 sensitive-category synthetic placeholders. Completed20requests with35580input and4480output tokens; every returned model jev-1.13.0; no retries, Gemini calls, billing or IAM changes. Baseline and clearer each accepted0/10 supported holdout candidates against frozen80percent criterion; neither accepted an unsupported or sensitive control. Supported-score threshold passes improved0to19/20 and usefulness12to20/20; safety passes0/20 for both, clearer safe scores .96-.98. Median latency baseline .341s, clearer .339s. Independent foundation_review verified hash, frozen labels/split, budget, unchanged thresholds, safe credential handling and non-promotion. Rejection of everything does not prove useful discrimination; wording and candidate presentation changed together, so score differences cannot be attributed solely to wording; templated holdout limits generalization. Candidate not promoted, no product prompt/threshold changes and no production-readiness claim. Future work needs a separately approved broader calibration/risk-policy evaluation, not thresholds tuned on this holdout. Specification/result/runner/review remain private Git-ignored files, keys mode0600 and frozen spec0400. Current20-request allowance exhausted.",
+      "source": "Private .env.jev-comparison-spec.json and .env.jev-comparison-result.json; foundation_review independent read-only review 2026-10-04",
+      "tags": [],
+      "recorded_at": "2026-10-04T10:54:48.491Z",
+      "paths": []
     }
   ],
   "tasks": [
@@ -3956,9 +3965,9 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-04T09:43:44.646Z",
+    "at": "2026-10-04T10:54:48.984Z",
     "revision": {
-      "commit": "eb35c32dce0ce46a33a45a4f343cf09de3c18902",
+      "commit": "8615aefcc92af18252eb30f7d05ed6ab655750a4",
       "dirty": true,
       "source_hash": "d316bfd61a1220af839b2e148cfea7a7f1a57e092e045906b0b21f572c1f3334"
     },
