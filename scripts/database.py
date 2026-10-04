@@ -28,14 +28,14 @@ def migrate(engine,through=None):
             c.execute(text(path.read_text()))
             c.execute(text('INSERT INTO schema_migrations(name,sha256) VALUES (:name,:hash)'),{'name':path.name,'hash':digest})
 
-def bootstrap(engine,consent=False,inspect_sources=False):
+def bootstrap(engine,consent=False,inspect_sources=False,review_memory=False):
     ids={name:uuid4() for name in ['tenant','actor','subject','session']}
     with engine.begin() as c:
         c.execute(text("INSERT INTO tenants(id,name) VALUES (:tenant,'Local development')"),ids)
         c.execute(text('INSERT INTO actors(id,tenant_id) VALUES (:actor,:tenant)'),ids)
         c.execute(text('INSERT INTO subjects(id,tenant_id,memory_consent) VALUES (:subject,:tenant,:consent)'),{**ids,'consent':consent})
         c.execute(text('INSERT INTO sessions(id,tenant_id,subject_id) VALUES (:session,:tenant,:subject)'),ids)
-        c.execute(text('INSERT INTO actor_subject_grants(tenant_id,actor_id,subject_id,can_inspect_sources) VALUES (:tenant,:actor,:subject,:inspect)'),{**ids,'inspect':inspect_sources})
+        c.execute(text('INSERT INTO actor_subject_grants(tenant_id,actor_id,subject_id,can_inspect_sources,can_review_memory) VALUES (:tenant,:actor,:subject,:inspect,:review)'),{**ids,'inspect':inspect_sources,'review':review_memory})
         c.execute(text("INSERT INTO audit_events(id,tenant_id,actor_id,subject_id,action,resource_type,resource_id,request_id,outcome) VALUES (:id,:tenant,:actor,:subject,'admin.bootstrap','subject',:subject,:request,'development_provisioned')"),{**ids,'id':uuid4(),'request':str(uuid4())})
     return ids
 
@@ -53,7 +53,7 @@ def provision_runtime(engine,password,role='memory_service'):
 if __name__=='__main__':
     import argparse
     from sqlalchemy import create_engine
-    parser=argparse.ArgumentParser();parser.add_argument('command',choices=['migrate','bootstrap','runtime-role']);parser.add_argument('--development',action='store_true');parser.add_argument('--consent',action='store_true');parser.add_argument('--inspect-sources',action='store_true');parser.add_argument('--role',default='memory_service');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('command',choices=['migrate','bootstrap','runtime-role']);parser.add_argument('--development',action='store_true');parser.add_argument('--consent',action='store_true');parser.add_argument('--inspect-sources',action='store_true');parser.add_argument('--review-memory',action='store_true');parser.add_argument('--role',default='memory_service');args=parser.parse_args()
     engine=create_engine(os.environ['ADMIN_DATABASE_URL'])
     try:
         if args.command=='migrate':migrate(engine);print('Migrations verified and applied.')
@@ -61,6 +61,6 @@ if __name__=='__main__':
             provision_runtime(engine,os.environ['MEMORY_DB_PASSWORD'],args.role);print('Restricted runtime role created.')
         else:
             if not args.development:parser.error('Bootstrap is limited to explicitly requested development data.')
-            ids=bootstrap(engine,args.consent,args.inspect_sources)
+            ids=bootstrap(engine,args.consent,args.inspect_sources,args.review_memory)
             print(json.dumps({k:str(v) for k,v in ids.items()}))
     finally:engine.dispose()

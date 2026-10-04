@@ -11,11 +11,14 @@ from model_gateway.live import ProviderQuotaError
 from observability import operation, extract_context
 
 class Worker:
-    def __init__(self,repository,provider=None,policy=None,max_attempts=3,lease_seconds=60,verifier=None):
+    def __init__(self,repository,provider=None,policy=None,max_attempts=3,lease_seconds=60,verifier=None,formation_mode=None):
         self.repository=repository;self.provider=provider or extraction_provider_from_env();self.policy=policy or Policy()
-        self.verifier=verifier if verifier is not None else verifier_from_env()
+        self.formation_mode=formation_mode or os.getenv('MEMORY_FORMATION_MODE','automatic')
+        if self.formation_mode not in {'automatic','supervised'}:raise ValueError('Invalid MEMORY_FORMATION_MODE')
+        self.verifier=(verifier if verifier is not None else verifier_from_env()) if self.formation_mode=='automatic' else None
         self.max_attempts=max_attempts;self.lease_seconds=lease_seconds
     def run_once(self,tenant_id):
+        self.repository.expire_suggestions(tenant_id)
         job=self.repository.claim_job(tenant_id,self.lease_seconds,self.max_attempts)
         if not job: return False
         token=context.attach(extract_context(job['trace_context']))
@@ -28,7 +31,8 @@ class Worker:
                     with operation('memory.extract',provider=self.provider.name,job_id=job['id'],request_id=job['request_id']) as span:
                         safe=[];rejections=[]
                         for index,message in enumerate(job['content']):
-                            if self.policy.reason(Candidate(content=message['content']))=='sensitive_rejected':
+                            from model_gateway import review_sensitive
+                            if self.policy.reason(Candidate(content=message['content']))=='sensitive_rejected' or (self.formation_mode=='supervised' and review_sensitive(message['content'])):
                                 rejections.append({'index':index,'stage':'input_filter','outcome':'input_sensitive_rejected'})
                             else:safe.append(message)
                         candidates=self.provider.extract(safe)
@@ -50,7 +54,7 @@ class Worker:
                             span.set_attribute('evaluation.version',self.verifier.version)
                             span.set_attribute('model.cost_state','unknown')
                             for key,value in self.verifier.usage.items():span.set_attribute('model.'+key,value)
-                    self.repository.finish_job(job,candidates,self.policy,rejections)
+                    self.repository.finish_job(job,candidates,self.policy,rejections,supervised=self.formation_mode=='supervised')
                 except ProviderQuotaError:
                     self.repository.fail_job(job,'free_quota_unavailable',1)
                 except Exception as error:

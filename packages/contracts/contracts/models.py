@@ -47,7 +47,7 @@ class JobResource(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: UUID
     episode_id: UUID
-    state: Literal["pending", "leased", "succeeded", "rejected", "retryable_failure", "dead_letter"]
+    state: Literal["pending", "leased", "succeeded", "rejected", "retryable_failure", "dead_letter", "awaiting_review"]
     created_at: datetime
 
 
@@ -194,4 +194,34 @@ class AuditEvent(BaseModel):
 
 class AuditEnvelope(BaseModel):
     events: list[AuditEvent]
+    request_id: str
+
+
+class SuggestionResource(BaseModel):
+    id: UUID
+    subject_id: UUID
+    episode_id: UUID
+    formation_job_id: UUID
+    kind: str
+    content: str
+    confidence: float
+    importance: float
+    created_at: datetime
+    expires_at: datetime
+    state: Literal['pending']
+    scores_calibrated: Literal[False] = False
+    human_approval_required: Literal[True] = True
+
+class SuggestionPage(BaseModel):
+    items: list[SuggestionResource]
+    limit: int
+    request_id: str
+
+class SuggestionDecisionRequest(BaseModel):
+    confirm: Literal[True]
+
+class SuggestionDecision(BaseModel):
+    suggestion_id: UUID
+    state: Literal['approved','rejected']
+    memory_id: UUID | None
     request_id: str

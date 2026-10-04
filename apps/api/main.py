@@ -204,6 +204,29 @@ def create_app(database_url: str | None = None) -> FastAPI:
                 return {'events':[dict(row) for row in rows],'request_id':request.state.request_id}
         except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
 
+    from contracts.models import SuggestionPage,SuggestionDecisionRequest,SuggestionDecision
+
+    @app.get('/v1/suggestions',response_model=SuggestionPage)
+    def suggestions(request:Request,subject_id:UUID,limit:int=Query(20,ge=1,le=100),principal:Principal=Depends(principal_from_headers)):
+        try:items=repository.list_suggestions(principal,subject_id,request.state.request_id,limit)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+        return SuggestionPage(items=items,limit=limit,request_id=request.state.request_id)
+
+    @app.get('/v1/suggestions/{suggestion_id}/sources',response_model=SourcesEnvelope)
+    def suggestion_sources(suggestion_id:UUID,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:return repository.suggestion_sources(principal,suggestion_id,request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+
+    @app.post('/v1/suggestions/{suggestion_id}/approve',response_model=SuggestionDecision)
+    def approve_suggestion(suggestion_id:UUID,body:SuggestionDecisionRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:return repository.decide_suggestion(principal,suggestion_id,'approve',request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+
+    @app.post('/v1/suggestions/{suggestion_id}/reject',response_model=SuggestionDecision)
+    def reject_suggestion(suggestion_id:UUID,body:SuggestionDecisionRequest,request:Request,principal:Principal=Depends(principal_from_headers)):
+        try:return repository.decide_suggestion(principal,suggestion_id,'reject',request.state.request_id)
+        except PermissionError:raise HTTPException(404,detail={'code':'resource_not_found'}) from None
+
     return app
 
 

@@ -76,3 +76,9 @@ def verifier_from_env():
         from .live import JevVerifier
         return JevVerifier()
     raise ValueError('Unsupported MEMORY_VERIFIER')
+
+
+def review_sensitive(content):
+    """Conservative exclusion for supervised suggestions; no claim of complete detection."""
+    return Policy().reason(Candidate(content=content))=='sensitive_rejected' or bool(re.search(
+        r'(?i)\b(password|passphrase|api[ _-]?key|secret|access[ _-]?token|bank|account number|credit card|social security|ssn|passport|diagnos\w*|medical|health|allerg\w*|medication|home address|phone number|email address)\b|[\w.+-]+@[\w.-]+\.[a-z]{2,}|\b\d{3}[- ]\d{2}[- ]\d{4}\b',content))

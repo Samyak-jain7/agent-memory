@@ -10,9 +10,10 @@ from memory_domain.service import CaptureResult, IdempotencyConflict
 
 from .retrieval import Retrieval
 from .control import Control
+from .review import Review
 
 
-class Repository(Retrieval,Control):
+class Repository(Retrieval,Control,Review):
     def __init__(self, engine: Engine, provider=None):
         self.engine = engine
         self.provider = provider
@@ -169,22 +170,35 @@ class Repository(Retrieval,Control):
             c.execute(text("UPDATE formation_jobs SET state='leased',attempts=attempts+1,lease_token=:token,lease_expires_at=now()+:seconds*interval '1 second' WHERE id=:id"),{'id':job['id'],'token':job['lease_token'],'seconds':lease_seconds})
             return job
 
-    def finish_job(self,job,candidates,policy,input_rejections=None):
+    def finish_job(self,job,candidates,policy,input_rejections=None,supervised=False):
         from apps.api.auth import Principal
         principal=Principal(job['tenant_id'],job['actor_id'])
         with operation('memory.persist',tenant_id=job['tenant_id'],job_id=job['id'],request_id=job['request_id']):
             with self.engine.begin() as c:
                 self._scope(c,job['tenant_id'])
+                # Source first, matching erasure and review decisions.
+                source_available=c.execute(text('SELECT lock_review_episode(:id)'),{'id':job['episode_id']}).scalar_one()
                 current=c.execute(text("SELECT state,lease_token,lease_expires_at>now() live FROM formation_jobs WHERE id=:id FOR UPDATE"),{'id':job['id']}).mappings().one()
                 if current['state']!='leased' or current['lease_token']!=job['lease_token'] or not current['live']: return False
                 outcomes=list(input_rejections or [])
+                if not source_available or (supervised and c.execute(text('SELECT EXISTS(SELECT 1 FROM memory_review_blocks WHERE episode_id=:id)'),{'id':job['episode_id']}).scalar_one()):
+                    candidates=[];outcomes.append({'outcome':'source_erased'})
                 for index,candidate in enumerate(candidates):
                     from model_gateway import Candidate
                     candidate=Candidate.model_validate(candidate)
                     reason=policy.reason(candidate)
                     if not self._authorized(c,principal,job['subject_id']):reason='permission_revoked'
                     elif not self._consented(c,job['subject_id']):reason='consent_required'
+                    if supervised:
+                        from model_gateway import review_sensitive
+                        if review_sensitive(candidate.content):reason='sensitive_rejected'
                     if reason:outcomes.append({'index':index,'outcome':reason});continue
+                    if supervised:
+                        suggestion_id=uuid4()
+                        c.execute(text('INSERT INTO memory_suggestions(id,tenant_id,subject_id,episode_id,formation_job_id,candidate_index,kind,content,confidence,importance) VALUES (:id,:tenant,:subject,:episode,:job,:index,:kind,:content,:confidence,:importance)'),{'id':suggestion_id,'tenant':job['tenant_id'],'subject':job['subject_id'],'episode':job['episode_id'],'job':job['id'],'index':index,'kind':candidate.kind,'content':candidate.content,'confidence':candidate.confidence,'importance':candidate.importance})
+                        self.after_candidate_insert(index)
+                        outcomes.append({'index':index,'outcome':'awaiting_review','suggestion_id':str(suggestion_id)})
+                        continue
                     memory_id,version_id=uuid4(),uuid4();at=datetime.now(timezone.utc)
                     c.execute(text("INSERT INTO memories(id,tenant_id,subject_id,kind,lifecycle_state,formation_job_id,candidate_index) VALUES (:id,:tenant,:subject,:kind,'active',:job,:index)"),{'id':memory_id,'tenant':job['tenant_id'],'subject':job['subject_id'],'kind':candidate.kind,'job':job['id'],'index':index})
                     c.execute(text("INSERT INTO memory_versions(id,tenant_id,memory_id,content,origin,confidence,importance,valid_from,actor_id,created_at) VALUES (:id,:tenant,:memory,:content,'observed',:confidence,:importance,:at,:actor,:at)"),{'id':version_id,'tenant':job['tenant_id'],'memory':memory_id,'content':candidate.content,'confidence':candidate.confidence,'importance':candidate.importance,'at':at,'actor':job['actor_id']})
@@ -194,7 +208,7 @@ class Repository(Retrieval,Control):
                     self._index(c,job['tenant_id'],version_id,candidate.content)
                     self.after_candidate_insert(index)
                     outcomes.append({'index':index,'outcome':'accepted','memory_id':str(memory_id),'evaluation_version':policy.version})
-                state='succeeded' if any(o['outcome']=='accepted' for o in outcomes) else 'rejected'
+                state='awaiting_review' if any(o['outcome']=='awaiting_review' for o in outcomes) else ('succeeded' if any(o['outcome']=='accepted' for o in outcomes) else 'rejected')
                 c.execute(text("UPDATE formation_jobs SET state=:state,outcomes=CAST(:outcomes AS jsonb),completed_at=now(),error_code=NULL,lease_token=NULL WHERE id=:id"),{'id':job['id'],'state':state,'outcomes':json.dumps(outcomes)})
                 self._audit(c,principal,job['subject_id'],'job.complete',job['id'],job['request_id'],state)
                 return True

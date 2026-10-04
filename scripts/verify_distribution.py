@@ -7,10 +7,10 @@ import os
 from pathlib import Path
 import apps.api.auth,apps.worker.main,apps.worker.erase,memory_sdk,contracts,deploy.readiness
 from scripts.database import migration_directory
-assert len(list(migration_directory().glob('*.sql')))==6
+assert len(list(migration_directory().glob('*.sql')))==7
 assert 'site-packages' in str(Path(apps.api.auth.__file__))
 assert not Path('pyproject.toml').exists()
-print('Installed wheel: API, workers, SDK and six migration files verified outside checkout.')
+print('Installed wheel: API, workers, SDK and seven migration files verified outside checkout.')
 '''
 
 def main():
@@ -26,7 +26,7 @@ def main():
         with zipfile.ZipFile(wheel) as archive:
             names=archive.namelist()
             assert not any('/node_modules/' in name or name.startswith('apps/web/') or name.startswith('.genesis/') for name in names)
-            assert len([name for name in names if '/share/agent-memory/migrations/' in name and name.endswith('.sql')])==6
+            assert len([name for name in names if '/share/agent-memory/migrations/' in name and name.endswith('.sql')])==7
         subprocess.run(['uv','--quiet','venv','--python',sys.executable,str(environment)],check=True)
         python=environment/'bin'/'python'
         subprocess.run(['uv','--quiet','pip','install','--python',str(python),str(wheel)],check=True)

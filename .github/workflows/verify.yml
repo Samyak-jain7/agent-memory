@@ -29,7 +29,7 @@ jobs:
         run: >-
           docker run --rm --network none --read-only --workdir /tmp
           --entrypoint python agent-memory:ci -I -c
-          "import os, apps.api.auth, apps.worker.main, memory_sdk; from scripts.database import migration_directory; assert os.getuid()==10001; assert 'site-packages' in apps.api.auth.__file__; assert len(list(migration_directory().glob('*.sql')))==6; print('Isolated nonroot container verified')"
+          "import os, apps.api.auth, apps.worker.main, memory_sdk; from scripts.database import migration_directory; assert os.getuid()==10001; assert 'site-packages' in apps.api.auth.__file__; assert len(list(migration_directory().glob('*.sql')))==7; print('Isolated nonroot container verified')"
       - run: npm --prefix apps/web ci
       - run: cd apps/web && npx --no-install playwright install --with-deps chromium
       - run: npm --prefix apps/web test -- --run

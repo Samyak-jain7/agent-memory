@@ -9,7 +9,7 @@
     "non_goals": [],
     "trust_boundary": "local repository",
     "created_at": "2026-09-19T11:02:55.847Z",
-    "updated_at": "2026-10-04T10:54:49.021Z"
+    "updated_at": "2026-10-04T11:17:33.341Z"
   },
   "policy": {
     "ponytail": "full",
@@ -89,14 +89,14 @@
       ]
     },
     "plan_check": {
-      "at": "2026-10-04T02:43:38.557Z",
-      "source_hash": "49d37b5b212b5eba6de6250937a00fea347424b4f869a756c3a7dbd9d8bb0a22"
+      "at": "2026-10-04T11:03:23.985Z",
+      "source_hash": "8dbe26be8908929e7d017218d1c614050bbab71ebd124983b31b9a548cbdd33a"
     },
     "plan_approval": {
       "human": "Codex delegated by Samyak",
-      "reason": "Direct provider choices and delegated phase approval authorize this bounded offline adapter integration; live credentials, legal acceptance and any billing remain unapproved.",
-      "at": "2026-10-04T02:43:39.082Z",
-      "source_hash": "49d37b5b212b5eba6de6250937a00fea347424b4f869a756c3a7dbd9d8bb0a22"
+      "reason": "Approved user scope; independently review and verify all gates before delegated completion",
+      "at": "2026-10-04T11:03:24.395Z",
+      "source_hash": "8dbe26be8908929e7d017218d1c614050bbab71ebd124983b31b9a548cbdd33a"
     }
   },
   "artifacts": [
@@ -353,6 +353,16 @@
       "recorded_at": "2026-10-04T02:56:20.780Z",
       "paths": [],
       "tags": []
+    },
+    {
+      "id": "DECISION-c5115299",
+      "title": "Supervised memory formation with seven-day review window",
+      "text": "User explicitly approved permission-scoped provenance-linked candidate review and approve/reject API and operator UI. Sensitive candidates excluded; unreviewed suggestions expire after seven days. Supervised mode requires human approval, model scores remain uncalibrated, automatic Jev thresholds unchanged. No additional live model calls, billing or production deployment. Dedicated disposable test storage only.",
+      "status": "accepted",
+      "source": "Parent delegation quoting user Yes at 2026-10-04 11:01 UTC",
+      "recorded_at": "2026-10-04T11:03:23.178Z",
+      "paths": [],
+      "tags": []
     }
   ],
   "knowledge": [
@@ -474,6 +484,15 @@
       "source": "Private .env.jev-comparison-spec.json and .env.jev-comparison-result.json; foundation_review independent read-only review 2026-10-04",
       "tags": [],
       "recorded_at": "2026-10-04T10:54:48.491Z",
+      "paths": []
+    },
+    {
+      "id": "KNOWLEDGE-5fc9bfda",
+      "title": "Supervised review verified on disposable synthetic storage",
+      "text": "T-13 delivers permission-scoped source-linked suggestions and human approve/reject API/operatorUI, default-deny review+source grants, seven-day expiry with payload clearing, explicit human provenance and source-first locks. Repeated same decisions idempotent; opposite decisions conflict. Sensitive inputs/candidates excluded conservatively; scores uncalibrated, Jev skipped in supervised mode and automatic thresholds unchanged. Forget immediately invalidates and blocks suggestions from linked sources; source erasure invalidates; expiry during delayed indexing rolls back memory/index. Final source c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc:152Python tests, offlineeval production_approved=false, realHTTP SDKsmoke,12Chromium interrupted/repeated desktop/mobile checks plus78API-contract tests; clean isolated wheel includes7migrations; publishable/history credential scan clean. Independent foundation_review accepted after four identified lifecycle/race gaps fixed. Dedicated disposable memory_test_review container only, no pre-existing data deletion. No live model calls, billing or deployment. Cleanup uses continuous worker and review activity; raw episodes/backups separate retention. Patternfilter incomplete detector; syntheticdevelopment until real-data policy approval. Exact pushed-commit CI remains to be observed.",
+      "source": "T-13 current-source gate evidence and independent foundation_review 2026-10-04",
+      "tags": [],
+      "recorded_at": "2026-10-04T11:17:32.828Z",
       "paths": []
     }
   ],
@@ -2557,6 +2576,166 @@
         "tests/system/conftest.py": "124089ff08b1cddca41cfee1413e542f1760a9287eacb4bba22680ba8ae6cc19",
         "tests/system/test_release_system.py": "4c1b96b9d41b9f5b44603e6a5e922d5f2e428660fc40abbe4d59ff8896c952d8"
       }
+    },
+    {
+      "id": "T-13",
+      "outcome": "Deliver supervised candidate review with explicit permission, provenance, seven-day expiry and race-safe approve/reject API and console",
+      "state": "done",
+      "risk": "high",
+      "owner": null,
+      "scope": [
+        "apps",
+        "packages",
+        "migrations",
+        "tests",
+        "scripts",
+        "README.md",
+        ".env.example",
+        ".github"
+      ],
+      "dependencies": [],
+      "requirements": [
+        "FR-4",
+        "NFR-9",
+        "NFR-13"
+      ],
+      "inputs": [],
+      "environment": [],
+      "scenarios": [],
+      "gates": [
+        {
+          "id": "release-regression",
+          "kind": "command",
+          "command": "python -m pytest tests && python evals/run.py && python scripts/smoke.py",
+          "mandatory": true,
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-13-release-regression-bc5c47a6-efc0-4989-9415-0725d1a33010.json",
+            "hash": "80f9bd4f290cfdc73a83e0efd6e618c25fba4e570091c9496f87f22948d5f052",
+            "source_hash": "c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc",
+            "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+            "observed_at": "2026-10-04T11:16:12.206Z"
+          }
+        },
+        {
+          "id": "browser-review",
+          "kind": "command",
+          "command": "npm --prefix apps/web test -- --run",
+          "mandatory": true,
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-13-browser-review-8fa69d2a-720a-47d9-8f48-4d6934fc4196.json",
+            "hash": "94a73d59f46a0a3989836456909c427685d4f769136fefeac4fba998cb9207b5",
+            "source_hash": "c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc",
+            "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+            "observed_at": "2026-10-04T11:16:23.165Z"
+          }
+        },
+        {
+          "id": "independent-review",
+          "kind": "review",
+          "command": "",
+          "mandatory": true,
+          "status": "pass",
+          "evidence": {
+            "path": ".genesis/evidence/T-13-independent-review-a4c02f72-46b9-43ef-93f3-06525babc725.json",
+            "hash": "9090fd2bbd5935e88a3691559029fe28698efa2e38abbed86ae7f10b9578fe46",
+            "source_hash": "c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc",
+            "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+            "observed_at": "2026-10-04T11:17:31.701Z"
+          }
+        }
+      ],
+      "next_action": "Run the task pre-flight.",
+      "blocker": null,
+      "notes": [],
+      "failures": [],
+      "limitations": [],
+      "created_at": "2026-10-04T11:03:23.578Z",
+      "updated_at": "2026-10-04T11:17:32.382Z",
+      "base_manifest": {
+        ".env.example": "ee505ab66a300d6bdc6c29aad56ecb5fca0d93b09c2e5a5461ad9deaf05100df",
+        ".github/workflows/verify.yml": "988fe0d5173c58fd249cc5649fb457de796e83061540bf644b356ade330e7c03",
+        ".gitignore": "68234caef72dd2be5c4e31d4bae57c4b928f66fa250936835487c6895207819a",
+        ".humanlayer/workspace.json": "4191ed774c17d4ef580c40a0c06bdeccece46fbb424a835ee6a1a325b5e68751",
+        "AGENTS.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "CLAUDE.md": "a67615d8ed1ed3dd1b0d2cbf874ceb8d4a285c3335cdfc2d785ec80a06daecc1",
+        "README.md": "edd4b66aaa8df26c59d59c1f13342fd7e85b5111a1ebc4abba4cf6ae1e6ed1cd",
+        "SPEC.md": "849ef760e37bcc658a5c6a98278f95cd692eb6d3a5212f21dc6a48994265d8a6",
+        "apps/api/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/api/auth.py": "c80f8d4b83966f429bd7b48545a45554307b3fe050be00a417b53ee2424362ad",
+        "apps/api/main.py": "7becf2b437359416f7be11a793303d7ab2c5805ea24ef6a11d96a5e2776b3db5",
+        "apps/web/app/api/proxy/route.js": "d7e1cae65a7b608d75780b6ac00b09a6589852b2e13f148d8456c6592c0ed3ef",
+        "apps/web/app/layout.jsx": "f4a3ed4e9a61b5dfbcc71d4452a5b1f509e48072605997b323e5e30015d54c23",
+        "apps/web/app/page.jsx": "2eebb20e35ac9999840aece5d405cc99b26beb6a79243d2f9711d51cca0bec50",
+        "apps/web/app/style.css": "cf1c37aa86d9a7e95827220607cdf867ab3fe4a42fe5e9c2011ee3b89bb9e213",
+        "apps/web/package-lock.json": "3498491d962860d58e623fb04f507beed9467254948db0330f73e348be3730e4",
+        "apps/web/package.json": "e1c8b237d6d21776470e8a13fcbf69b74cfdd6d041bf3f685a165bd3d3ef6cf2",
+        "apps/web/playwright.config.mjs": "aad271a928add747d2f516a6b5db2d7aec8e970c59eef1fb7eada51fdd65fadf",
+        "apps/web/run-tests.mjs": "8b1dfcd9ecec1beb5dbe3fcc7fc8018c174169a4547e55449a02834d880cab45",
+        "apps/worker/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "apps/worker/erase.py": "1c04b82797249a86840b60c866eb2845db43ed7b58144d4fad5b0749b329f267",
+        "apps/worker/main.py": "cecfb1031f39bf2cf1c9648a8fed6274ee3f4d0412e05ef607992ca00bb63156",
+        "deploy/Dockerfile": "272cfd94f7987a87822e4a43aa77e970fe0658b0d562f5593d1231bad5224ec8",
+        "deploy/Dockerfile.dockerignore": "93ca7cc9c59b03f94d08e190cb28b52b4bbb2c97b118bb075bd78b6b24d96b3d",
+        "deploy/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "deploy/policy-proposal.md": "0fe9dadae902aead80ace14d7145d428ff9ce5b08bf4f8f320f3837d8b578094",
+        "deploy/production.example.json": "0344e2ba1ae1a4cb42aa955edd485ff179cb4a4cbb6ded5b9c462502249584bd",
+        "deploy/readiness.py": "04adf314b1a2c4700269c18ff4eed6e09b1350c2d9f712399ac4389132e6a3f6",
+        "docker-compose.yml": "394f8f9092512fdbfa0a2e38f063012cda2892246f29b5e2bbe197e3107e100b",
+        "evals/golden-v1.json": "4720da7e8b9bb006bd37b8fb0265754c0e5883d7c3f6b572d28d7546fb38cd09",
+        "evals/run.py": "6354f2798aa98e81f64e5769d8059f1bcd3a3c6346925571c2f02fc82d050c6e",
+        "memory-architecture.mmd": "0954ee3d0d876657283938146461cf562465af98e67a95fef9938a31cffce445",
+        "memory-system.html": "b4566bb5964314c9178ba13041f82ada1276761c4800da6b9e6fddbd32ebc0a3",
+        "migrations/001_foundation.sql": "4e9398810678811fa010ba1f35f7697bcd186927b939e6667a76313ed5c7bda0",
+        "migrations/002_foundation_security.sql": "b7da078062fef4f6b118f85c33b780e3e48b6304585a1ca25da58998433ea901",
+        "migrations/003_formation.sql": "aeb049e8f44b3f9dd27204a5be72e1e58ad40178c72a09ef5e48672acd6913d3",
+        "migrations/004_retrieval.sql": "c8acb5b1877cfcca2935dbe17273570ff2419f1f6d94c6a59dc6dae5fdf954ec",
+        "migrations/005_memory_control.sql": "31cd44ef45b2315e67f91c8bd9011ded5f27dc575d412e3e4a238aca33614b64",
+        "migrations/006_authentication_audit.sql": "917f1e3fbfbf58b078c4b44224f3dcc7f6141135ae4bef48adc910fdb70f1818",
+        "packages/contracts/contracts/__init__.py": "dc0edad547779a58dab278c3bb89f26be66d476cc8b57a8b53f5d5e4f2ce6b6d",
+        "packages/contracts/contracts/models.py": "eeb63ac4904cabc805ee5b5dcd622b674e02ccb20e5314ee4bdc25f7ba44498b",
+        "packages/contracts/openapi.json": "b4bfa9aede10b79098ad27b649dd24474bd37de607f03c356412c27d696a9d95",
+        "packages/memory-domain/memory_domain/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/memory-domain/memory_domain/context.py": "430108282873e846f53cd038f9a5c8ff8f806cf1598f131aeb46498d5893aa97",
+        "packages/memory-domain/memory_domain/service.py": "28e81cf5c1c414f12a08299d8726cf4a108dc4c8e1973a7d1de519401caec89f",
+        "packages/model-gateway/model_gateway/__init__.py": "adc0d6afb64748a39e675ed101582592fd4abf0aa0fa9194665680c0531ec2b1",
+        "packages/model-gateway/model_gateway/live.py": "dd48801f9043750bcb7ecddd33e963b2f1f1694b501e43acc4bbdc88f1df827e",
+        "packages/observability/observability/__init__.py": "bdad4cf3a11b09fe5266f8a85f4f1cf453aad353e09248c7fd8e4e0b422d74cf",
+        "packages/persistence/persistence/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "packages/persistence/persistence/control.py": "0d5fc6931acb304269a7de341558cd99ba68c905bf9196b34d28e9955199966b",
+        "packages/persistence/persistence/repositories.py": "8c82621bf1ae0e9ded33f0182e8ddcad113c86efd8563b155407a11daee1a9e7",
+        "packages/persistence/persistence/retrieval.py": "9912a06c3d0f9ef2ed8ff30be87ae67945f737e8b6a9220c8cb8b4d4667178a5",
+        "packages/sdk-python/memory_sdk/__init__.py": "7b18c86fd95f53d0db69c50d610348fe66808041d690374bdb90d453e68398ad",
+        "packages/sdk-python/memory_sdk/client.py": "647428bd978403c524245776978e4cac55aa627feaccd2574358f7c02ee9f921",
+        "pyproject.toml": "4c8807f7875c7afdc69cab8efc16969c437c480428dea753d06115d3461640d6",
+        "scripts/__init__.py": "78fb5f112b9e331e6d45cc7ba20c364344137c40dce44296fbdbe7854ba5bea2",
+        "scripts/database.py": "9cc4bab02cea9b0e83516f2ea5aff0f500c2a75e3070a28a3dbc98ba373889f1",
+        "scripts/encrypted_backup.py": "f2931f22de8243e361097becc2dbd03337a3970ade44271d53299cf5b92970bd",
+        "scripts/issue_token.py": "e348f242317dce3af8d1d91fb3bf9c7ebe27310f270e29b2dcd98b51f054f970",
+        "scripts/privacy_scan.py": "9e9c0f37dc8948bb459d9aea36784e3e4839deef7bac03f691e0c896a0e232dd",
+        "scripts/reindex.py": "f09c5136ef14e58478ee0cd893700791c135252ada64b95d0b5719da201eeba4",
+        "scripts/serve.py": "d3a0a51b5e45c6ae8daede94317a6428717a1717eb2f0a558d39a3418a6e112d",
+        "scripts/smoke.py": "58b5ef97f7674c68035af3e2e27c8d648391e6fac133c2b2b336d9e6ae5a9d5d",
+        "scripts/verify_distribution.py": "be234fe3b1e0154f017ee8b2086053992daf6089811e88ca2d964b405201874e",
+        "tests/browser/conftest.py": "124089ff08b1cddca41cfee1413e542f1760a9287eacb4bba22680ba8ae6cc19",
+        "tests/browser/console.spec.cjs": "a1353101c4c5c248923c102946db434e357f62fcda4f06dccf37d4b63f0d29eb",
+        "tests/browser/test_audit_api.py": "af9ccb417a5883e9bfa5b0c6e8fcdbaec3c5a61eb7285c14fce8f6cf648c1af5",
+        "tests/contract/conftest.py": "78b76ddf3e903249577275140a78a8854bec0628cc36ba455e9d7127a2f3a9c5",
+        "tests/contract/test_sdk.py": "4477d3e8953ac4d7d8ec15df1161852d43dd54a0aafc05ddac069aca8ebcc6cd",
+        "tests/integration/conftest.py": "e74771484ca0ad081646fbe4d9377a9fa4d0d9139deadc9f1b694abe97a28d95",
+        "tests/integration/fixtures.py": "dfd538cf4af9a3995456c42a0a20fd1c99ded8fd44e835df7c973a5a7fcba643",
+        "tests/integration/test_foundation.py": "3775e4ae88fe6f4d3fdb4268927b8e5d907e210a462a189af0fb11c1f87ba264",
+        "tests/integration/test_memory_control.py": "64f343f31064acc627e6489f51f38581eb97d1970f3bb1df5fba5dd797887a13",
+        "tests/integration/test_retrieval.py": "88879e682d29c9eee2d27290c5bb07b02c8a45553eca70816032fa5dcb653f23",
+        "tests/integration/test_worker.py": "10cfbe7ae3b227d3fd80244aac1a404304027bafc76aa9baae3052aa0cc5a0e4",
+        "tests/security/conftest.py": "124089ff08b1cddca41cfee1413e542f1760a9287eacb4bba22680ba8ae6cc19",
+        "tests/security/test_encrypted_backup.py": "e70ad12854d3363d024d4d3762375f058176a59b7c0d4632c55fb4968fd8cd25",
+        "tests/security/test_live_adapters.py": "718b9debd643c8b646b21580eb80a4aa68e40e665e71958d4e2552ee33026c32",
+        "tests/security/test_release_security.py": "90915ac9f4c22e643b1737c163501ced75fac6a40b8796214aeca7c2450d056b",
+        "tests/system/conftest.py": "124089ff08b1cddca41cfee1413e542f1760a9287eacb4bba22680ba8ae6cc19",
+        "tests/system/test_release_system.py": "4c1b96b9d41b9f5b44603e6a5e922d5f2e428660fc40abbe4d59ff8896c952d8"
+      }
     }
   ],
   "learning_proposals": [],
@@ -2758,6 +2937,15 @@
       "task": "T-12",
       "human": "Codex delegated by Samyak; independent reviewer foundation_review",
       "reason": "Independent review accepted current-source mocked adapters, strict contracts, consent/privacy boundaries, quota handling and total deadline cancellation. Provider-contracts130passed and full142test regression plus offlineeval/realHTTPsmoke passed. Acceptance covers offline adapter engineering only; real account/key/free quota/terms and live quality remain pending.",
+      "revision": null
+    },
+    {
+      "id": "a4c02f72-46b9-43ef-93f3-06525babc725",
+      "at": "2026-10-04T11:17:31.701Z",
+      "action": "approve",
+      "task": "T-13",
+      "human": "Codex delegated by Samyak; independent reviewer foundation_review",
+      "reason": "Independent reviewer accepted final source c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc. Mandatory release gate152Python tests/offline evaluation/realHTTP SDKsmoke and browser12Chromium plus78API-contract checks passed. Resolved denialaudit, terminaljob reconciliation, source-first erasurelocks and expiry-during-embedding rollback. Superviseddevelopment only; sensitivitypattern limits, scheduledcleanup dependency, automaticcalibration and production readiness remain unclaimed.",
       "revision": null
     }
   ],
@@ -3933,6 +4121,102 @@
       "cost": null,
       "stop_reason": null,
       "ended_at": "2026-10-04T02:55:01.462Z"
+    },
+    {
+      "id": "fa6cfd85-84e2-48cd-93f3-83bd3cca93ae",
+      "task": "T-13",
+      "kind": "gate",
+      "command": "python -m pytest tests && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 8752,
+      "child_pid": 8892,
+      "started_at": "2026-10-04T11:15:18.790Z",
+      "status": "passed",
+      "before_hash": "c7b3b927238699d8a3fd502c1a16040a35b1a536b90d6dca9a3ca0b19d6c1731",
+      "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-04T11:15:25.860Z"
+    },
+    {
+      "id": "e642e757-36e9-44a4-b8e5-d45cbeffb45d",
+      "task": "T-13",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 8752,
+      "child_pid": 9349,
+      "started_at": "2026-10-04T11:15:26.280Z",
+      "status": "passed",
+      "before_hash": "c7b3b927238699d8a3fd502c1a16040a35b1a536b90d6dca9a3ca0b19d6c1731",
+      "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-04T11:15:36.096Z"
+    },
+    {
+      "id": "bc5c47a6-efc0-4989-9415-0725d1a33010",
+      "task": "T-13",
+      "kind": "gate",
+      "command": "python -m pytest tests && python evals/run.py && python scripts/smoke.py",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 9866,
+      "child_pid": 10038,
+      "started_at": "2026-10-04T11:16:04.443Z",
+      "status": "passed",
+      "before_hash": "c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc",
+      "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-04T11:16:12.206Z"
+    },
+    {
+      "id": "8fa69d2a-720a-47d9-8f48-4d6934fc4196",
+      "task": "T-13",
+      "kind": "gate",
+      "command": "npm --prefix apps/web test -- --run",
+      "timeout": 120000,
+      "authorization": null,
+      "pid": 9866,
+      "child_pid": 10560,
+      "started_at": "2026-10-04T11:16:12.673Z",
+      "status": "passed",
+      "before_hash": "c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc",
+      "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+      "environment": {
+        "node": "v26.0.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+        "variables": {}
+      },
+      "cost": null,
+      "stop_reason": null,
+      "ended_at": "2026-10-04T11:16:23.165Z"
     }
   ],
   "authorizations": [
@@ -3965,11 +4249,11 @@
   "incidents": [],
   "discovery": null,
   "checkpoint": {
-    "at": "2026-10-04T10:54:48.984Z",
+    "at": "2026-10-04T11:17:33.311Z",
     "revision": {
-      "commit": "8615aefcc92af18252eb30f7d05ed6ab655750a4",
+      "commit": "074aa36f11ab773b1954d9c43d1d1906f2260aae",
       "dirty": true,
-      "source_hash": "d316bfd61a1220af839b2e148cfea7a7f1a57e092e045906b0b21f572c1f3334"
+      "source_hash": "c9cacec448b6b29215fe44265746986f08401c8654e5c6f124d05987e11c5adc"
     },
     "active_task": null,
     "next_action": "Review completed work and choose the next bounded outcome."

@@ -43,8 +43,43 @@ test('overlapping selection cannot unlock identity or restore stale data',async(
  await route.fulfill({contentType:'application/json',body:JSON.stringify(data)});
  });
  await page.goto('/');await page.getByLabel('Access token').fill('token');await page.getByLabel('Subject ID',{exact:true}).fill(id);await page.getByRole('button',{name:'Search memories',exact:true}).click();await expect(page.locator('.card')).toHaveCount(2);
- await page.locator('.cards').evaluate(el=>{el.children[0].click();el.children[1].click()});
+ await page.locator('.collection .cards').evaluate(el=>{el.children[0].click();el.children[1].click()});
  await expect(page.getByLabel('Access token')).toBeDisabled();await expect(page.getByLabel('Subject ID',{exact:true})).toBeDisabled();await expect(page.locator('.card').nth(1)).toBeDisabled();
  await expect(page.getByRole('status')).toContainText('Memory detail loaded');expect(historyCalls).toBe(1);
  await page.getByLabel('Subject ID',{exact:true}).fill(source);await expect(page.locator('.card')).toHaveCount(0);await expect(page.getByText('I prefer tea',{exact:true})).toHaveCount(0);
+});
+
+test('supervised review cancellation, interrupted approval and repeated decisions',async({page})=>{
+ let approved=false,failed=false,approvalCalls=0,sourceCalls=0;
+ const suggestion={id,content:'I prefer tea',episode_id:source,confidence:.8,expires_at:'2027-01-01T00:00:00Z'};
+ await page.route('**/api/proxy',async route=>{
+  const req=route.request().postDataJSON();let status=200,data={};
+  if(req.path.endsWith('/approve')){
+   approvalCalls++;approved=true;
+   if(!failed){failed=true;status=503;data={error:{code:'service_unavailable'}}}
+   else {await new Promise(r=>setTimeout(r,200));data={state:'approved',suggestion_id:id,memory_id:version}}
+  }else if(req.path.endsWith('/sources')){sourceCalls++;data={episodes:[{id:source,messages:[{role:'user',content:'I prefer tea, original evidence'}]}]}}
+  else if(req.path.startsWith('/v1/suggestions?'))data={items:approved?[]:[suggestion]};
+  else data={items:[],next_cursor:null};
+  await route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
+ });
+ await page.goto('/');await page.getByLabel('Access token').fill('token');await page.getByLabel('Subject ID',{exact:true}).fill(id);
+ await page.getByRole('button',{name:'Load suggestions'}).click();await page.getByRole('button',{name:/I prefer tea Review by/}).click();await expect(page.getByText('I prefer tea, original evidence')).toBeVisible();await expect(page.getByText(/Extraction confidence:.*Uncalibrated/)).toBeVisible();
+ await keyboardFocus(page,page.getByRole('button',{name:'Approve suggestion',exact:true}));await page.keyboard.press('Enter');await expect(page.getByRole('button',{name:'Cancel review'})).toBeFocused();await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Approve suggestion',exact:true})).toBeFocused();expect(approvalCalls).toBe(0);
+ await page.keyboard.press('Enter');await page.getByRole('button',{name:'Confirm approval'}).click();await expect(page.getByRole('status')).toContainText('service_unavailable');await expect(page.getByRole('dialog')).toBeVisible();
+ await page.getByRole('button',{name:'Confirm approval'}).evaluate(el=>{el.click();el.click()});await expect(page.getByLabel('Access token')).toBeDisabled();await expect(page.getByRole('status')).toContainText('Suggestion approved');expect(approvalCalls).toBe(2);expect(sourceCalls).toBe(1);await expect(page.getByText('I prefer tea, original evidence')).toHaveCount(0);await expect(page.getByRole('dialog')).not.toBeVisible();
+ await page.getByLabel('Subject ID',{exact:true}).fill(source);await expect(page.getByText('I prefer tea',{exact:true})).toHaveCount(0);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.reload();await expect(page.getByLabel('Access token')).toHaveValue('');
+});
+
+test('supervised rejection conflict permits refresh without stale evidence',async({page})=>{
+ let pending=true;
+ await page.route('**/api/proxy',async route=>{
+  const req=route.request().postDataJSON();let status=200,data;
+  if(req.path.endsWith('/reject')){pending=false;status=409;data={error:{code:'version_conflict'}}}
+  else if(req.path.endsWith('/sources'))data={episodes:[{id:source,messages:[{role:'user',content:'Review evidence'}]}]};
+  else data={items:pending?[{id,content:'I prefer tea',episode_id:source,confidence:.8,expires_at:'2027-01-01T00:00:00Z'}]:[]};
+  await route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
+ });
+ await page.goto('/');await page.getByLabel('Access token').fill('token');await page.getByLabel('Subject ID',{exact:true}).fill(id);await page.getByRole('button',{name:'Load suggestions'}).click();await page.getByRole('button',{name:/I prefer tea Review by/}).click();await page.getByRole('button',{name:'Reject suggestion',exact:true}).click();await page.getByRole('button',{name:'Confirm rejection'}).click();await expect(page.getByRole('status')).toContainText('version_conflict');await page.getByRole('button',{name:'Cancel review'}).click();await page.getByRole('button',{name:'Load suggestions'}).click();await expect(page.getByText('Review evidence')).toHaveCount(0);
 });

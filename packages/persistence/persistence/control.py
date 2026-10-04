@@ -46,6 +46,14 @@ class Control:
             if m['current_version_id']!=request.expected_version_id:raise VersionConflict()
             existing=c.execute(text('SELECT * FROM erasure_jobs WHERE memory_id=:id'),{'id':memory_id}).mappings().first()
             if existing:return dict(existing)
+            # Lock the source before invalidation, matching approval's source-first lock order.
+            sources=c.execute(text('SELECT e.id FROM episodes e WHERE e.id IN (SELECT episode_id FROM memory_sources WHERE memory_version_id IN (SELECT id FROM memory_versions WHERE memory_id=:id)) ORDER BY e.id'),{'id':memory_id}).scalars().all()
+            for source in sources:
+                c.execute(text('SELECT lock_review_episode(:id)'),{'id':source})
+                c.execute(text('INSERT INTO memory_review_blocks(tenant_id,episode_id) VALUES (:tenant,:episode) ON CONFLICT DO NOTHING'),{'tenant':principal.tenant_id,'episode':source})
+            # Invalidate sibling suggestions immediately; review cannot resurrect forgotten evidence.
+            c.execute(text("UPDATE memory_suggestions SET state='invalidated',content=NULL,decided_at=clock_timestamp() WHERE state='pending' AND episode_id IN (SELECT episode_id FROM memory_sources WHERE memory_version_id IN (SELECT id FROM memory_versions WHERE memory_id=:id))"),{'id':memory_id})
+            self._reconcile_review_jobs(c)
             retention=int(os.getenv('ERASURE_RETENTION_SECONDS','0'))
             if retention<0 or retention>31536000:raise ValueError('Invalid retention configuration')
             c.execute(text("UPDATE memories SET lifecycle_state='suppressed',suppressed_at=now() WHERE id=:id"),{'id':memory_id})

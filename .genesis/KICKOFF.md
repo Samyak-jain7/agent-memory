@@ -15,9 +15,9 @@ Load Genesis and official Ponytail full, then run `genesis brief .` for the curr
 Fetch full records with `genesis context . --id ID` only when needed. Do not load project.json or historical proof wholesale.
 Ask the index before reading code: `genesis query . search|scope|callers|callees|impact|path` (`--json` for parsing). Run `genesis query . impact PATH` before editing shared code. Answers are advisory static analysis; `ambiguous` means candidates were not ruled out, so confirm in source.
 Run `genesis serve .` for a live map of the repository when structure is unclear; it reindexes on save and is read-only. Run `genesis index .` if the index is stale and nothing is watching.
-Context fingerprint: f7df4ad636eb345c9a47549cc40c63855a4432d20cba2a76f383438c77919291. Use --since only after receiving that full packet; kickoff is not the packet.
+Context fingerprint: 722b14a3af359634db0cc085210241e1ed83009b8fba42a5d7bc503e6dfa3b40. Use --since only after receiving that full packet; kickoff is not the packet.
+- KNOWLEDGE-5fc9bfda: Supervised review verified on disposable synthetic storage
 - KNOWLEDGE-c03820db: Frozen Jev prompt comparison fails the holdout acceptance gate
-- KNOWLEDGE-763e7a19: Live Gemini and Jev smoke reveals a Jev recall blocker
-- DECISION-b4a8fa96: Gemini Flash extraction and Jev verification, free tier only
+- DECISION-c5115299: Supervised memory formation with seven-day review window
 Applicable invariants, active rules, authorization and proof references are in the packet. Truncated summaries are retrieval pointers, not the full evidence.
 Reuse fresh gates with --reuse. Reconcile interrupted attempts before replaying commands. Report state → evidence → blocker → next action; checkpoint before stopping.

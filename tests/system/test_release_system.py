@@ -14,7 +14,7 @@ def test_migration_forward_from_prior_schema_and_idempotency(engine):
     migrate(engine,through='002_foundation_security.sql')
     with engine.connect() as c:assert c.execute(text('SELECT count(*) FROM schema_migrations')).scalar_one()==2
     migrate(engine);migrate(engine)
-    with engine.connect() as c:assert c.execute(text('SELECT count(*) FROM schema_migrations')).scalar_one()==6
+    with engine.connect() as c:assert c.execute(text('SELECT count(*) FROM schema_migrations')).scalar_one()==7
 
 def test_dump_restore_rechecks_isolation_correction_and_suppression(engine,identities):
     container=os.environ.get('BACKUP_TEST_CONTAINER','')

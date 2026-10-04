@@ -4,7 +4,7 @@
 
 - workflow: new-product
 - phase: verify
-- plan approval: Codex delegated by Samyak at 2026-10-04T02:43:39.082Z
+- plan approval: Codex delegated by Samyak at 2026-10-04T11:03:24.395Z
 
 ## Tasks
 
@@ -158,5 +158,13 @@
 - requirements: FR-4, NFR-9, NFR-10, NFR-13
 - scope: packages/model-gateway, apps/worker, tests, README.md, .env.example, scripts
 - gates: provider-contracts: python -m pytest tests/security tests/integration, release-regression: python -m pytest tests && python evals/run.py && python scripts/smoke.py, independent-review: pass
+- next: Run the task pre-flight.
+
+### T-13 — Deliver supervised candidate review with explicit permission, provenance, seven-day expiry and race-safe approve/reject API and console
+
+- state/risk: done / high
+- requirements: FR-4, NFR-9, NFR-13
+- scope: apps, packages, migrations, tests, scripts, README.md, .env.example, .github
+- gates: release-regression: python -m pytest tests && python evals/run.py && python scripts/smoke.py, browser-review: npm --prefix apps/web test -- --run, independent-review: pass
 - next: Run the task pre-flight.
 

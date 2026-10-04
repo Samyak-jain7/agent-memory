@@ -27,6 +27,7 @@ digraph genesis {
   "file:packages/persistence/persistence/control.py" [label="packages/persistence/persistence/control.py",class="file"];
   "file:packages/persistence/persistence/repositories.py" [label="packages/persistence/persistence/repositories.py",class="file"];
   "file:packages/persistence/persistence/retrieval.py" [label="packages/persistence/persistence/retrieval.py",class="file"];
+  "file:packages/persistence/persistence/review.py" [label="packages/persistence/persistence/review.py",class="file"];
   "file:packages/sdk-python/memory_sdk/__init__.py" [label="packages/sdk-python/memory_sdk/__init__.py",class="file"];
   "file:packages/sdk-python/memory_sdk/client.py" [label="packages/sdk-python/memory_sdk/client.py",class="file"];
   "file:scripts/__init__.py" [label="scripts/__init__.py",class="file"];
@@ -48,6 +49,7 @@ digraph genesis {
   "file:tests/integration/test_foundation.py" [label="tests/integration/test_foundation.py",class="file"];
   "file:tests/integration/test_memory_control.py" [label="tests/integration/test_memory_control.py",class="file"];
   "file:tests/integration/test_retrieval.py" [label="tests/integration/test_retrieval.py",class="file"];
+  "file:tests/integration/test_review.py" [label="tests/integration/test_review.py",class="file"];
   "file:tests/integration/test_worker.py" [label="tests/integration/test_worker.py",class="file"];
   "file:tests/security/conftest.py" [label="tests/security/conftest.py",class="file"];
   "file:tests/security/test_encrypted_backup.py" [label="tests/security/test_encrypted_backup.py",class="file"];
