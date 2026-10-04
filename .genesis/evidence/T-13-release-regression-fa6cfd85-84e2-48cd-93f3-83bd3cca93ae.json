@@ -1,0 +1,30 @@
+{
+  "task": "T-13",
+  "gate": "release-regression",
+  "kind": "command",
+  "attempt": "fa6cfd85-84e2-48cd-93f3-83bd3cca93ae",
+  "command": "python -m pytest tests && python evals/run.py && python scripts/smoke.py",
+  "started_at": "2026-10-04T11:15:18.790Z",
+  "observed_at": "2026-10-04T11:15:25.860Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 151 items\n\ntests/browser/test_audit_api.py .                                        [  0%]\ntests/contract/test_sdk.py ........                                      [  5%]\ntests/integration/test_foundation.py ...........................         [ 23%]\ntests/integration/test_memory_control.py .........                       [ 29%]\ntests/integration/test_retrieval.py .............                        [ 38%]\ntests/integration/test_review.py .........                               [ 44%]\ntests/integration/test_worker.py ..........                              [ 50%]\ntests/security/test_encrypted_backup.py .........                        [ 56%]\ntests/security/test_live_adapters.py ................................... [ 80%]\n..                                                                       [ 81%]\ntests/security/test_release_security.py .........................        [ 98%]\ntests/system/test_release_system.py ...                                  [100%]\n\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.13/site-packages/starlette/testclient.py:53\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================= 151 passed, 2 warnings in 5.26s ========================\n{\n  \"version\": \"offline-golden-v1\",\n  \"scope\": \"deterministic development regression; not live-model quality approval\",\n  \"model\": \"offline-development-v1\",\n  \"metrics\": {\n    \"extraction_precision\": 1.0,\n    \"retrieval_relevance\": 1.0,\n    \"citation_correctness\": 1.0,\n    \"correction_rate\": 0.0\n  },\n  \"development_passed\": true,\n  \"production_approved\": false\n}\n{\"suite\": \"public-sdk-smoke-v1\", \"transport\": \"real-loopback-http\", \"status\": \"passed\", \"model\": \"offline-development-v1\"}\n",
+  "stderr": "",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "074aa36f11ab773b1954d9c43d1d1906f2260aae",
+    "dirty": true
+  },
+  "source_hash": "c7b3b927238699d8a3fd502c1a16040a35b1a536b90d6dca9a3ca0b19d6c1731",
+  "before_hash": "c7b3b927238699d8a3fd502c1a16040a35b1a536b90d6dca9a3ca0b19d6c1731",
+  "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "9ee444c3971cadb6f6344639a7b8665c3d8f247011a6a2468c9e33275f8860f9"
+}

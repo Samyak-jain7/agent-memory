@@ -1,0 +1,30 @@
+{
+  "task": "T-13",
+  "gate": "browser-review",
+  "kind": "command",
+  "attempt": "e642e757-36e9-44a4-b8e5-d45cbeffb45d",
+  "command": "npm --prefix apps/web test -- --run",
+  "started_at": "2026-10-04T11:15:26.280Z",
+  "observed_at": "2026-10-04T11:15:36.096Z",
+  "exit_code": 0,
+  "signal": null,
+  "stdout": "\n> memory-console@1.0.0 test\n> node run-tests.mjs --run\n\n▲ Next.js 16.3.8 (Turbopack)\n✓ Running next.config took 4ms\n\n  Creating an optimized production build ...\n✓ Compiled successfully in 275ms\n  Running TypeScript ...\n  Finished TypeScript in 1ms ...\n  Collecting page data using 5 workers ...\n  Generating static pages using 5 workers (0/4) ...\n  Generating static pages using 5 workers (1/4) \r\n  Generating static pages using 5 workers (2/4) \r\n  Generating static pages using 5 workers (3/4) \r\n✓ Generating static pages using 5 workers (4/4) in 214ms\n  Finalizing page optimization ...\n\nRoute (app)\n┌ ○ /\n├ ○ /_not-found\n└ ƒ /api/proxy\n\n\n○  (Static)   prerendered as static content\nƒ  (Dynamic)  server-rendered on demand\n\n\nRunning 12 tests using 2 workers\n\n  ✓   2 [mobile] › ../../tests/browser/console.spec.cjs:4:54 › lifecycle (702ms)\n  ✓   1 [desktop] › ../../tests/browser/console.spec.cjs:4:54 › lifecycle (707ms)\n  ✓   4 [desktop] › ../../tests/browser/console.spec.cjs:4:54 › error recovery (500ms)\n  ✓   3 [mobile] › ../../tests/browser/console.spec.cjs:4:54 › error recovery (541ms)\n  ✓   5 [desktop] › ../../tests/browser/console.spec.cjs:30:1 › proxy denies arbitrary upstream paths (37ms)\n  ✓   6 [mobile] › ../../tests/browser/console.spec.cjs:30:1 › proxy denies arbitrary upstream paths (23ms)\n  ✓   7 [desktop] › ../../tests/browser/console.spec.cjs:36:1 › overlapping selection cannot unlock identity or restore stale data (992ms)\n  ✓   8 [mobile] › ../../tests/browser/console.spec.cjs:36:1 › overlapping selection cannot unlock identity or restore stale data (987ms)\n  ✓  10 [mobile] › ../../tests/browser/console.spec.cjs:52:1 › supervised review cancellation, interrupted approval and repeated decisions (669ms)\n  ✓   9 [desktop] › ../../tests/browser/console.spec.cjs:52:1 › supervised review cancellation, interrupted approval and repeated decisions (685ms)\n  ✓  12 [desktop] › ../../tests/browser/console.spec.cjs:75:1 › supervised rejection conflict permits refresh without stale evidence (403ms)\n  ✓  11 [mobile] › ../../tests/browser/console.spec.cjs:75:1 › supervised rejection conflict permits refresh without stale evidence (404ms)\n\n  12 passed (4.2s)\n============================= test session starts ==============================\nplatform darwin -- Python 3.13.12, pytest-8.4.2, pluggy-1.6.0\nrootdir: /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system\nconfigfile: pyproject.toml\nplugins: anyio-4.15.1\ncollected 77 items\n\ntests/integration/test_foundation.py ...........................         [ 35%]\ntests/integration/test_memory_control.py .........                       [ 46%]\ntests/integration/test_retrieval.py .............                        [ 63%]\ntests/integration/test_review.py .........                               [ 75%]\ntests/integration/test_worker.py ..........                              [ 88%]\ntests/contract/test_sdk.py ........                                      [ 98%]\ntests/browser/test_audit_api.py .                                        [100%]\n\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.13/site-packages/starlette/testclient.py:53\n  /Users/samyak/.humanlayer/workspaces/full-stack-memory-layer-for-ai-agents-7ix3z6/memory-system/.venv/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 77 passed, 2 warnings in 2.74s ========================\n",
+  "stderr": "[WebServer] (node:9650) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n(node:9651) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:9652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+  "failure": null,
+  "receipt": null,
+  "revision": {
+    "commit": "074aa36f11ab773b1954d9c43d1d1906f2260aae",
+    "dirty": true
+  },
+  "source_hash": "c7b3b927238699d8a3fd502c1a16040a35b1a536b90d6dca9a3ca0b19d6c1731",
+  "before_hash": "c7b3b927238699d8a3fd502c1a16040a35b1a536b90d6dca9a3ca0b19d6c1731",
+  "config_hash": "ba1a75f2c313cb55508518cce53f02f34ca3ae5570a234689776ecdf7f827e14",
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "verifier": "358371454f03eb4fdfd3eda3cb1d18cb1dd8fe9445404bb3d3047267b3977eb9",
+    "variables": {}
+  },
+  "hash": "5ba7f008d4994b29493b77137a4c0e7516b796e8e56a04632a249161389f12eb"
+}
